@@ -3,32 +3,32 @@
 
 <!-- Page Content -->
 <div class="content-section-b">
-    <div class="container">
-        <div class="row">
-<div class="col-lg-12" id="panel">
-                <h2 class="section-heading">Welcome User!!</h2>
-	<hr class="section-heading-spacer">
-                <div class="clearfix"></div>                    
-	<form>
-	<div class="form-group">
-		<label for="email">Full Name</label>
-		<input class="form-control" id="name" name="name" type="text">
-	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12" id="panel">
+				<h2 class="section-heading">Welcome User!!</h2>
+				<hr class="section-heading-spacer">
+				<div class="clearfix"></div>
+				<form>
+					<div class="form-group">
+						<label for="email">Full Name</label> <input class="form-control"
+							id="name" name="name" type="text">
+					</div>
 
-	<div class="form-group">
-		<label for="email">Email</label>
-		<input class="form-control" id="Email" name="Email" type="text">
-	</div>
+					<div class="form-group">
+						<label for="email">Email</label> <input class="form-control"
+							id="Email" name="Email" type="text">
+					</div>
 
-	<div class="form-group">
-		<label for="email">Mobile No</label>
-		<input class="form-control" id="MobileNo" name="MobileNo" type="text">
+					<div class="form-group">
+						<label for="email">Mobile No</label> <input class="form-control"
+							id="MobileNo" name="MobileNo" type="text">
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
-	</form>
-            </div>
-        </div>
-    </div>
-    <!-- /.container -->
+	<!-- /.container -->
 </div>
 
 <%@ include file="common/footer.jspf"%>
