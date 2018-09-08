@@ -1,6 +1,10 @@
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
-
+<script>
+	$(document).ready(function() {
+		$('#table_client').DataTable();
+	});
+</script>
 <!-- Page Content -->
 <div class="content-section-b">
 	<div class="container">
@@ -17,7 +21,7 @@
 						<thead>
 							<tr>
 								<th>Name</th>
-								<th>PostCode</th>
+								<!-- <th>PostCode</th> -->
 								<th>Contact No</th>
 								<!-- <th>Subscription Type</th> -->
 								<th>Status</th>
@@ -28,7 +32,7 @@
 							<c:forEach items="${clients}" var="client">
 								<tr>
 									<td>${client.clientname}</td>
-									<td>${client.postcode}</td>
+									<%-- <td>${client.postcode}</td> --%>
 									<td>${client.contactno}</td>
 									<%-- <td>${client.postcode}</td> --%>
 									<td>${client.status}</td>

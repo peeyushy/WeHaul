@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,15 @@ public class ClientService {
 	public void deleteClient(String id) {
 
 		restTemplate.delete("http://localhost:8081/ERMarketPlace/client/id/" + id);
+		return;
+	}
+
+	public void addClient(Client client) {		
+		
+		HttpEntity<Client> request = new HttpEntity<>(client);
+		ResponseEntity<Client> response = restTemplate
+		  .exchange("http://localhost:8081/ERMarketPlace/client/create", HttpMethod.POST, request, Client.class); 
+						
 		return;
 	}
 

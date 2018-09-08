@@ -30,7 +30,7 @@
 					data-toggle="dropdown">Transporter<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="/find-client?type=T">Find</a></li>
-						<li><a href="../../pages/admin/add-transporter.html">Add</a></li>
+						<li><a href="/add-client?type=T">Add</a></li>
 						<li><a href="../../pages/admin/t-pending-approval.html">Pending
 								Approval</a></li>
 					</ul></li>
@@ -38,7 +38,7 @@
 					data-toggle="dropdown">Supplier<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="/find-client?type=S">Find</a></li>
-						<li><a href="../../pages/admin/add-supplier.html">Add</a></li>
+						<li><a href="/add-client?type=S">Add</a></li>
 						<li><a href="../../pages/admin/s-pending-approval.html">Pending
 								Approval</a></li>
 					</ul></li>

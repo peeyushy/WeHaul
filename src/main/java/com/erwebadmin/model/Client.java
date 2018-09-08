@@ -2,6 +2,8 @@ package com.erwebadmin.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -15,7 +17,7 @@ public class Client {
 	
 	private String contactno;
 
-	private Long country;
+	private String country;
 
 	private Long city;
 
@@ -40,6 +42,10 @@ public class Client {
 	private Date CREATEDAT;
 
 	private Date UPDATEDAT;
+	
+	private String createdby;	
+	
+	private String lastupdatedby;
 	
 	public Client() {
 		super();
@@ -76,12 +82,12 @@ public class Client {
 	public void setClienttype(String clienttype) {
 		this.clienttype = clienttype;
 	}
-
-	public Long getCountry() {
+	
+	public String getCountry() {
 		return country;
 	}
 
-	public void setCountry(Long country) {
+	public void setCountry(String country) {
 		this.country = country;
 	}
 
@@ -146,7 +152,11 @@ public class Client {
 	}
 
 	public void setStatus(String status) {
-		this.status = status;
+		if(status.equals("DISABLED,ACTIVE")) {
+			this.status = "ACTIVE";	
+		}else {
+			this.status = status;	
+		}
 	}
 
 	public Long getRevid() {
@@ -171,6 +181,22 @@ public class Client {
 
 	public void setUPDATEDAT(Date uPDATEDAT) {
 		UPDATEDAT = uPDATEDAT;
+	}	
+
+	public String getCreatedby() {
+		return createdby;
+	}
+
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
+	}
+
+	public String getLastupdatedby() {
+		return lastupdatedby;
+	}
+
+	public void setLastupdatedby(String lastupdatedby) {
+		this.lastupdatedby = lastupdatedby;
 	}
 
 	public String getContactno() {
