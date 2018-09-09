@@ -18,6 +18,16 @@ public class ClientService {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	public Client getClient(String id) {
+
+		ResponseEntity<Client> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/ERMarketPlace/client/id/" + id, HttpMethod.GET, null,
+				new ParameterizedTypeReference<Client>() {
+				});
+
+		return clientResponse.getBody();
+	}
+
 	public List<Client> getClients(String type) {
 
 		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
@@ -34,12 +44,21 @@ public class ClientService {
 		return;
 	}
 
-	public void addClient(Client client) {		
-		
+	public void addClient(Client client) {
+
 		HttpEntity<Client> request = new HttpEntity<>(client);
-		ResponseEntity<Client> response = restTemplate
-		  .exchange("http://localhost:8081/ERMarketPlace/client/create", HttpMethod.POST, request, Client.class); 
-						
+		ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8081/ERMarketPlace/client/create",
+				HttpMethod.POST, request, Client.class);
+
+		return;
+	}
+
+	public void updateClient(String id, Client client) {
+		client.setCreatedby(getClient(id).getCreatedby());
+		HttpEntity<Client> request = new HttpEntity<>(client);
+		ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8081/ERMarketPlace/client/id/" + id,
+				HttpMethod.PUT, request, Client.class);
+
 		return;
 	}
 

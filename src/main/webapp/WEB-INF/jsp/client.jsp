@@ -6,8 +6,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12" id="panel">
-				<h2 class="section-heading">
-					Add
+				<h2 class="section-heading">					
+					<c:out value="${action}" />
 					<c:out value="${title}" />
 				</h2>
 				<hr class="section-heading-spacer">
@@ -18,31 +18,33 @@
 			<c:set var="newClientErrors">
 				<form:errors path="*" />
 			</c:set>
-			<c:if test="${not empty newClientErrors}">				
+			<c:if test="${not empty newClientErrors}">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="alert alert-danger alert-dismissible">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 							${newClientErrors}
-						</div>						
+						</div>
 					</div>
 				</div>
 			</c:if>
-			
+
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="clientname">Company Name</label> <input type="text"
-									name="clientname" class="form-control" placeholder="Name" required="required"/>
-								<p class="note">Name of the client.</p>								
+								<label for="clientname">Company Name</label>
+								<form:input type="text" name="clientname" path="clientname"
+									class="form-control" placeholder="Name" required="required" />
+								<p class="note">Name of the client.</p>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="addressline1">Address Line1</label> <input type="text"
-									name="addressline1" class="form-control" placeholder="Address" />
+								<label for="addressline1">Address Line1</label>
+								<form:input type="text" name="addressline1" path="addressline1"
+									class="form-control" placeholder="Address" />
 								<p class="note">Address of the client.</p>
 							</div>
 						</div>
@@ -50,16 +52,17 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="addressline2">Address Line2</label> <input type="text"
-									name="addressline2" class="form-control" placeholder="Address" />
+								<label for="addressline2">Address Line2</label>
+								<form:input type="text" name="addressline2" path="addressline2"
+									class="form-control" placeholder="Address" />
 								<p class="note">Address of the client.</p>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="city">Town/City</label> <input type="text"
-									name="city" class="form-control"
-									placeholder="Town/City" />
+								<label for="city">Town/City</label>
+								<form:input type="text" name="city" path="city"
+									class="form-control" placeholder="Town/City" />
 								<p class="note">Town/City of the client.</p>
 							</div>
 						</div>
@@ -67,16 +70,18 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="postcode">Postcode</label> <input type="text"
-									name="postcode" class="form-control" placeholder="Postcode" />
+								<label for="postcode">Postcode</label>
+								<form:input type="text" name="postcode" path="postcode"
+									class="form-control" placeholder="Postcode" />
 								<p class="note">Postcode of the client.</p>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="country">Country</label> <select name="country" class="form-control">									
+								<label for="country">Country</label>
+								<form:select name="country" path="country" class="form-control">
 									<option value="UK">United Kingdom</option>
-								</select>
+								</form:select>
 								<p class="note">Country client is registered.</p>
 							</div>
 						</div>
@@ -84,25 +89,27 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="website">Website</label> <input type="text"
-									name="website" class="form-control"
-									placeholder="www.client.com" />
+								<label for="website">Website</label>
+								<form:input type="text" name="website" path="website"
+									class="form-control" placeholder="www.client.com" />
 								<p class="note">Website of the client.</p>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="contactno">Contact No</label> <input type="text"
-									name="contactno" class="form-control"
-									placeholder="01234567890" required="required"/>
+								<label for="contactno">Contact No</label>
+								<form:input type="text" name="contactno" path="contactno"
+									class="form-control" placeholder="01234567890"
+									required="required" />
 								<p class="note">Client contact no.</p>
 							</div>
 						</div>
 					</div>
-					<div class="row">						
+					<div class="row">
 						<div class="col-lg-12">
 							<div class="form-group">
-								<label for="email">Client Logo</label> <input type="file" />
+								<label for="email">Client Logo</label>
+								<form:input type="file" path="clientlogo" />
 							</div>
 						</div>
 					</div>
@@ -171,19 +178,21 @@
 						<div class="col-lg-12">
 							<div class="form-group">
 								<label for="comments">Comments</label>
-								<textarea name="comments" class="form-control" rows="5"></textarea>
+								<form:textarea name="comments" path="comments"
+									class="form-control" rows="5" />
 							</div>
 							<p class="note">Any additional comments by sales/operational
 								team.</p>
 						</div>
-					</div> 
+					</div>
 					<div class="row">
 						<div class="col-lg-12">
-							<div class="form-group">							
-							<input type="hidden" name="status" value="DISABLED" />
-							<input type="checkbox" name="status" value="ACTIVE" checked="checked"/>
-							<label for="status">&nbsp;&nbsp;Active</label>
-							<p class="note">Uncheck to disable client.</p>
+							<div class="form-group">
+								<form:input type="hidden" name="status" path="status"
+									value="DISABLED" />
+								<form:checkbox name="status" path="status" value="ACTIVE" />
+								<label for="status">&nbsp;&nbsp;Active</label>
+								<p class="note">Uncheck to disable client.</p>
 							</div>
 						</div>
 					</div>
@@ -191,8 +200,9 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="group">						
-						<button type="submit" class="btn btn-default btn-lg btn-style">Save</button>
+					<div class="group">
+						<form:button type="submit"
+							class="btn btn-default btn-lg btn-style">Save</form:button>
 					</div>
 				</div>
 			</div>

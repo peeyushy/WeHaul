@@ -59,6 +59,7 @@ public class ClientController {
 
 	@RequestMapping(value = "/add-client", method = RequestMethod.GET)
 	public String showAddClientPage(ModelMap model, @RequestParam String type) {
+		model.put("action", "Add");
 		model.put("client", new Client());
 		if (type.equalsIgnoreCase("T")) {
 			model.put("title", "Transporter");
@@ -66,11 +67,12 @@ public class ClientController {
 			model.put("title", "Supplier");
 		}
 
-		return "add-client";
+		return "client";
 	}
 
 	@RequestMapping(value = "/add-client", method = RequestMethod.POST)
 	public String addClient(ModelMap model, @RequestParam String type, @Valid Client client, BindingResult result) {
+		model.put("action", "Add");
 		if (type.equalsIgnoreCase("T")) {
 			model.put("title", "Transporter");
 		} else {
@@ -78,7 +80,7 @@ public class ClientController {
 		}
 
 		if (result.hasErrors()) {
-			return "add-client";
+			return "client";
 		}
 		client.setCreatedby(getLoggedInUserName(model));
 		client.setLastupdatedby(getLoggedInUserName(model));
@@ -88,4 +90,38 @@ public class ClientController {
 		model.put("clients", service.getClients(type));
 		return "find-client";
 	}
+
+	@RequestMapping(value = "/edit-client", method = RequestMethod.GET)
+	public String showEditClientPage(ModelMap model, @RequestParam String type, @RequestParam String id) {
+		model.put("action", "Edit");
+		if (type.equalsIgnoreCase("T")) {
+			model.put("title", "Transporter");
+		} else {
+			model.put("title", "Supplier");
+		}
+		model.put("client", service.getClient(id));
+		return "client";
+	}
+	
+	@RequestMapping(value = "/edit-client", method = RequestMethod.POST)
+	public String updateClient(ModelMap model, @RequestParam String type, @RequestParam String id, @Valid Client client, BindingResult result) {
+		model.put("action", "Edit");
+		if (type.equalsIgnoreCase("T")) {
+			model.put("title", "Transporter");
+		} else {
+			model.put("title", "Supplier");
+		}
+		if (result.hasErrors()) {
+			return "client";
+		}
+		
+		client.setLastupdatedby(getLoggedInUserName(model));
+		client.setClienttype(type);
+		service.updateClient(id,client);
+
+		model.put("clients", service.getClients(type));
+		return "find-client";
+
+	}
+
 }
