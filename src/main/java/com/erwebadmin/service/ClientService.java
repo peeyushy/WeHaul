@@ -54,6 +54,7 @@ public class ClientService {
 	}
 
 	public void updateClient(String id, Client client) {
+		//set created by as its mandatory
 		client.setCreatedby(getClient(id).getCreatedby());
 		HttpEntity<Client> request = new HttpEntity<>(client);
 		ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8081/ERMarketPlace/client/id/" + id,

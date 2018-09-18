@@ -1,12 +1,16 @@
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
-
+<script>
+	$(document).ready(function() {
+		$('#table_user').DataTable();
+	});
+</script>
 <!-- Page Content -->
 <div class="content-section-b">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12" id="panel">
-				<h2 class="section-heading">					
+				<h2 class="section-heading">
 					<c:out value="${action}" />
 					<c:out value="${title}" />
 				</h2>
@@ -176,12 +180,40 @@
 					<hr>
 					<div class="row">
 						<div class="col-lg-12">
+							<table id="table_user" class="display">
+								<thead>
+									<tr>
+										<th>User Name</th>										
+										<th>Email</th>
+										<th>Type</th>
+										<th>Status</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${client.users}" var="user">
+									<tr>
+										<td><a href="/edit-user?cid=${client.clientid}&uid=${user.userid}">${user.name}</a></td>										
+										<td>${user.email}</td>
+										<td>${user.usertype}</td>
+										<td>${user.status}</td>
+										<td><a href="/delete-user?cid=${client.clientid}&uid=${user.userid}"><span
+											class="fa fa-trash"></span></a></td>
+									</tr>									
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-lg-12">
 							<div class="form-group">
 								<label for="comments">Comments</label>
 								<form:textarea name="comments" path="comments"
 									class="form-control" rows="5" />
 							</div>
-							<p class="note">Any additional comments by sales/operational
+							<p class="note">Any additional comments by sales/operations
 								team.</p>
 						</div>
 					</div>
@@ -201,11 +233,18 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="group">
+						<c:if test="${action=='Edit'}">
+							<a href="/find-client?type=${client.clienttype}"
+								class="btn btn-default btn-lg btn-style">&larr; Back</a>&nbsp; 
+							<a href="/add-user?cid=${client.clientid}"
+								class="btn btn-default btn-lg btn-style">Add User</a>&nbsp;
+						</c:if>
 						<form:button type="submit"
 							class="btn btn-default btn-lg btn-style">Save</form:button>
 					</div>
 				</div>
 			</div>
+			<form:input type="hidden" name="clienttype" path="clienttype"/>
 		</form:form>
 	</div>
 	<!-- /.container -->

@@ -31,7 +31,7 @@
 						<tbody>
 							<c:forEach items="${clients}" var="client">
 								<tr>
-									<td><a href="/edit-client?type=${client.clienttype}&id=${client.clientid}">${client.clientname}</a></td>
+									<td><a href="/edit-client?cid=${client.clientid}">${client.clientname}</a></td>
 									<%-- <td>${client.postcode}</td> --%>
 									<td>${client.contactno}</td>
 									<%-- <td>${client.postcode}</td> --%>

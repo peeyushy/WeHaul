@@ -1,8 +1,7 @@
 package com.erwebadmin.model;
 
 import java.util.Date;
-
-import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -38,6 +37,8 @@ public class Client {
 	private String status;
 
 	private Long revid;
+	
+	private List<User> users;
 
 	private Date CREATEDAT;
 
@@ -50,6 +51,11 @@ public class Client {
 	public Client() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Client(String clienttype) {
+		super();
+		this.clienttype = clienttype;
 	}
 
 	public Client(Long clientid, String clientname, String clienttype) {
@@ -165,6 +171,14 @@ public class Client {
 
 	public void setRevid(Long revid) {
 		this.revid = revid;
+	}	
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	public Date getCREATEDAT() {
