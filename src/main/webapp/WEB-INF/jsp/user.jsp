@@ -64,10 +64,10 @@
 								<label for="notificationtype">Notification Method</label>
 								<form:select class="form-control" name="notificationtype"
 									path="notificationtype">
-									<option value="SMSANDEMAIL">SMS and Email</option>
-									<option value="SMS">SMS Only</option>
-									<option value="EMAIL">Email Only</option>
-									<option value="NONE">None</option>
+									<option value="SMSANDEMAIL" ${user.notificationtype == "SMSANDEMAIL" ? 'selected="selected"' : ''}>SMS and Email</option>
+									<option value="SMS" ${user.notificationtype == "SMS" ? 'selected="selected"' : ''}>SMS Only</option>
+									<option value="EMAIL" ${user.notificationtype == "EMAIL" ? 'selected="selected"' : ''}>Email Only</option>
+									<option value="NONE" ${user.notificationtype == "NONE" ? 'selected="selected"' : ''}>None</option>
 								</form:select>
 								<p class="note">Selected method will be used to send you
 									notifications.</p>
@@ -89,7 +89,7 @@
 							<div class="form-group">
 								<label for="password">Password</label>
 								<form:input class="form-control" id="password" name="password"
-									path="password" type="text" placeholder="******"
+									path="password" type="password" placeholder="******"
 									required="required" />
 								<p class="note">User password.</p>
 							</div>
@@ -100,7 +100,7 @@
 							<div class="form-group">
 								<label for="confirmpassword">Confirm Password</label> <input
 									class="form-control" id="confirmpassword"
-									name="confirmpassword" type="text" placeholder="******"
+									name="confirmpassword" type="password" placeholder="******"
 									required="required" />
 								<p class="note">Confirm user password.</p>
 							</div>

@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12" id="panel">
-				<h2 class="section-heading">Welcome User!!</h2>
+				<h2 class="section-heading">Welcome <c:out value="${name}" />!!</h2>
 				<hr class="section-heading-spacer">
 				<div class="clearfix"></div>
 				<form>
