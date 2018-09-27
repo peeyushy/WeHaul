@@ -17,15 +17,15 @@ public class User {
 
 	private String password;
 
-	private String email;
-	
-	private String usertype = "DEFAULT";
+	private String email;	
 
 	private String contactno;
 
 	private String notificationtype;
 	
 	private String status;
+	
+	private Role role;
 	
 	private Date CREATEDAT;
 
@@ -47,7 +47,7 @@ public class User {
 	}
 
 	public User(Long userid, Long clientid, String name, String username, String password, String email,
-			String usertype) {
+			Role role) {
 		super();
 		this.userid = userid;
 		this.clientid = clientid;
@@ -55,7 +55,7 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.usertype = usertype;
+		this.role = role;
 	}
 
 	public Long getUserid() {
@@ -104,16 +104,8 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}	
-
-	public String getUsertype() {
-		return usertype;
 	}
-
-	public void setUsertype(String usertype) {
-		this.usertype = usertype;
-	}
-
+	
 	public String getContactno() {
 		return contactno;
 	}
@@ -140,6 +132,14 @@ public class User {
 		}else {
 			this.status = status;	
 		}
+	}
+	
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public Date getCREATEDAT() {

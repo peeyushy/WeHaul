@@ -4,15 +4,13 @@
 	<div class="container topnav">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
-			<a href="#">
-				<div class="sitelogo">
-					<div class="icon">
-						<div class="image">
-							<i class="fa fa-truck"></i>
-						</div>
+			<div class="sitelogo">
+				<div class="icon">
+					<div class="image">
+						<i class="fa fa-truck"></i>
 					</div>
 				</div>
-			</a>
+			</div>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
@@ -44,6 +42,12 @@
 					</ul></li>
 				<li><a href="/logout">Logout</a></li>
 			</ul>
+			<span class="navbar-text pull-right"> <security:authorize
+					access="isAuthenticated()">
+    Welcome <security:authentication
+						property="principal.username" /> !!
+				</security:authorize>
+			</span>
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>

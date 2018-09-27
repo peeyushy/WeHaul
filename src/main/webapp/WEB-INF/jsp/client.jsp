@@ -183,23 +183,27 @@
 							<table id="table_user" class="display">
 								<thead>
 									<tr>
-										<th>User Name</th>										
+										<th>Name</th>
+										<th>UserName</th>
 										<th>Email</th>
-										<th>Type</th>
+										<th>Role</th>
 										<th>Status</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach items="${client.users}" var="user">
-									<tr>
-										<td><a href="/edit-user?cid=${client.clientid}&uid=${user.userid}">${user.name}</a></td>										
-										<td>${user.email}</td>
-										<td>${user.usertype}</td>
-										<td>${user.status}</td>
-										<td><a href="/delete-user?cid=${client.clientid}&uid=${user.userid}"><span
-											class="fa fa-trash"></span></a></td>
-									</tr>									
+										<tr>
+											<td><a
+												href="/edit-user?cid=${client.clientid}&uid=${user.userid}">${user.name}</a></td>
+											<td>${user.username}</td>
+											<td>${user.email}</td>
+											<td>${user.role.rolename}</td>
+											<td>${user.status}</td>
+											<td><a
+												href="/delete-user?cid=${client.clientid}&uid=${user.userid}"><span
+													class="fa fa-trash"></span></a></td>
+										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
@@ -244,7 +248,7 @@
 					</div>
 				</div>
 			</div>
-			<form:input type="hidden" name="clienttype" path="clienttype"/>
+			<form:input type="hidden" name="clienttype" path="clienttype" />
 		</form:form>
 	</div>
 	<!-- /.container -->

@@ -24,17 +24,7 @@ public class ClientController {
 	
 	@Autowired
 	UserService userService;
-
-	private String getLoggedInUserName(ModelMap model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		if (principal instanceof UserDetails) {
-			return ((UserDetails) principal).getUsername();
-		}
-
-		return principal.toString();
-	}
-
+	
 	@RequestMapping(value = "/find-client", method = RequestMethod.GET)
 	public String findClients(ModelMap model, @RequestParam String type) {
 		model.put("clients", clientService.getClients(type));
@@ -85,8 +75,8 @@ public class ClientController {
 		if (result.hasErrors()) {
 			return "client";
 		}
-		client.setCreatedby(getLoggedInUserName(model));
-		client.setLastupdatedby(getLoggedInUserName(model));
+		client.setCreatedby(userService.getLoggedinUserName());
+		client.setLastupdatedby(userService.getLoggedinUserName());
 		clientService.addClient(client);
 
 		model.put("clients", clientService.getClients(client.getClienttype()));
@@ -119,7 +109,7 @@ public class ClientController {
 			return "client";
 		}
 		
-		client.setLastupdatedby(getLoggedInUserName(model));
+		client.setLastupdatedby(userService.getLoggedinUserName());
 		clientService.updateClient(cid,client);
 
 		model.put("clients", clientService.getClients(client.getClienttype()));

@@ -64,10 +64,17 @@
 								<label for="notificationtype">Notification Method</label>
 								<form:select class="form-control" name="notificationtype"
 									path="notificationtype">
-									<option value="SMSANDEMAIL" ${user.notificationtype == "SMSANDEMAIL" ? 'selected="selected"' : ''}>SMS and Email</option>
-									<option value="SMS" ${user.notificationtype == "SMS" ? 'selected="selected"' : ''}>SMS Only</option>
-									<option value="EMAIL" ${user.notificationtype == "EMAIL" ? 'selected="selected"' : ''}>Email Only</option>
-									<option value="NONE" ${user.notificationtype == "NONE" ? 'selected="selected"' : ''}>None</option>
+									<option value="SMSANDEMAIL"
+										${user.notificationtype == "SMSANDEMAIL" ? 'selected="selected"' : ''}>SMS
+										and Email</option>
+									<option value="SMS"
+										${user.notificationtype == "SMS" ? 'selected="selected"' : ''}>SMS
+										Only</option>
+									<option value="EMAIL"
+										${user.notificationtype == "EMAIL" ? 'selected="selected"' : ''}>Email
+										Only</option>
+									<option value="NONE"
+										${user.notificationtype == "NONE" ? 'selected="selected"' : ''}>None</option>
 								</form:select>
 								<p class="note">Selected method will be used to send you
 									notifications.</p>
@@ -103,6 +110,15 @@
 									name="confirmpassword" type="password" placeholder="******"
 									required="required" />
 								<p class="note">Confirm user password.</p>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="role">Role</label>
+								<form:select class="form-control" name="role" path="role">
+									<form:options items="${roleMap}" />
+								</form:select>
+								<p class="note">User access role.</p>
 							</div>
 						</div>
 					</div>
