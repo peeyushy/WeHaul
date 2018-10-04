@@ -22,6 +22,16 @@
 			<c:set var="newClientErrors">
 				<form:errors path="*" />
 			</c:set>
+			<c:if test="${not empty msg}">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="alert alert-success alert-dismissible">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							${msg}
+						</div>
+					</div>
+				</div>
+			</c:if>
 			<c:if test="${not empty newClientErrors}">
 				<div class="row">
 					<div class="col-lg-12">
@@ -32,7 +42,6 @@
 					</div>
 				</div>
 			</c:if>
-
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="row">
@@ -201,7 +210,7 @@
 											<td>${user.role.rolename}</td>
 											<td>${user.status}</td>
 											<td><a
-												href="/delete-user?cid=${client.clientid}&uid=${user.userid}"><span
+												href="/delete-user?cid=${client.clientid}&uid=${user.userid}" onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
 													class="fa fa-trash"></span></a></td>
 										</tr>
 									</c:forEach>

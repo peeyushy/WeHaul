@@ -16,33 +16,42 @@
 				</h2>
 				<hr class="section-heading-spacer">
 				<div class="clearfix"></div>
-				<form>
-					<table id="table_client" class="display">
-						<thead>
+				<c:if test="${not empty msg}">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="alert alert-success alert-dismissible">
+								<a href="#" class="close" data-dismiss="alert"
+									aria-label="close">&times;</a> ${msg}
+							</div>
+						</div>
+					</div>
+				</c:if>
+				<table id="table_client" class="display">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<!-- <th>PostCode</th> -->
+							<th>Contact No</th>
+							<!-- <th>Subscription Type</th> -->
+							<th>Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${clients}" var="client">
 							<tr>
-								<th>Name</th>
-								<!-- <th>PostCode</th> -->
-								<th>Contact No</th>
-								<!-- <th>Subscription Type</th> -->
-								<th>Status</th>
-								<th>Action</th>
+								<td><a href="/edit-client?cid=${client.clientid}">${client.clientname}</a></td>
+								<%-- <td>${client.postcode}</td> --%>
+								<td>${client.contactno}</td>
+								<%-- <td>${client.postcode}</td> --%>
+								<td>${client.status}</td>
+								<td><a
+									href="/delete-client?type=${client.clienttype}&id=${client.clientid}" onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
+										class="fa fa-trash"></span></a></td>
 							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${clients}" var="client">
-								<tr>
-									<td><a href="/edit-client?cid=${client.clientid}">${client.clientname}</a></td>
-									<%-- <td>${client.postcode}</td> --%>
-									<td>${client.contactno}</td>
-									<%-- <td>${client.postcode}</td> --%>
-									<td>${client.status}</td>
-									<td><a href="/delete-client?type=${client.clienttype}&id=${client.clientid}"><span
-											class="fa fa-trash"></span></a></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</form>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
