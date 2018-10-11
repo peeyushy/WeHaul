@@ -28,15 +28,6 @@ public class UserController {
 	@Autowired
 	ClientService clientService;
 
-	/*
-	 * @RequestMapping(value = "/find-user", method = RequestMethod.GET) public
-	 * String findClients(ModelMap model, @RequestParam String type) {
-	 * model.put("clients", userService.getClients(type)); if
-	 * (type.equalsIgnoreCase("T")) { model.put("title", "Transporter"); } else {
-	 * model.put("title", "Supplier"); }
-	 * 
-	 * return "find-client"; }
-	 */
 	@RequestMapping(value = "/delete-user", method = RequestMethod.GET)
 	public String deleteUser(ModelMap model, @RequestParam String cid, @RequestParam String uid,
 			final RedirectAttributes redirectAttributes) {
@@ -54,7 +45,7 @@ public class UserController {
 			roleMap.put(role.getRoleid().toString(), role.getRolename());
 		}
 		model.put("roleMap", roleMap);
-		model.put("user", new User(Long.parseLong(cid)));
+		model.put("user", new User(clientService.getClient(cid)));
 
 		return "user";
 	}
@@ -67,7 +58,7 @@ public class UserController {
 		}else {
 			user.setCreatedby(userService.getLoggedinUserName());
 			user.setLastupdatedby(userService.getLoggedinUserName());
-			user.setClientid(Long.parseLong(cid));
+			user.setClient(clientService.getClient(cid));
 			userService.addUser(user);		
 			redirectAttributes.addFlashAttribute("msg", "User "+user.getName()+" added successfully!");
 			return "redirect:/edit-client?cid=" + cid;	
@@ -75,13 +66,14 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/edit-user", method = RequestMethod.GET)
-	public String showEditUserPage(ModelMap model, @RequestParam String uid) {
+	public String showEditUserPage(ModelMap model, @RequestParam String cid, @RequestParam String uid) {
 		model.put("action", "Edit");
 		User user = userService.getUsersByUserId(uid);
 		Map<String, String> roleMap = new LinkedHashMap<String, String>();
 		roleMap.put(user.getRole().getRoleid().toString(), user.getRole().getRolename());
 		model.put("roleMap", roleMap);
 		model.put("user", user);
+		model.put("cid", cid);
 		return "user";
 	}
 
@@ -94,7 +86,7 @@ public class UserController {
 			return "user";
 		} else {
 			user.setLastupdatedby(userService.getLoggedinUserName());
-			user.setClientid(Long.parseLong(cid));
+			user.setClient(clientService.getClient(cid));
 			user.setUserid(Long.parseLong(uid));
 			userService.updateUser(uid, user);
 			// Add message to flash scope

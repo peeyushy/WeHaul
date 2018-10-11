@@ -210,7 +210,8 @@
 											<td>${user.role.rolename}</td>
 											<td>${user.status}</td>
 											<td><a
-												href="/delete-user?cid=${client.clientid}&uid=${user.userid}" onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
+												href="/delete-user?cid=${client.clientid}&uid=${user.userid}"
+												onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
 													class="fa fa-trash"></span></a></td>
 										</tr>
 									</c:forEach>
@@ -237,7 +238,7 @@
 									value="DISABLED" />
 								<form:checkbox name="status" path="status" value="ACTIVE" />
 								<label for="status">&nbsp;&nbsp;Active</label>
-								<p class="note">Uncheck to disable client.</p>
+								<p class="note">Uncheck to disable client. Please note this will disable all users for this client.</p>
 							</div>
 						</div>
 					</div>
@@ -248,9 +249,11 @@
 					<div class="group">
 						<c:if test="${action=='Edit'}">
 							<a href="/find-client?type=${client.clienttype}"
-								class="btn btn-default btn-lg btn-style">&larr; Back</a>&nbsp; 
-							<a href="/add-user?cid=${client.clientid}"
-								class="btn btn-default btn-lg btn-style">Add User</a>&nbsp;
+								class="btn btn-default btn-lg btn-style">&larr; Back</a>&nbsp;
+							<c:if test="${client.status=='ACTIVE'}">
+								<a href="/add-user?cid=${client.clientid}"
+									class="btn btn-default btn-lg btn-style">Add User</a>&nbsp;
+							</c:if>
 						</c:if>
 						<form:button type="submit"
 							class="btn btn-default btn-lg btn-style">Save</form:button>
@@ -258,6 +261,7 @@
 				</div>
 			</div>
 			<form:input type="hidden" name="clienttype" path="clienttype" />
+			<form:input type="hidden" name="revid" path="revid" />
 		</form:form>
 	</div>
 	<!-- /.container -->

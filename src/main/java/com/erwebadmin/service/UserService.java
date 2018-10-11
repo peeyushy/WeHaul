@@ -26,45 +26,46 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private RestTemplate restTemplate;
-
-	public List<User> getUsersByClientId(String id) {
-
-		ResponseEntity<List<User>> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/ERMarketPlace/user/client/id/" + id, HttpMethod.GET, null,
-				new ParameterizedTypeReference<List<User>>() {
-				});
-
-		return clientResponse.getBody();
-	}
-
+	
 	public User getUsersByUserId(String id) {
 
-		ResponseEntity<User> clientResponse = restTemplate.exchange("http://localhost:8081/ERMarketPlace/user/id/" + id,
+		ResponseEntity<User> clientResponse = restTemplate.exchange("http://localhost:8081/ERStaticData/user/id/" + id,
 				HttpMethod.GET, null, new ParameterizedTypeReference<User>() {
 				});
 
 		return clientResponse.getBody();
 	}
 
-	public User getUsersByUserName(String username) {
+	public User getUserByUserName(String username) {
 
 		ResponseEntity<User> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/ERMarketPlace/user/username/" + username, HttpMethod.GET, null,
+				"http://localhost:8081/ERStaticData/user/username/" + username, HttpMethod.GET, null,
+				new ParameterizedTypeReference<User>() {
+				});
+
+		return clientResponse.getBody();
+	}
+	
+	public User getAdminOnlyUserByUserName(String username) {
+
+		ResponseEntity<User> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/ERStaticData/user/adminusername/" + username, HttpMethod.GET, null,
 				new ParameterizedTypeReference<User>() {
 				});
 
 		return clientResponse.getBody();
 	}
 
+
 	public void deleteUser(String id) {
-		restTemplate.delete("http://localhost:8081/ERMarketPlace/user/id/" + id);
+		restTemplate.delete("http://localhost:8081/ERStaticData/user/id/" + id);
 		return;
 	}
 
 	public void addUser(User user) {
 
 		HttpEntity<User> request = new HttpEntity<>(user);
-		ResponseEntity<User> response = restTemplate.exchange("http://localhost:8081/ERMarketPlace/user/create",
+		ResponseEntity<User> response = restTemplate.exchange("http://localhost:8081/ERStaticData/user/create",
 				HttpMethod.POST, request, User.class);
 
 		return;
@@ -73,7 +74,7 @@ public class UserService implements UserDetailsService {
 	public void updateUser(String id, User user) {
 		user.setCreatedby(getUsersByUserId(id).getCreatedby());
 		HttpEntity<User> request = new HttpEntity<>(user);
-		ResponseEntity<User> response = restTemplate.exchange("http://localhost:8081/ERMarketPlace/user/id/" + id,
+		ResponseEntity<User> response = restTemplate.exchange("http://localhost:8081/ERStaticData/user/id/" + id,
 				HttpMethod.PUT, request, User.class);
 
 		return;
@@ -81,15 +82,12 @@ public class UserService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = getUsersByUserName(username);
+		User user = getAdminOnlyUserByUserName(username);
 		if (user == null) {
 			throw new UsernameNotFoundException(username);
 		}
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-		/*
-		 * for (Role role : user.getRoles()){ grantedAuthorities.add(new
-		 * SimpleGrantedAuthority(role.getRolename())); }
-		 */
+		
 		grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getRolename()));
 
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
@@ -100,7 +98,7 @@ public class UserService implements UserDetailsService {
 	public List<Role> getAllRoles() {
 
 		ResponseEntity<List<Role>> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/ERMarketPlace/role/all/", HttpMethod.GET, null,
+				"http://localhost:8081/ERStaticData/role/all/", HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Role>>() {
 				});
 

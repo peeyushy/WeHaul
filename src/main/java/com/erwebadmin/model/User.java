@@ -1,15 +1,16 @@
 package com.erwebadmin.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class User {
-	
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private Long userid;
-	
-	private Long clientid;
 
 	private String name;
 
@@ -17,45 +18,39 @@ public class User {
 
 	private String password;
 
-	private String email;	
+	private String email;
 
 	private String contactno;
 
 	private String notificationtype;
-	
+
 	private String status;
-	
+
 	private Role role;
-	
+
 	private Date CREATEDAT;
 
-	private Date UPDATEDAT;	
-	
+	private Date UPDATEDAT;
+
 	private String createdby;
-	
+
 	private String lastupdatedby;
-	
+
+	private Client client;
+
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	public User(Long clientid) {
+	public User(Client client) {
 		super();
-		this.clientid = clientid;
-	}
+		this.client = client;
+	}	
 
-	public User(Long userid, Long clientid, String name, String username, String password, String email,
-			Role role) {
+	public User(Long userid) {
 		super();
 		this.userid = userid;
-		this.clientid = clientid;
-		this.name = name;
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.role = role;
 	}
 
 	public Long getUserid() {
@@ -64,14 +59,6 @@ public class User {
 
 	public void setUserid(Long userid) {
 		this.userid = userid;
-	}
-
-	public Long getClientid() {
-		return clientid;
-	}
-
-	public void setClientid(Long clientid) {
-		this.clientid = clientid;
 	}
 
 	public String getUsername() {
@@ -105,7 +92,7 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getContactno() {
 		return contactno;
 	}
@@ -120,20 +107,20 @@ public class User {
 
 	public void setNotificationtype(String notificationtype) {
 		this.notificationtype = notificationtype;
-	}	
+	}
 
 	public String getStatus() {
 		return status;
 	}
 
 	public void setStatus(String status) {
-		if(status.equals("DISABLED,ACTIVE")) {
-			this.status = "ACTIVE";	
-		}else {
-			this.status = status;	
+		if (status.equals("DISABLED,ACTIVE")) {
+			this.status = "ACTIVE";
+		} else {
+			this.status = status;
 		}
 	}
-	
+
 	public Role getRole() {
 		return role;
 	}
@@ -158,23 +145,33 @@ public class User {
 		UPDATEDAT = uPDATEDAT;
 	}
 
-
 	public String getCreatedby() {
 		return createdby;
 	}
-
 
 	public void setCreatedby(String createdby) {
 		this.createdby = createdby;
 	}
 
-
 	public String getLastupdatedby() {
 		return lastupdatedby;
 	}
 
-
 	public void setLastupdatedby(String lastupdatedby) {
 		this.lastupdatedby = lastupdatedby;
-	}	
+	}
+
+	/**
+	 * @return the client
+	 */
+	public Client getClient() {
+		return client;
+	}
+
+	/**
+	 * @param client the client to set
+	 */
+	public void setClient(Client client) {
+		this.client = client;
+	}
 }

@@ -21,7 +21,7 @@ public class ClientService {
 	public Client getClient(String id) {
 
 		ResponseEntity<Client> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/ERMarketPlace/client/id/" + id, HttpMethod.GET, null,
+				"http://localhost:8081/ERStaticData/client/id/" + id, HttpMethod.GET, null,
 				new ParameterizedTypeReference<Client>() {
 				});
 
@@ -31,7 +31,7 @@ public class ClientService {
 	public List<Client> getClients(String type) {
 
 		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/ERMarketPlace/client/type/" + type, HttpMethod.GET, null,
+				"http://localhost:8081/ERStaticData/client/type/" + type, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Client>>() {
 				});
 
@@ -40,14 +40,14 @@ public class ClientService {
 
 	public void deleteClient(String id) {
 
-		restTemplate.delete("http://localhost:8081/ERMarketPlace/client/id/" + id);
+		restTemplate.delete("http://localhost:8081/ERStaticData/client/id/" + id);
 		return;
 	}
 
 	public void addClient(Client client) {
 
 		HttpEntity<Client> request = new HttpEntity<>(client);
-		ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8081/ERMarketPlace/client/create",
+		ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8081/ERStaticData/client/create",
 				HttpMethod.POST, request, Client.class);
 
 		return;
@@ -57,7 +57,7 @@ public class ClientService {
 		//set created by as its mandatory
 		client.setCreatedby(getClient(id).getCreatedby());
 		HttpEntity<Client> request = new HttpEntity<>(client);
-		ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8081/ERMarketPlace/client/id/" + id,
+		ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8081/ERStaticData/client/id/" + id,
 				HttpMethod.PUT, request, Client.class);
 
 		return;

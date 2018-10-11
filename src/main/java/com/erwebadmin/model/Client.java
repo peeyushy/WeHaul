@@ -1,19 +1,22 @@
 package com.erwebadmin.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Client {
-	
+public class Client implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private Long clientid;
-	
+
 	private String clientname;
 
 	private String clienttype;
-	
+
 	private String contactno;
 
 	private String country;
@@ -36,18 +39,18 @@ public class Client {
 
 	private String status;
 
-	private Long revid;
-	
+	private int revid;
+
 	private List<User> users;
 
 	private Date CREATEDAT;
 
 	private Date UPDATEDAT;
-	
-	private String createdby;	
-	
+
+	private String createdby;
+
 	private String lastupdatedby;
-	
+
 	public Client() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -58,11 +61,9 @@ public class Client {
 		this.clienttype = clienttype;
 	}
 
-	public Client(Long clientid, String clientname, String clienttype) {
+	public Client(Long clientid) {
 		super();
 		this.clientid = clientid;
-		this.clientname = clientname;
-		this.clienttype = clienttype;
 	}
 
 	public Long getClientid() {
@@ -88,7 +89,7 @@ public class Client {
 	public void setClienttype(String clienttype) {
 		this.clienttype = clienttype;
 	}
-	
+
 	public String getCountry() {
 		return country;
 	}
@@ -96,7 +97,7 @@ public class Client {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
+
 	public String getCity() {
 		return city;
 	}
@@ -158,20 +159,26 @@ public class Client {
 	}
 
 	public void setStatus(String status) {
-		if(status.equals("DISABLED,ACTIVE")) {
-			this.status = "ACTIVE";	
-		}else {
-			this.status = status;	
+		if (status.equals("DISABLED,ACTIVE")) {
+			this.status = "ACTIVE";
+		} else {
+			this.status = status;
 		}
 	}
 
-	public Long getRevid() {
+	/**
+	 * @return the revid
+	 */
+	public int getRevid() {
 		return revid;
 	}
 
-	public void setRevid(Long revid) {
+	/**
+	 * @param revid the revid to set
+	 */
+	public void setRevid(int revid) {
 		this.revid = revid;
-	}	
+	}
 
 	public List<User> getUsers() {
 		return users;
@@ -195,7 +202,7 @@ public class Client {
 
 	public void setUPDATEDAT(Date uPDATEDAT) {
 		UPDATEDAT = uPDATEDAT;
-	}	
+	}
 
 	public String getCreatedby() {
 		return createdby;
@@ -219,5 +226,5 @@ public class Client {
 
 	public void setContactno(String contactno) {
 		this.contactno = contactno;
-	}	
+	}
 }
