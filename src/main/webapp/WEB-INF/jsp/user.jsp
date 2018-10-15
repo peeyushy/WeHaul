@@ -140,7 +140,6 @@
 									class="btn btn-default btn-lg btn-style">&larr; Back</a>&nbsp;
 								<form:button type="submit"
 									class="btn btn-default btn-lg btn-style">Save</form:button>
-
 							</div>
 						</div>
 					</div>

@@ -2,7 +2,9 @@
 <%@ include file="common/navigation.jspf"%>
 <script>
 	$(document).ready(function() {
-		$('#table_user').DataTable();
+		$('#table_vehicles').DataTable();
+		$('#table_loads').DataTable();
+		$('#table_users').DataTable();
 	});
 </script>
 <!-- Page Content -->
@@ -186,10 +188,79 @@
 							</div>
 						</div>
 					</div> -->
+					<c:choose>
+						<c:when test="${client.clienttype=='T'}">
+							<hr>
+							<div class="row">
+								<div class="col-lg-12">
+									<table id="table_vehicles" class="display">
+										<thead>
+											<tr>
+												<th>Vehicle No</th>
+												<th>Type</th>
+												<th>Status</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${client.users}" var="user">
+												<tr>
+													<td><a
+														href="/edit-user?cid=${client.clientid}&uid=${user.userid}">${user.name}</a></td>
+													<td>${user.username}</td>
+													<td>${user.status}</td>
+													<td><a
+														href="/delete-user?cid=${client.clientid}&uid=${user.userid}"
+														onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
+															class="fa fa-trash"></span></a></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</c:when>
+						<c:when test="${client.clienttype=='S'}">
+							<hr>
+							<div class="row">
+								<div class="col-lg-12">
+									<table id="table_loads" class="display">
+										<thead>
+											<tr>
+												<th>Load Id</th>
+												<th>Pick-Up Point</th>
+												<th>Drop Point</th>
+												<th>Date</th>
+												<th>Status</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${client.users}" var="user">
+												<tr>
+													<td><a
+														href="/edit-user?cid=${client.clientid}&uid=${user.userid}">${user.name}</a></td>
+													<td>London</td>
+													<td>Leads</td>
+													<td>13 Oct 2018</td>
+													<td>${user.status}</td>
+													<td><a
+														href="/delete-user?cid=${client.clientid}&uid=${user.userid}"
+														onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
+															class="fa fa-trash"></span></a></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise></c:otherwise>
+					</c:choose>
 					<hr>
 					<div class="row">
 						<div class="col-lg-12">
-							<table id="table_user" class="display">
+							<table id="table_users" class="display">
 								<thead>
 									<tr>
 										<th>Name</th>
@@ -238,7 +309,8 @@
 									value="DISABLED" />
 								<form:checkbox name="status" path="status" value="ACTIVE" />
 								<label for="status">&nbsp;&nbsp;Active</label>
-								<p class="note">Uncheck to disable client. Please note this will disable all users for this client.</p>
+								<p class="note">Uncheck to disable client. Please note this
+									will disable all users for this client.</p>
 							</div>
 						</div>
 					</div>
@@ -253,6 +325,16 @@
 							<c:if test="${client.status=='ACTIVE'}">
 								<a href="/add-user?cid=${client.clientid}"
 									class="btn btn-default btn-lg btn-style">Add User</a>&nbsp;
+									<c:choose>
+									<c:when test="${client.clienttype=='T'}">
+										<a href="/add-vehicle?cid=${client.clientid}"
+											class="btn btn-default btn-lg btn-style">Add Vehicle</a>&nbsp;
+									</c:when>
+									<c:when test="${client.clienttype=='S'}">
+										<a href="/add-user?cid=${client.clientid}"
+											class="btn btn-default btn-lg btn-style">Post Load</a>&nbsp;
+									</c:when>
+								</c:choose>
 							</c:if>
 						</c:if>
 						<form:button type="submit"

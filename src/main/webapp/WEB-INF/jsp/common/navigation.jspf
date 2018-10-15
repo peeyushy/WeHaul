@@ -29,23 +29,18 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="/find-client?type=T">Find</a></li>
 						<li><a href="/add-client?type=T">Add</a></li>
-						<li><a href="../../pages/admin/t-pending-approval.html">Pending
-								Approval</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">Supplier<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="/find-client?type=S">Find</a></li>
 						<li><a href="/add-client?type=S">Add</a></li>
-						<li><a href="../../pages/admin/s-pending-approval.html">Pending
-								Approval</a></li>
 					</ul></li>
 				<li><a href="/logout">Logout</a></li>
 			</ul>
 			<span class="navbar-text pull-right"> <security:authorize
 					access="isAuthenticated()">
-    Welcome <security:authentication
-						property="principal.username" /> !!
+    Welcome <security:authentication property="principal.username" /> !!
 				</security:authorize>
 			</span>
 		</div>
