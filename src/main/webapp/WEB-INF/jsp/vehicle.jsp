@@ -16,28 +16,40 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-12">
-				<form>
+				<form:form method="post" modelAttribute="vehicle">
+					<c:set var="vehicleErrors">
+						<form:errors path="*" />
+					</c:set>
+					<c:if test="${not empty vehicleErrors}">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="alert alert-danger alert-dismissible">
+									<a href="#" class="close" data-dismiss="alert"
+										aria-label="close">&times;</a> ${vehicleErrors}
+								</div>
+							</div>
+						</div>
+					</c:if>
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="email">Registration Number (Number Plate)</label> <input
-									class="form-control" id="user_login" name="user[login]"
-									type="text" />
+								<label for="regno">Registration Number (Number Plate)</label>
+								<form:input class="form-control" id="regno" name="regno"
+									path="regno" type="text" required="required" />
 								<p class="note">This is your vehicle's registration no. For
 									e.g. TY12 YYX</p>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="email">Vehicle Type</label> <select
-									class="form-control">
-									<option selected>White Van</option>
-									<option>12f Flatbed</option>
-									<option>18f Flatbed</option>
-									<option>26f Flatbed</option>
-									<option>Refrigerated Containers</option>
-									<option>Other</option>
-								</select>
+								<label for="vtype">Vehicle Type</label>
+								<form:select class="form-control" name="vtype" path="vtype"
+									required="required">
+									<c:forEach var="vtype" items="${vTypeMap}">
+										<option value="${vtype.key}"
+											${vtype.key == selectedvType ? 'selected="selected"' : ''}>${vtype.value}</option>
+									</c:forEach>
+								</form:select>
 								<p class="note">Define your vehicle type. This will help us
 									in getting you the best load for this vehicle.</p>
 							</div>
@@ -47,53 +59,30 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="email">Load Type</label> <select
-									class="selectpicker form-control" multiple
-									data-actions-box="true">
-									<option selected>Small Boxes</option>
-									<option>Furniture</option>
-									<option>Housemove</option>
-									<option>Construction Material Only</option>
-									<option>Liquids Only</option>
-									<option>Heavy Equipments Only</option>
-									<option>Pets Only</option>
-									<option>Cars</option>
-									<option>Motorcycles</option>
-									<option>Other Vehicles</option>
-									<option>Beverages</option>
-									<option>Other</option>
-								</select>
+								<label for="ltype">Load Type</label>
+								<form:select class="form-control" name="ltype" path="ltype"
+									required="required">
+									<c:forEach var="ltype" items="${lTypeMap}">										
+										<c:choose>
+											<c:when
+												test="${fn:contains(selectedlType, ltype.key)}">
+												<option value="${ltype.key}" selected="selected">
+													${ltype.value}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${ltype.key}">${ltype.value}</option>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</form:select>
 								<p class="note">Define how your vehicle can be used. This
 									will help us in getting you the best load for this vehicle.</p>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="email">Dimensions (H/W/L)</label> <input
-									class="form-control" id="orgridecost" name="orgridecost"
-									type="text" />
-								<p class="note">
-									This is available space in the vehicle. <a href="#"> Size
-										Guide</a>
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="email">Capacity/Payload</label> <input
-									class="form-control" id="orgridecost" name="orgridecost"
-									type="text" />
-								<p class="note">This is the maximum payload vehicle can
-									take. i.e 9 People or 1800Kg.</p>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="email">Operational Cost (£)</label> <input
-									class="form-control" id="orgridecost" name="orgridecost"
+								<label for="opcost">Operational Cost (£)</label>
+								<form:input class="form-control" name="opcost" path="opcost"
 									type="text" />
 								<p class="note">
 									This is the total operational cost of your vehicle per month.<a
@@ -104,24 +93,33 @@
 					</div>
 
 					<div class="row">
-						<div class="col-lg-12">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<form:input type="hidden" name="status" path="status"
+									value="DISABLED" />
+								<form:checkbox name="status" path="status" value="ACTIVE" />
+								<label for="status">&nbsp;&nbsp;Active</label>
+								<p class="note">Uncheck to disable vehicle.</p>
+							</div>
+						</div>
+						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="email">Select Photo</label> <input type="file" />
 							</div>
 						</div>
 					</div>
 
-					<div class="row" id="savebuttondiv">
-						<div class="col-lg-8">
+					<div class="row">
+						<div class="col-lg-12">
 							<div class="group">
 								<a href="/edit-client?cid=${cid}"
 									class="btn btn-default btn-lg btn-style">&larr; Back</a>&nbsp;
-								<a href="/add-vehicle?cid=${cid}"
-									class="btn btn-default btn-lg btn-style">Save</a>
+								<form:button type="submit"
+									class="btn btn-default btn-lg btn-style">Save</form:button>
 							</div>
 						</div>
 					</div>
-				</form>
+				</form:form>
 			</div>
 		</div>
 	</div>

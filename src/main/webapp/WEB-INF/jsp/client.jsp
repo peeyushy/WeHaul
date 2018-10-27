@@ -197,20 +197,24 @@
 										<thead>
 											<tr>
 												<th>Vehicle No</th>
-												<th>Type</th>
+												<th>Vehicle Type</th>
+												<th>Load Type</th>
 												<th>Status</th>
 												<th>Action</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${client.users}" var="user">
+											<c:forEach items="${vehicles}" var="vehicle">
 												<tr>
 													<td><a
-														href="/edit-user?cid=${client.clientid}&uid=${user.userid}">${user.name}</a></td>
-													<td>${user.username}</td>
-													<td>${user.status}</td>
+														href="/edit-vehicle?cid=${client.clientid}&vid=${vehicle.vid}">${vehicle.regno}</a></td>
+													<td>${vehicle.vtype.vtypename}</td>
+													<td><c:forEach items="${vehicle.ltype}" var="ltype">
+													${ltype.ltypename}
+														</c:forEach></td>
+													<td>${vehicle.status}</td>
 													<td><a
-														href="/delete-user?cid=${client.clientid}&uid=${user.userid}"
+														href="/delete-vehicle?cid=${client.clientid}&vid=${vehicle.vid}"
 														onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
 															class="fa fa-trash"></span></a></td>
 												</tr>
