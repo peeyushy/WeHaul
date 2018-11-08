@@ -53,7 +53,7 @@ public class VehicleService {
 		return;
 	}
 
-	public List<VehicleType> getAllVehicleType() {
+	public List<VehicleType> getAllActiveVehicleType() {
 
 		ResponseEntity<List<VehicleType>> clientResponse = restTemplate.exchange(
 				"http://localhost:8081/ERStaticData/vehicletype/all-active", HttpMethod.GET, null,
@@ -81,5 +81,4 @@ public class VehicleService {
 
 		return;
 	}
-
 }

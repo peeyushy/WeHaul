@@ -232,24 +232,30 @@
 										<thead>
 											<tr>
 												<th>Load Id</th>
-												<th>Pick-Up Point</th>
-												<th>Drop Point</th>
-												<th>Date</th>
+												<th>Pick-Up Location</th>
+												<th>Drop Location</th>
+												<th>Load Type</th>
+												<th>Date Time (DD/MM/YYYY hh:mm)</th>
 												<th>Status</th>
 												<th>Action</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${client.users}" var="user">
+											<c:forEach items="${loads}" var="load">
 												<tr>
 													<td><a
-														href="/edit-user?cid=${client.clientid}&uid=${user.userid}">${user.name}</a></td>
-													<td>London</td>
-													<td>Leads</td>
-													<td>13 Oct 2018</td>
-													<td>${user.status}</td>
+														href="/edit-load?cid=${client.clientid}&lid=${load.lid}">${load.lid}</a></td>
+													<td>${load.lpickuploc}</td>
+													<td>${load.ldroploc}</td>
+													<td>${load.ltype.ltypename}</td>
+													<fmt:parseDate value="${load.ldatetime}"
+														pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
+														type="both" />
+													<td><fmt:formatDate pattern="dd/MM/yyyy HH:mm"
+															value="${parsedDateTime}" /></td>
+													<td>${load.status}</td>
 													<td><a
-														href="/delete-user?cid=${client.clientid}&uid=${user.userid}"
+														href="/delete-load?cid=${client.clientid}&lid=${load.lid}"
 														onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
 															class="fa fa-trash"></span></a></td>
 												</tr>
@@ -327,18 +333,18 @@
 							<a href="/find-client?type=${client.clienttype}"
 								class="btn btn-default btn-lg btn-style">&larr; Back</a>&nbsp;
 							<c:if test="${client.status=='ACTIVE'}">
-								<a href="/add-user?cid=${client.clientid}"
-									class="btn btn-default btn-lg btn-style">Add User</a>&nbsp;
-									<c:choose>
+								<c:choose>
 									<c:when test="${client.clienttype=='T'}">
 										<a href="/add-vehicle?cid=${client.clientid}"
 											class="btn btn-default btn-lg btn-style">Add Vehicle</a>&nbsp;
 									</c:when>
 									<c:when test="${client.clienttype=='S'}">
-										<a href="/add-user?cid=${client.clientid}"
-											class="btn btn-default btn-lg btn-style">Post Load</a>&nbsp;
+										<a href="/add-load?cid=${client.clientid}"
+											class="btn btn-default btn-lg btn-style">Add Load</a>&nbsp;
 									</c:when>
 								</c:choose>
+								<a href="/add-user?cid=${client.clientid}"
+									class="btn btn-default btn-lg btn-style">Add User</a>&nbsp;
 							</c:if>
 						</c:if>
 						<form:button type="submit"

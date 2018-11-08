@@ -40,10 +40,10 @@ public class VehicleController {
 	
 
 	@RequestMapping(value = "/delete-vehicle", method = RequestMethod.GET)
-	public String deleteUser(ModelMap model, @RequestParam String cid, @RequestParam String uid,
+	public String deleteVehicle(ModelMap model, @RequestParam String cid, @RequestParam String vid,
 			final RedirectAttributes redirectAttributes) {
-		String msg="User "+userService.getUsersByUserId(uid).getName()+" deleted successfully!";
-		userService.deleteUser(uid);
+		String msg="Vehicle "+vehicleService.getVehicleById(vid).getRegno()+" deleted successfully!";
+		vehicleService.deleteVehicle(vid);
 		redirectAttributes.addFlashAttribute("msg", msg);
 		return "redirect:/edit-client?cid=" + cid;
 	}
@@ -54,7 +54,7 @@ public class VehicleController {
 		model.put("cid", cid);
 
 		Map<String, String> vTypeMap = new LinkedHashMap<String, String>();
-		for (VehicleType vehicleType : vehicleService.getAllVehicleType()) {
+		for (VehicleType vehicleType : vehicleService.getAllActiveVehicleType()) {
 			vTypeMap.put(vehicleType.getVtypeid().toString(), vehicleType.getVtypename());
 		}
 		
@@ -73,7 +73,7 @@ public class VehicleController {
 			final RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			Map<String, String> vTypeMap = new LinkedHashMap<String, String>();
-			for (VehicleType vehicleType : vehicleService.getAllVehicleType()) {
+			for (VehicleType vehicleType : vehicleService.getAllActiveVehicleType()) {
 				vTypeMap.put(vehicleType.getVtypeid().toString(), vehicleType.getVtypename());
 			}
 			
@@ -100,7 +100,7 @@ public class VehicleController {
 		Vehicle vehicle = vehicleService.getVehicleById(vid);
 		
 		Map<String, String> vTypeMap = new LinkedHashMap<String, String>();
-		for (VehicleType vehicleType : vehicleService.getAllVehicleType()) {
+		for (VehicleType vehicleType : vehicleService.getAllActiveVehicleType()) {
 			vTypeMap.put(vehicleType.getVtypeid().toString(), vehicleType.getVtypename());
 		}
 		
@@ -131,7 +131,7 @@ public class VehicleController {
 			vehicle.setClientid(Long.parseLong(cid));
 			vehicleService.updateVehicle(vid, vehicle);
 			// Add message to flash scope
-			redirectAttributes.addFlashAttribute("msg", "vehicle "+vehicle.getRegno()+" updated successfully!");
+			redirectAttributes.addFlashAttribute("msg", "Vehicle "+vehicle.getRegno()+" updated successfully!");
 			return "redirect:/edit-client?cid=" + cid;
 		}
 	}

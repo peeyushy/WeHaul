@@ -10,8 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.erwebadmin.model.Load;
 import com.erwebadmin.model.LoadType;
-import com.erwebadmin.model.Vehicle;
 
 @Service
 public class LoadService {
@@ -19,26 +19,25 @@ public class LoadService {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	public Vehicle getLoadById(String id) {
+	public Load getLoadById(String id) {
 
-		ResponseEntity<Vehicle> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/ERStaticData/vehicle/id/" + id, HttpMethod.GET, null,
-				new ParameterizedTypeReference<Vehicle>() {
+		ResponseEntity<Load> clientResponse = restTemplate.exchange("http://localhost:8081/ERStaticData/load/id/" + id,
+				HttpMethod.GET, null, new ParameterizedTypeReference<Load>() {
 				});
 
 		return clientResponse.getBody();
 	}
 
 	public void deleteLoad(String id) {
-		restTemplate.delete("http://localhost:8081/ERStaticData/vehicle/id/" + id);
+		restTemplate.delete("http://localhost:8081/ERStaticData/load/id/" + id);
 		return;
 	}
 
-	public void addLoad(Vehicle vehicle) {
+	public void addLoad(Load load) {
 
-		HttpEntity<Vehicle> request = new HttpEntity<>(vehicle);
-		ResponseEntity<Vehicle> response = restTemplate.exchange("http://localhost:8081/ERStaticData/vehicle/create",
-				HttpMethod.POST, request, Vehicle.class);
+		HttpEntity<Load> request = new HttpEntity<>(load);
+		ResponseEntity<Load> response = restTemplate.exchange("http://localhost:8081/ERStaticData/load/create",
+				HttpMethod.POST, request, Load.class);
 
 		return;
 	}
@@ -53,13 +52,23 @@ public class LoadService {
 		return clientResponse.getBody();
 	}
 
-	/*
-	 * public void updateVehicle(String id, Vehicle user) {
-	 * user.setCreatedby(getUsersByUserId(id).getCreatedby()); HttpEntity<User>
-	 * request = new HttpEntity<>(user); ResponseEntity<User> response =
-	 * restTemplate.exchange("http://localhost:8081/ERStaticData/vehicle/id/" + id,
-	 * HttpMethod.PUT, request, User.class);
-	 * 
-	 * return; }
-	 */
+	public List<Load> getLoadByClientId(String cid) {
+
+		ResponseEntity<List<Load>> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/ERStaticData/load/clientid/" + cid, HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<Load>>() {
+				});
+
+		return clientResponse.getBody();
+	}
+
+	public void updateLoad(String lid, Load load) {
+		load.setCreatedby(getLoadById(lid).getCreatedby());
+		HttpEntity<Load> request = new HttpEntity<>(load);
+		ResponseEntity<Load> response = restTemplate.exchange("http://localhost:8081/ERStaticData/load/id/" + lid,
+				HttpMethod.PUT, request, Load.class);
+
+		return;
+	}
+
 }

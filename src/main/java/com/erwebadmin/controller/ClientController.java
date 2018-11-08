@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.erwebadmin.model.Client;
 import com.erwebadmin.service.ClientService;
+import com.erwebadmin.service.LoadService;
 import com.erwebadmin.service.UserService;
 import com.erwebadmin.service.VehicleService;
 
@@ -27,6 +28,9 @@ public class ClientController {
 	
 	@Autowired
 	VehicleService vehicleService;
+	
+	@Autowired
+	LoadService loadService;
 
 	@RequestMapping(value = "/find-client", method = RequestMethod.GET)
 	public String findClients(ModelMap model, @RequestParam String type) {
@@ -90,6 +94,7 @@ public class ClientController {
 			model.put("vehicles", vehicleService.getVehiclesByclientId(cid));
 		} else if (client.getClienttype() != null && client.getClienttype().equalsIgnoreCase("S")) {
 			model.put("title", "Supplier");
+			model.put("loads", loadService.getLoadByClientId(cid));
 		} else if (client.getClienttype() != null && client.getClienttype().equalsIgnoreCase("A")) {
 			model.put("title", "Administrator");
 		}
