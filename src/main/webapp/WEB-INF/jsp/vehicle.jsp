@@ -81,7 +81,7 @@
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="opcost">Operational Cost (£)</label>
+								<label for="opcost">Operational Cost (£)/Month</label>
 								<form:input class="form-control" name="opcost" path="opcost"
 									type="text" />
 								<p class="note">

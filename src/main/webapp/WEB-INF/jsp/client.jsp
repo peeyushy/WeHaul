@@ -209,8 +209,9 @@
 													<td><a
 														href="/edit-vehicle?cid=${client.clientid}&vid=${vehicle.vid}">${vehicle.regno}</a></td>
 													<td>${vehicle.vtype.vtypename}</td>
-													<td><c:forEach items="${vehicle.ltype}" var="ltype">
-													${ltype.ltypename}
+													<td><c:forEach items="${vehicle.ltype}" var="ltype"
+															varStatus="loop">
+													${ltype.ltypename}<c:if test="${!loop.last}">,</c:if>
 														</c:forEach></td>
 													<td>${vehicle.status}</td>
 													<td><a
