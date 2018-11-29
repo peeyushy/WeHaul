@@ -31,21 +31,21 @@ public class VehicleController {
 
 	@Autowired
 	ClientService clientService;
-	
+
 	@Autowired
 	VehicleService vehicleService;
-	
+
 	@Autowired
 	LoadService loadService;
-	
 
 	@RequestMapping(value = "/delete-vehicle", method = RequestMethod.GET)
-	public String deleteVehicle(ModelMap model, @RequestParam String cid, @RequestParam String vid,
+	public String deleteVehicle(ModelMap model, @RequestParam String vid,
 			final RedirectAttributes redirectAttributes) {
-		String msg="Vehicle "+vehicleService.getVehicleById(vid).getRegno()+" deleted successfully!";
+		Vehicle vehicle=vehicleService.getVehicleById(vid);
+		String msg = "Vehicle " +vehicle.getRegno()  + " deleted successfully!";
 		vehicleService.deleteVehicle(vid);
 		redirectAttributes.addFlashAttribute("msg", msg);
-		return "redirect:/edit-client?cid=" + cid;
+		return "redirect:/edit-client?cid=" + vehicle.getClient().getClientid();
 	}
 
 	@RequestMapping(value = "/add-vehicle", method = RequestMethod.GET)
@@ -57,14 +57,14 @@ public class VehicleController {
 		for (VehicleType vehicleType : vehicleService.getAllActiveVehicleType()) {
 			vTypeMap.put(vehicleType.getVtypeid().toString(), vehicleType.getVtypename());
 		}
-		
+
 		Map<String, String> lTypeMap = new LinkedHashMap<String, String>();
 		for (LoadType lType : loadService.getAllActiveLoadType()) {
 			lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
 		}
 		model.put("vTypeMap", vTypeMap);
 		model.put("lTypeMap", lTypeMap);
-		model.put("vehicle",new Vehicle(Long.valueOf(cid)));
+		model.put("vehicle", new Vehicle(clientService.getClient(cid)));
 		return "vehicle";
 	}
 
@@ -76,7 +76,7 @@ public class VehicleController {
 			for (VehicleType vehicleType : vehicleService.getAllActiveVehicleType()) {
 				vTypeMap.put(vehicleType.getVtypeid().toString(), vehicleType.getVtypename());
 			}
-			
+
 			Map<String, String> lTypeMap = new LinkedHashMap<String, String>();
 			for (LoadType lType : loadService.getAllActiveLoadType()) {
 				lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
@@ -84,26 +84,27 @@ public class VehicleController {
 			model.put("vTypeMap", vTypeMap);
 			model.put("lTypeMap", lTypeMap);
 			return "vehicle";
-		}else {
+		} else {
 			vehicle.setCreatedby(userService.getLoggedinUserName());
 			vehicle.setLastupdatedby(userService.getLoggedinUserName());
-			vehicle.setClientid(Long.valueOf(cid));			
-			vehicleService.addVehicle(vehicle);		
-			redirectAttributes.addFlashAttribute("msg", "Vehicle reg no : "+vehicle.getRegno()+" added successfully!");
-			return "redirect:/edit-client?cid=" + cid;	
-		}		
+			vehicle.setClient(clientService.getClient(cid));
+			vehicleService.addVehicle(vehicle);
+			redirectAttributes.addFlashAttribute("msg",
+					"Vehicle reg no : " + vehicle.getRegno() + " added successfully!");
+			return "redirect:/edit-client?cid=" + cid;
+		}
 	}
 
 	@RequestMapping(value = "/edit-vehicle", method = RequestMethod.GET)
-	public String showEditVehiclePage(ModelMap model, @RequestParam String vid, @RequestParam String cid) {
+	public String showEditVehiclePage(ModelMap model, @RequestParam String vid) {
 		model.put("action", "Edit");
 		Vehicle vehicle = vehicleService.getVehicleById(vid);
-		
+
 		Map<String, String> vTypeMap = new LinkedHashMap<String, String>();
 		for (VehicleType vehicleType : vehicleService.getAllActiveVehicleType()) {
 			vTypeMap.put(vehicleType.getVtypeid().toString(), vehicleType.getVtypename());
 		}
-		
+
 		Map<String, String> lTypeMap = new LinkedHashMap<String, String>();
 		for (LoadType lType : loadService.getAllActiveLoadType()) {
 			lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
@@ -115,23 +116,22 @@ public class VehicleController {
 		model.put("selectedlType", vehicle.getLtype());
 
 		model.put("vehicle", vehicle);
-		model.put("cid", cid);
 		return "vehicle";
 	}
 
 	@RequestMapping(value = "/edit-vehicle", method = RequestMethod.POST)
-	public String updateVehicle(ModelMap model, @RequestParam String cid, @RequestParam String vid, @Valid Vehicle vehicle,
-			BindingResult result, final RedirectAttributes redirectAttributes) {
+	public String updateVehicle(ModelMap model, @RequestParam String cid, @RequestParam String vid, @Valid Vehicle vehicle, BindingResult result,
+			final RedirectAttributes redirectAttributes) {
 		model.put("action", "Edit");
 
 		if (result.hasErrors()) {
 			return "vehicle";
 		} else {
-			vehicle.setLastupdatedby(userService.getLoggedinUserName());			
-			vehicle.setClientid(Long.parseLong(cid));
+			vehicle.setLastupdatedby(userService.getLoggedinUserName());
+			vehicle.setClient(clientService.getClient(cid));
 			vehicleService.updateVehicle(vid, vehicle);
 			// Add message to flash scope
-			redirectAttributes.addFlashAttribute("msg", "Vehicle "+vehicle.getRegno()+" updated successfully!");
+			redirectAttributes.addFlashAttribute("msg", "Vehicle " + vehicle.getRegno() + " updated successfully!");
 			return "redirect:/edit-client?cid=" + cid;
 		}
 	}

@@ -61,6 +61,17 @@ public class LoadService {
 
 		return clientResponse.getBody();
 	}
+	
+	public List<Load> getLoadByVehicleId(String vid) {
+
+		ResponseEntity<List<Load>> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/ERStaticData/load/vehicleid/" + vid, HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<Load>>() {
+				});
+
+		return clientResponse.getBody();
+	}
+
 
 	public void updateLoad(String lid, Load load) {
 		load.setCreatedby(getLoadById(lid).getCreatedby());

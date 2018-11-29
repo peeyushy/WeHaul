@@ -38,6 +38,17 @@ public class VehicleService {
 
 		return clientResponse.getBody();
 	}
+	
+	public List<Vehicle> getVehiclesByLoadId(String lid) {
+
+		ResponseEntity<List<Vehicle>> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/ERStaticData/vehicle/loadid/" + lid, HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<Vehicle>>() {
+				});
+
+		return clientResponse.getBody();
+	}
+
 
 	public void deleteVehicle(String id) {
 		restTemplate.delete("http://localhost:8081/ERStaticData/vehicle/id/" + id);

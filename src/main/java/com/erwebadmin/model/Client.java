@@ -42,6 +42,10 @@ public class Client implements Serializable {
 	private int revid;
 
 	private List<User> users;
+	
+	private List<Vehicle> vehicle;
+	
+	private List<Load> load;
 
 	private Date CREATEDAT;
 
@@ -186,6 +190,34 @@ public class Client implements Serializable {
 
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}	
+
+	/**
+	 * @return the vehicle
+	 */
+	public List<Vehicle> getVehicle() {
+		return vehicle;
+	}
+
+	/**
+	 * @param vehicle the vehicle to set
+	 */
+	public void setVehicle(List<Vehicle> vehicle) {
+		this.vehicle = vehicle;
+	}	
+
+	/**
+	 * @return the load
+	 */
+	public List<Load> getLoad() {
+		return load;
+	}
+
+	/**
+	 * @param load the load to set
+	 */
+	public void setLoad(List<Load> load) {
+		this.load = load;
 	}
 
 	public Date getCREATEDAT() {

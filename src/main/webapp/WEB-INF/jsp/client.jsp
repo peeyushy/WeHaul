@@ -199,6 +199,7 @@
 												<th>Vehicle No</th>
 												<th>Vehicle Type</th>
 												<th>Load Type</th>
+												<th>Available Load</th>
 												<th>Status</th>
 												<th>Action</th>
 											</tr>
@@ -213,6 +214,7 @@
 															varStatus="loop">
 													${ltype.ltypename}<c:if test="${!loop.last}">,</c:if>
 														</c:forEach></td>
+													<td>${fn:length(vehicle.loads)}</td>
 													<td>${vehicle.status}</td>
 													<td><a
 														href="/delete-vehicle?cid=${client.clientid}&vid=${vehicle.vid}"
@@ -236,7 +238,7 @@
 												<th>Pick-Up Location</th>
 												<th>Drop Location</th>
 												<th>Load Type</th>
-												<th>Date Time (DD/MM/YYYY hh:mm)</th>
+												<th>Available Vehicle</th>
 												<th>Status</th>
 												<th>Action</th>
 											</tr>
@@ -249,11 +251,12 @@
 													<td>${load.lpickuploc}</td>
 													<td>${load.ldroploc}</td>
 													<td>${load.ltype.ltypename}</td>
-													<fmt:parseDate value="${load.ldatetime}"
+													<%-- <fmt:parseDate value="${load.ldatetime}"
 														pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
 														type="both" />
 													<td><fmt:formatDate pattern="dd/MM/yyyy HH:mm"
-															value="${parsedDateTime}" /></td>
+															value="${parsedDateTime}" /></td> --%>
+													<td>${fn:length(load.vehicles)}</td>
 													<td>${load.status}</td>
 													<td><a
 														href="/delete-load?cid=${client.clientid}&lid=${load.lid}"

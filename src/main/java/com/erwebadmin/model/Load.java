@@ -3,6 +3,7 @@ package com.erwebadmin.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -28,9 +29,11 @@ public class Load implements Serializable {
 
 	private String status;
 
-	private Long clientid;
+	private Client client;
 
 	private String comments;
+	
+	private List<Vehicle> vehicles;
 
 	private Date CREATEDAT;
 
@@ -168,20 +171,14 @@ public class Load implements Serializable {
 		} else {
 			this.status = status;
 		}
+	}	
+
+	public Client getClient() {
+		return client;
 	}
 
-	/**
-	 * @return the clientid
-	 */
-	public Long getClientid() {
-		return clientid;
-	}
-
-	/**
-	 * @param clientid the clientid to set
-	 */
-	public void setClientid(Long clientid) {
-		this.clientid = clientid;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	/**
@@ -196,6 +193,20 @@ public class Load implements Serializable {
 	 */
 	public void setComments(String comments) {
 		this.comments = comments;
+	}	
+
+	/**
+	 * @return the vehicles
+	 */
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
+	/**
+	 * @param vehicles the vehicles to set
+	 */
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
 	}
 
 	/**
@@ -265,7 +276,7 @@ public class Load implements Serializable {
 		int result = 1;
 		result = prime * result + ((CREATEDAT == null) ? 0 : CREATEDAT.hashCode());
 		result = prime * result + ((UPDATEDAT == null) ? 0 : UPDATEDAT.hashCode());
-		result = prime * result + ((clientid == null) ? 0 : clientid.hashCode());
+		result = prime * result + ((client == null) ? 0 : client.hashCode());
 		result = prime * result + ((comments == null) ? 0 : comments.hashCode());
 		result = prime * result + ((createdby == null) ? 0 : createdby.hashCode());
 		result = prime * result + (lassistance ? 1231 : 1237);
@@ -305,10 +316,10 @@ public class Load implements Serializable {
 				return false;
 		} else if (!UPDATEDAT.equals(other.UPDATEDAT))
 			return false;
-		if (clientid == null) {
-			if (other.clientid != null)
+		if (client == null) {
+			if (other.client != null)
 				return false;
-		} else if (!clientid.equals(other.clientid))
+		} else if (!client.equals(other.client))
 			return false;
 		if (comments == null) {
 			if (other.comments != null)
@@ -361,9 +372,9 @@ public class Load implements Serializable {
 		return true;
 	}
 
-	public Load(@NotNull Long clientid) {
+	public Load(@NotNull Client client) {
 		super();
-		this.clientid = clientid;
+		this.client = client;
 	}
 
 	public Load() {

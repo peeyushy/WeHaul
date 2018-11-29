@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.erwebadmin.model.Load;
 import com.erwebadmin.model.LoadType;
+import com.erwebadmin.service.ClientService;
 import com.erwebadmin.service.LoadService;
 import com.erwebadmin.service.UserService;
 
@@ -28,6 +29,8 @@ public class LoadController {
 	@Autowired
 	LoadService loadService;
 	
+	@Autowired
+	ClientService clientService;
 
 	@RequestMapping(value = "/delete-load", method = RequestMethod.GET)
 	public String deleteLoad(ModelMap model, @RequestParam String cid, @RequestParam String lid,
@@ -49,7 +52,7 @@ public class LoadController {
 		}
 		
 		model.put("lTypeMap", lTypeMap);
-		model.put("load",new Load(Long.valueOf(cid)));
+		model.put("load",new Load(clientService.getClient(cid)));
 		return "load";
 	}
 
@@ -68,7 +71,7 @@ public class LoadController {
 		}else {
 			load.setCreatedby(userService.getLoggedinUserName());
 			load.setLastupdatedby(userService.getLoggedinUserName());
-			load.setClientid(Long.valueOf(cid));			
+			load.setClient(clientService.getClient(cid));			
 			loadService.addLoad(load);		
 			redirectAttributes.addFlashAttribute("msg", "Load added successfully!");
 			return "redirect:/edit-client?cid=" + cid;
@@ -110,7 +113,7 @@ public class LoadController {
 			return "load";
 		} else {
 			load.setLastupdatedby(userService.getLoggedinUserName());			
-			load.setClientid(Long.parseLong(cid));
+			load.setClient(clientService.getClient(cid));
 			loadService.updateLoad(lid, load);
 			// Add message to flash scope
 			redirectAttributes.addFlashAttribute("msg", "Load "+load.getLid()+" updated successfully!");

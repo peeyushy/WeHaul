@@ -1,5 +1,7 @@
 package com.erwebadmin.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.erwebadmin.model.Client;
+import com.erwebadmin.model.Load;
+import com.erwebadmin.model.Vehicle;
 import com.erwebadmin.service.ClientService;
 import com.erwebadmin.service.LoadService;
 import com.erwebadmin.service.UserService;
@@ -25,10 +29,10 @@ public class ClientController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	VehicleService vehicleService;
-	
+
 	@Autowired
 	LoadService loadService;
 
@@ -91,10 +95,18 @@ public class ClientController {
 		Client client = clientService.getClient(cid);
 		if (client.getClienttype() != null && client.getClienttype().equalsIgnoreCase("T")) {
 			model.put("title", "Transporter");
-			model.put("vehicles", vehicleService.getVehiclesByclientId(cid));
+			List<Vehicle> vehicles = vehicleService.getVehiclesByclientId(cid);
+			for (Vehicle eachVehicle : vehicles) {
+				eachVehicle.setLoads(loadService.getLoadByVehicleId(eachVehicle.getVid().toString()));
+			}
+			model.put("vehicles", vehicles);
 		} else if (client.getClienttype() != null && client.getClienttype().equalsIgnoreCase("S")) {
 			model.put("title", "Supplier");
-			model.put("loads", loadService.getLoadByClientId(cid));
+			List<Load> loads = loadService.getLoadByClientId(cid);
+			for (Load eachLoad : loads) {
+				eachLoad.setVehicles(vehicleService.getVehiclesByLoadId(eachLoad.getLid().toString()));
+			}
+			model.put("loads", loads);
 		} else if (client.getClienttype() != null && client.getClienttype().equalsIgnoreCase("A")) {
 			model.put("title", "Administrator");
 		}

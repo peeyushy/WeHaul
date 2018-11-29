@@ -23,7 +23,9 @@ public class Vehicle implements Serializable {
 
 	private String status;
 
-	private Long clientid;
+	private Client client;
+	
+	private List<Load> loads = new ArrayList<>();
 
 	private Date CREATEDAT;
 
@@ -38,9 +40,9 @@ public class Vehicle implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Vehicle(Long clientid) {
+	public Vehicle(Client client) {
 		super();
-		this.clientid = clientid;
+		this.client = client;
 	}
 
 	/**
@@ -143,21 +145,28 @@ public class Vehicle implements Serializable {
 		} else {
 			this.status = status;
 		}
+	}	
+
+	public Client getClient() {
+		return client;
 	}
 
-	
+	public void setClient(Client client) {
+		this.client = client;
+	}	
+
 	/**
-	 * @return the clientid
+	 * @return the loads
 	 */
-	public Long getClientid() {
-		return clientid;
+	public List<Load> getLoads() {
+		return loads;
 	}
 
 	/**
-	 * @param clientid the clientid to set
+	 * @param loads the loads to set
 	 */
-	public void setClientid(Long clientid) {
-		this.clientid = clientid;
+	public void setLoads(List<Load> loads) {
+		this.loads = loads;
 	}
 
 	/**
@@ -228,7 +237,7 @@ public class Vehicle implements Serializable {
 		result = prime * result + ((CREATEDAT == null) ? 0 : CREATEDAT.hashCode());
 		result = prime * result + ((UPDATEDAT == null) ? 0 : UPDATEDAT.hashCode());
 		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
-		result = prime * result + ((clientid == null) ? 0 : clientid.hashCode());
+		result = prime * result + ((client == null) ? 0 : client.hashCode());
 		result = prime * result + ((createdby == null) ? 0 : createdby.hashCode());
 		result = prime * result + ((lastupdatedby == null) ? 0 : lastupdatedby.hashCode());
 		result = prime * result + ((ltype == null) ? 0 : ltype.hashCode());
@@ -269,10 +278,10 @@ public class Vehicle implements Serializable {
 				return false;
 		} else if (!avatar.equals(other.avatar))
 			return false;
-		if (clientid == null) {
-			if (other.clientid != null)
+		if (client == null) {
+			if (other.client != null)
 				return false;
-		} else if (!clientid.equals(other.clientid))
+		} else if (!client.equals(other.client))
 			return false;
 		if (createdby == null) {
 			if (other.createdby != null)
@@ -319,7 +328,7 @@ public class Vehicle implements Serializable {
 	@Override
 	public String toString() {
 		return "Vehicle [vid=" + vid + ", regno=" + regno + ", vtype=" + vtype + ", ltype=" + ltype + ", avatar="
-				+ avatar + ", opcost=" + opcost + ", status=" + status + ", client=" + clientid + ", CREATEDAT="
+				+ avatar + ", opcost=" + opcost + ", status=" + status + ", client=" + client + ", CREATEDAT="
 				+ CREATEDAT + ", UPDATEDAT=" + UPDATEDAT + ", createdby=" + createdby + ", lastupdatedby="
 				+ lastupdatedby + "]";
 	}
