@@ -10,12 +10,7 @@
 			format : 'dd/mm/yyyy hh:ii',
 			autoclose : true,
 			todayBtn : true,
-			icons : {
-				time : "fa fa-clock-o",
-				date : "fa fa-calendar",
-				right : "fa fa-arrow-up",
-				leftArrow : "fa fa-arrow-down"
-			}
+			fontAwesome: true
 		});
 	});
 </script>
