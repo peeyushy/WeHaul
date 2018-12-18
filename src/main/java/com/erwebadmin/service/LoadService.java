@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.erwebadmin.dto.LoadSearchOptionsDto;
 import com.erwebadmin.model.Load;
 import com.erwebadmin.model.LoadType;
 
@@ -61,7 +62,7 @@ public class LoadService {
 
 		return clientResponse.getBody();
 	}
-	
+
 	public List<Load> getLoadByVehicleId(String vid) {
 
 		ResponseEntity<List<Load>> clientResponse = restTemplate.exchange(
@@ -72,6 +73,15 @@ public class LoadService {
 		return clientResponse.getBody();
 	}
 
+	public List<Load> getLoadBySearchOptions(LoadSearchOptionsDto loadSearchOptions) {
+		HttpEntity<LoadSearchOptionsDto> request = new HttpEntity<>(loadSearchOptions);
+		ResponseEntity<List<Load>> response = restTemplate.exchange(
+				"http://localhost:8081/ERStaticData/load/searchoptions/", HttpMethod.POST, request,
+				new ParameterizedTypeReference<List<Load>>() {
+				});
+
+		return response.getBody();
+	}
 
 	public void updateLoad(String lid, Load load) {
 		load.setCreatedby(getLoadById(lid).getCreatedby());

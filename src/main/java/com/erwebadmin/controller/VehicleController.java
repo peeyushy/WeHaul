@@ -96,7 +96,7 @@ public class VehicleController {
 	}
 
 	@RequestMapping(value = "/edit-vehicle", method = RequestMethod.GET)
-	public String showEditVehiclePage(ModelMap model, @RequestParam String vid) {
+	public String showEditVehiclePage(ModelMap model, @RequestParam String vid, @RequestParam String cid) {
 		model.put("action", "Edit");
 		Vehicle vehicle = vehicleService.getVehicleById(vid);
 
@@ -116,6 +116,7 @@ public class VehicleController {
 		model.put("selectedlType", vehicle.getLtype());
 
 		model.put("vehicle", vehicle);
+		model.put("cid", cid);
 		return "vehicle";
 	}
 

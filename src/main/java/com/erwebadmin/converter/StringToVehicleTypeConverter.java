@@ -8,6 +8,11 @@ public class StringToVehicleTypeConverter implements Converter<String, VehicleTy
 
 	@Override
 	public VehicleType convert(String id) {
-		return new VehicleType(Long.parseLong(id));
+		if(id.equalsIgnoreCase("select")) {
+			return new VehicleType();
+		}else {
+			return new VehicleType(Long.parseLong(id));	
+		}
+		
 	}
 }
