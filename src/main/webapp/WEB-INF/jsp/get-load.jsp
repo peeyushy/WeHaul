@@ -21,6 +21,8 @@
 			//minView : 2,//gets date only format drop time selection
 			fontAwesome : true
 		});
+
+		$('#table_LoadSearchResults').DataTable();
 	});
 </script>
 <!-- Page Content -->
@@ -35,72 +37,7 @@
 		</div>
 		<div class="row">
 			<form:form method="post" modelAttribute="loadSearchOptionsDto">
-				<div class="col-lg-8">
-					<c:set var="getloadErrors">
-						<form:errors path="*" />
-					</c:set>
-					<c:if test="${not empty getloadErrors}">
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="alert alert-danger alert-dismissible">
-									<a href="#" class="close" data-dismiss="alert"
-										aria-label="close">&times;</a> ${getloadErrors}
-								</div>
-							</div>
-						</div>
-					</c:if>
-					<div class="row">
-						<c:forEach items="${LoadSearchResults}" var="load">
-
-							<div class="col-md-6">
-								<div class="card">
-									<div class="card-image">
-										<img class="img-responsive" src="/img/18122018.jpg"> <span
-											class="card-title">${load.lpickuploc} - ${load.ldroploc}</span>
-									</div>
-
-									<div class="card-content">
-										<div class="row" style="text-align: justify">
-											<div class="col-xs-6" data-toggle="tooltip"
-												data-placement="left"
-												title="Load type">
-												${load.ltype.ltypename}</div>
-											<div class="col-xs-6" data-toggle="tooltip"
-												data-placement="left" title="Travel date and time.">
-												<span class="pull-right"><i class="fa fa-calendar"></i>
-													${load.ldatetime}</span>
-											</div>
-										</div>
-										<!--<hr style="margin: 10px 0"/>-->
-									</div>
-
-									<div class="card-action" style="min-height: 60px">
-										<div class="row">
-											<div class="col-xs-4" data-toggle="tooltip"
-												data-placement="left"
-												title="Cost of this load is further negotiable.">
-												<span class="pull-left badge">£ 700</span>
-											</div>
-											<div class="col-xs-8">
-												<div class="pull-right btn-group btn-group-xs">
-													<button
-														onclick="window.location.href='./vehicle-details.html'"
-														type="button" class="btn btn-success"
-														data-toggle="tooltip"
-														data-placement="left"
-														title="Click to get the details of this load.">DETAILS</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
-
-					</div>
-				</div>
-
-				<div class="col-lg-4 col-md-4">
+				<div class="col-lg-3">
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<div class="media">
@@ -118,7 +55,7 @@
 										class="form-control" id="ldroploc" onFocus="geolocate()"
 										placeholder="To" />
 									<h5>
-										<strong>Date Range Start</strong>
+										<strong>Date Start</strong>
 									</h5>
 									<div class='input-group date' id='datetimepicker1'>
 										<form:input type='text' class="form-control"
@@ -129,7 +66,7 @@
 										</span>
 									</div>
 									<h5>
-										<strong>Date Range End</strong>
+										<strong>Date End</strong>
 									</h5>
 									<div class='input-group date' id='datetimepicker2'>
 										<form:input type='text' class="form-control"
@@ -144,9 +81,9 @@
 									</h5>
 									<form:select class="form-control" path="vehicle.vtype">
 										<option>Select</option>
-										<c:forEach var="vtype" items="${vTypeMap}">											
+										<c:forEach var="vtype" items="${vTypeMap}">
 											<option value="${vtype.key}"
-											${vtype.key == selectedvType ? 'selected="selected"' : ''}>${vtype.value}</option>
+												${vtype.key == selectedvType ? 'selected="selected"' : ''}>${vtype.value}</option>
 										</c:forEach>
 									</form:select>
 									<hr>
@@ -160,6 +97,50 @@
 					</div>
 				</div>
 			</form:form>
+
+			<div class="col-lg-9">
+				<c:set var="getloadErrors">
+					<form:errors path="*" />
+				</c:set>
+				<c:if test="${not empty getloadErrors}">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="alert alert-danger alert-dismissible">
+								<a href="#" class="close" data-dismiss="alert"
+									aria-label="close">&times;</a> ${getloadErrors}
+							</div>
+						</div>
+					</div>
+				</c:if>
+				<div class="row">
+
+					<table id="table_LoadSearchResults" class="display">
+						<thead>
+							<tr>
+								<th>Pick-Up Location</th>
+								<th>Drop Location</th>
+								<th>Load Type</th>
+								<!-- <th>Load Assistance</th> -->
+								<th>Date Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${LoadSearchResults}" var="load">
+								<tr>
+									<td>${load.lpickuploc}</td>
+									<td>${load.ldroploc}</td>
+									<td>${load.ltype.ltypename}</td>
+									<%-- <td>${load.lassistance}</td> --%>
+									<td>
+									<fmt:parseDate value="${load.ldatetime}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+									<fmt:formatDate pattern="dd/MM/yyyy HH:mm"
+											value="${parsedDateTime}" /></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- /.container -->

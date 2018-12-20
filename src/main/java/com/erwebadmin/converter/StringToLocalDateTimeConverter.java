@@ -12,13 +12,17 @@ public class StringToLocalDateTimeConverter implements Converter<String, LocalDa
 	@Override
 	public LocalDateTime convert(String source) {
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-		java.util.Date parsedDate = null;
-		try {
-			parsedDate = dateFormat.parse(source);
-		} catch (ParseException e) {
-			e.printStackTrace();
+		if (source.isEmpty()) {
+			return null;
+		} else {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+			java.util.Date parsedDate = null;
+			try {
+				parsedDate = dateFormat.parse(source);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			return parsedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 		}
-		return parsedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 	}
 }

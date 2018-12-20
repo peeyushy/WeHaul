@@ -11,14 +11,17 @@ public class StringToLocalDateConverter implements Converter<String, LocalDate> 
 
 	@Override
 	public LocalDate convert(String source) {
-
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		java.util.Date parsedDate = null;
-		try {
-			parsedDate = dateFormat.parse(source);
-		} catch (ParseException e) {
-			e.printStackTrace();
+		if (source.isEmpty()) {
+			return null;
+		} else {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			java.util.Date parsedDate = null;
+			try {
+				parsedDate = dateFormat.parse(source);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			return parsedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		}
-		return parsedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 }
