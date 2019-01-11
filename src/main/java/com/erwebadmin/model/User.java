@@ -24,7 +24,7 @@ public class User implements Serializable {
 
 	private String notificationtype;
 
-	private String status;
+	private boolean active = true;
 
 	private Role role;
 
@@ -42,11 +42,11 @@ public class User implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public User(Client client) {
 		super();
 		this.client = client;
-	}	
+	}
 
 	public User(Long userid) {
 		super();
@@ -109,16 +109,18 @@ public class User implements Serializable {
 		this.notificationtype = notificationtype;
 	}
 
-	public String getStatus() {
-		return status;
+	/**
+	 * @return the active
+	 */
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setStatus(String status) {
-		if (status.equals("DISABLED,ACTIVE")) {
-			this.status = "ACTIVE";
-		} else {
-			this.status = status;
-		}
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public Role getRole() {

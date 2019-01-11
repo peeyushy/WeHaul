@@ -12,7 +12,7 @@ function initAutocomplete() {
 	var options = {
 		types : [ '(cities)' ],
 		componentRestrictions : {
-			country : "uk"
+			country : "in"
 		}
 	};
 

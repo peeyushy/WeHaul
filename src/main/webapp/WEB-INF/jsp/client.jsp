@@ -57,61 +57,6 @@
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="addressline1">Address Line1</label>
-								<form:input type="text" name="addressline1" path="addressline1"
-									class="form-control" placeholder="Address" />
-								<p class="note">Address of the client.</p>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="addressline2">Address Line2</label>
-								<form:input type="text" name="addressline2" path="addressline2"
-									class="form-control" placeholder="Address" />
-								<p class="note">Address of the client.</p>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="city">Town/City</label>
-								<form:input type="text" name="city" path="city"
-									class="form-control" placeholder="Town/City" />
-								<p class="note">Town/City of the client.</p>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="postcode">Postcode</label>
-								<form:input type="text" name="postcode" path="postcode"
-									class="form-control" placeholder="Postcode" />
-								<p class="note">Postcode of the client.</p>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="country">Country</label>
-								<form:select name="country" path="country" class="form-control">
-									<option value="UK">United Kingdom</option>
-								</form:select>
-								<p class="note">Country client is registered.</p>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="website">Website</label>
-								<form:input type="text" name="website" path="website"
-									class="form-control" placeholder="www.client.com" />
-								<p class="note">Website of the client.</p>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="form-group">
 								<label for="contactno">Contact No</label>
 								<form:input type="text" name="contactno" path="contactno"
 									class="form-control" placeholder="01234567890"
@@ -121,10 +66,37 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-12">
+						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="email">Client Logo</label>
-								<form:input type="file" path="clientlogo" />
+								<label for="addressline2">Full Address</label>
+								<form:textarea name="address" path="address"
+									class="form-control" placeholder="Full Address" rows="3" />
+								<p class="note">Address of the client.</p>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="contactno">Email Address</label>
+								<form:input type="text" name="email" path="email"
+									class="form-control" placeholder="something@gmail.com" />
+								<p class="note">Client email address.</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group form-group">
+								<form:checkbox id="broker" path="broker" />
+								<label for="broker">&nbsp;&nbsp;Broker</label>
+								<p class="note">Is this client a broker?</p>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group form-group">
+								<form:checkbox id="verified" path="verified" />
+								<label for="verified">&nbsp;&nbsp;Verified Client</label>
+								<p class="note">Is this client verified?</p>
 							</div>
 						</div>
 					</div>
@@ -281,7 +253,7 @@
 										<th>UserName</th>
 										<th>Email</th>
 										<th>Role</th>
-										<th>Status</th>
+										<th>Active</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -293,7 +265,7 @@
 											<td>${user.username}</td>
 											<td>${user.email}</td>
 											<td>${user.role.rolename}</td>
-											<td>${user.status}</td>
+											<td>${user.active}</td>
 											<td><a
 												href="/delete-user?cid=${client.clientid}&uid=${user.userid}"
 												onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
@@ -310,7 +282,9 @@
 							<div class="form-group">
 								<label for="comments">Comments</label>
 								<form:textarea name="comments" path="comments"
-									class="form-control" rows="5" />
+									class="form-control"
+									placeholder="Any other details like client website,email address,phone conversation etc."
+									rows="5" />
 							</div>
 							<p class="note">Any additional comments by sales/operations
 								team.</p>
@@ -319,10 +293,8 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="form-group">
-								<form:input type="hidden" name="status" path="status"
-									value="DISABLED" />
-								<form:checkbox name="status" path="status" value="ACTIVE" />
-								<label for="status">&nbsp;&nbsp;Active</label>
+								<form:checkbox name="active" path="active" />
+								<label for="active">&nbsp;&nbsp;Active</label>
 								<p class="note">Uncheck to disable client. Please note this
 									will disable all users for this client.</p>
 							</div>
@@ -336,7 +308,7 @@
 						<c:if test="${action=='Edit'}">
 							<a href="/find-client?type=${client.clienttype}"
 								class="btn btn-default btn-lg btn-style">&larr; Back</a>&nbsp;
-							<c:if test="${client.status=='ACTIVE'}">
+							<c:if test="${client.active}">
 								<c:choose>
 									<c:when test="${client.clienttype=='T'}">
 										<a href="/add-vehicle?cid=${client.clientid}"
@@ -352,7 +324,7 @@
 							</c:if>
 						</c:if>
 						<form:button type="submit"
-							class="btn btn-default btn-lg btn-style">Save</form:button>
+							class="btn btn-default btn-lg btn-style" name="saveBtn">Save</form:button>
 					</div>
 				</div>
 			</div>

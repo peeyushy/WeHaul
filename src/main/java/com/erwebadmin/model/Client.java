@@ -19,32 +19,25 @@ public class Client implements Serializable {
 
 	private String contactno;
 
-	private String country;
+	private String address;
 
-	private String city;
+	private boolean broker = true;
+	
+	private boolean verified = false;
 
-	private String addressline1;
-
-	private String addressline2;
-
-	private String postcode;
-
-	private String website;
-
-	// blob column
-	private String clientlogo;
-
-	// blob
+	// later blob
 	private String comments;
+	
+	private String email;
 
-	private String status;
+	private boolean active  = true;
 
 	private int revid;
 
 	private List<User> users;
-	
+
 	private List<Vehicle> vehicle;
-	
+
 	private List<Load> load;
 
 	private Date CREATEDAT;
@@ -94,60 +87,32 @@ public class Client implements Serializable {
 		this.clienttype = clienttype;
 	}
 
-	public String getCountry() {
-		return country;
+	/**
+	 * @return the broker
+	 */
+	public boolean isBroker() {
+		return broker;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	/**
+	 * @param broker the broker to set
+	 */
+	public void setBroker(boolean broker) {
+		this.broker = broker;
+	}	
+
+	/**
+	 * @return the verified
+	 */
+	public boolean isVerified() {
+		return verified;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getAddressline1() {
-		return addressline1;
-	}
-
-	public void setAddressline1(String addressline1) {
-		this.addressline1 = addressline1;
-	}
-
-	public String getAddressline2() {
-		return addressline2;
-	}
-
-	public void setAddressline2(String addressline2) {
-		this.addressline2 = addressline2;
-	}
-
-	public String getPostcode() {
-		return postcode;
-	}
-
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
-	}
-
-	public String getWebsite() {
-		return website;
-	}
-
-	public void setWebsite(String website) {
-		this.website = website;
-	}
-
-	public String getClientlogo() {
-		return clientlogo;
-	}
-
-	public void setClientlogo(String clientlogo) {
-		this.clientlogo = clientlogo;
+	/**
+	 * @param verified the verified to set
+	 */
+	public void setVerified(boolean verified) {
+		this.verified = verified;
 	}
 
 	public String getComments() {
@@ -156,18 +121,34 @@ public class Client implements Serializable {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}	
+	
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
 	}
 
-	public String getStatus() {
-		return status;
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public void setStatus(String status) {
-		if (status.equals("DISABLED,ACTIVE")) {
-			this.status = "ACTIVE";
-		} else {
-			this.status = status;
-		}
+	/**
+	 * @return the active
+	 */
+	public boolean isActive() {
+		return active;
+	}
+
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	/**
@@ -190,7 +171,7 @@ public class Client implements Serializable {
 
 	public void setUsers(List<User> users) {
 		this.users = users;
-	}	
+	}
 
 	/**
 	 * @return the vehicle
@@ -204,7 +185,7 @@ public class Client implements Serializable {
 	 */
 	public void setVehicle(List<Vehicle> vehicle) {
 		this.vehicle = vehicle;
-	}	
+	}
 
 	/**
 	 * @return the load
@@ -258,5 +239,19 @@ public class Client implements Serializable {
 
 	public void setContactno(String contactno) {
 		this.contactno = contactno;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

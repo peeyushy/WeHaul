@@ -30,10 +30,10 @@
 					<thead>
 						<tr>
 							<th>Name</th>
-							<!-- <th>PostCode</th> -->
+							<th>Address</th>
 							<th>Contact No</th>
 							<!-- <th>Subscription Type</th> -->
-							<th>Status</th>
+							<th>Active</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -41,10 +41,10 @@
 						<c:forEach items="${clients}" var="client">
 							<tr>
 								<td><a href="/edit-client?cid=${client.clientid}">${client.clientname}</a></td>
-								<%-- <td>${client.postcode}</td> --%>
+								<td>${client.address}</td>
 								<td>${client.contactno}</td>
 								<%-- <td>${client.postcode}</td> --%>
-								<td>${client.status}</td>
+								<td>${fn:toUpperCase(client.active)}</td>
 								<td><a
 									href="/delete-client?type=${client.clienttype}&id=${client.clientid}" onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
 										class="fa fa-trash"></span></a></td>

@@ -55,23 +55,23 @@
 										class="form-control" id="ldroploc" onFocus="geolocate()"
 										placeholder="To" />
 									<h5>
-										<strong>Date Start</strong>
+										<strong>Start Date</strong>
 									</h5>
 									<div class='input-group date' id='datetimepicker1'>
 										<form:input type='text' class="form-control"
 											path="ldatetime_start" id="ldatetime_start"
-											placeholder="DD/MM/YYYY HH:MM" onkeypress="return false;" />
+											placeholder="dd/mm/yyyy hh:mm" onkeypress="return false;" />
 										<span class="input-group-addon"> <span
 											class="fa fa-calendar"></span>
 										</span>
 									</div>
 									<h5>
-										<strong>Date End</strong>
+										<strong>End Date</strong>
 									</h5>
 									<div class='input-group date' id='datetimepicker2'>
 										<form:input type='text' class="form-control"
 											path="ldatetime_end" id="ldatetime_end"
-											placeholder="DD/MM/YYYY HH:MM" onkeypress="return false;" />
+											placeholder="dd/mm/yyyy hh:mm" onkeypress="return false;" />
 										<span class="input-group-addon"> <span
 											class="fa fa-calendar"></span>
 										</span>
@@ -117,6 +117,7 @@
 					<table id="table_LoadSearchResults" class="display">
 						<thead>
 							<tr>
+								<th>Load ID</th>
 								<th>Pick-Up Location</th>
 								<th>Drop Location</th>
 								<th>Load Type</th>
@@ -127,6 +128,7 @@
 						<tbody>
 							<c:forEach items="${LoadSearchResults}" var="load">
 								<tr>
+									<td>${load.lid}</td>
 									<td>${load.lpickuploc}</td>
 									<td>${load.ldroploc}</td>
 									<td>${load.ltype.ltypename}</td>

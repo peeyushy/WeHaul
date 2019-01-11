@@ -125,9 +125,7 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="form-group">
-								<form:input type="hidden" name="status" path="status"
-									value="DISABLED" />
-								<form:checkbox name="status" path="status" value="ACTIVE" />
+								<form:checkbox name="active" path="active" />
 								<label for="flexidays">&nbsp;&nbsp;Active</label>
 								<p class="note">Uncheck to disable user.</p>
 							</div>

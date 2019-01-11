@@ -98,7 +98,7 @@
 
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="lassistance">Load Assistance</label>								
+								<label for="lassistance">Load Assistance</label>
 								<form:select class="form-control" path="lassistance">
 									<option>Select</option>
 									<c:choose>
@@ -110,7 +110,7 @@
 											<option>Yes</option>
 											<option selected="selected">No</option>
 										</c:otherwise>
-									</c:choose>									
+									</c:choose>
 								</form:select>
 								<p class="note">Load assistance means you are agreeing to
 									help in loading and unloading.</p>
@@ -140,13 +140,11 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="form-group">
-								<div class="form-group">
-									<form:checkbox id="ldatetimeflexi" path="ldatetimeflexi" />
-									<label for="flexidays">&nbsp;&nbsp;Flexible with the
-										above date and Time?</label>
-									<p class="note">Post will be dispalyed for +/- 3 days
-										searches, gives you more visibility.</p>
-								</div>
+								<form:checkbox id="ldatetimeflexi" path="ldatetimeflexi" />
+								<label for="flexidays">&nbsp;&nbsp;Flexible with the
+									above date and Time?</label>
+								<p class="note">Post will be dispalyed for +/- 3 days
+									searches, gives you more visibility.</p>
 							</div>
 						</div>
 					</div>
