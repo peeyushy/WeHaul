@@ -4,6 +4,7 @@
 	$(document).ready(function() {
 		$('#table_vehicles').DataTable();
 		$('#table_loads').DataTable();
+		$('#table_req').DataTable();
 		$('#table_users').DataTable();
 	});
 </script>
@@ -14,7 +15,7 @@
 			<div class="col-lg-12" id="panel">
 				<h2 class="section-heading">
 					<c:out value="${action}" />
-					<c:out value="${title}" />
+					Client
 				</h2>
 				<hr class="section-heading-spacer">
 				<div class="clearfix"></div>
@@ -57,6 +58,18 @@
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
+								<label for="clientname">Client Type</label>
+								<form:select class="form-control" name="clienttype"
+									path="clienttype">
+									<form:options items="${clientTypeMap}" />
+								</form:select>
+								<p class="note">Type of the client.</p>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
 								<label for="contactno">Contact No</label>
 								<form:input type="text" name="contactno" path="contactno"
 									class="form-control" placeholder="01234567890"
@@ -64,16 +77,18 @@
 								<p class="note">Client contact no.</p>
 							</div>
 						</div>
-					</div>
-					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="addressline2">Full Address</label>
-								<form:textarea name="address" path="address"
-									class="form-control" placeholder="Full Address" rows="3" />
-								<p class="note">Address of the client.</p>
+								<label for="role">City</label>
+								<form:select class="form-control" name="city" path="city">
+									<form:options items="${cityMap}" />
+								</form:select>
+								<p class="note">Client's home city.</p>
 							</div>
 						</div>
+					</div>
+
+					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="contactno">Email Address</label>
@@ -82,21 +97,21 @@
 								<p class="note">Client email address.</p>
 							</div>
 						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="addressline2">Full Address</label>
+								<form:textarea name="address" path="address"
+									class="form-control" placeholder="Full Address" rows="3" />
+								<p class="note">Address of the client.</p>
+							</div>
+						</div>
 					</div>
-
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group form-group">
-								<form:checkbox id="broker" path="broker" />
-								<label for="broker">&nbsp;&nbsp;Broker</label>
-								<p class="note">Is this client a broker?</p>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="form-group form-group">
 								<form:checkbox id="verified" path="verified" />
-								<label for="verified">&nbsp;&nbsp;Verified Client</label>
-								<p class="note">Is this client verified?</p>
+								<label for="verified">&nbsp;&nbsp;Verified</label>
+								<p class="note">Is this client's data verified?</p>
 							</div>
 						</div>
 					</div>
@@ -160,89 +175,119 @@
 							</div>
 						</div>
 					</div> -->
-					<c:choose>
-						<c:when test="${client.clienttype=='T'}">
-							<hr>
-							<div class="row">
-								<div class="col-lg-12">
-									<table id="table_vehicles" class="display">
-										<thead>
-											<tr>
-												<th>Vehicle No</th>
-												<th>Vehicle Type</th>
-												<th>Load Type</th>
-												<th>Available Load</th>
-												<th>Status</th>
-												<th>Action</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${vehicles}" var="vehicle">
-												<tr>
-													<td><a
-														href="/edit-vehicle?cid=${client.clientid}&vid=${vehicle.vid}">${vehicle.regno}</a></td>
-													<td>${vehicle.vtype.vtypename}</td>
-													<td><c:forEach items="${vehicle.ltype}" var="ltype"
-															varStatus="loop">
+
+<%--				<hr>
+ 					<div class="row">
+						<div class="col-lg-12">
+							<table id="table_vehicles" class="display">
+								<thead>
+									<tr>
+										<th>Vehicle No</th>
+										<th>Vehicle Type</th>
+										<th>Load Type</th>
+										<th>Available Load</th>
+										<th>Status</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${vehicles}" var="vehicle">
+										<tr>
+											<td><a
+												href="/edit-vehicle?cid=${client.clientid}&vid=${vehicle.vid}">${vehicle.regno}</a></td>
+											<td>${vehicle.vtype.vtypename}</td>
+											<td><c:forEach items="${vehicle.ltype}" var="ltype"
+													varStatus="loop">
 													${ltype.ltypename}<c:if test="${!loop.last}">,</c:if>
-														</c:forEach></td>
-													<td>${fn:length(vehicle.loads)}</td>
-													<td>${vehicle.status}</td>
-													<td><a
-														href="/delete-vehicle?cid=${client.clientid}&vid=${vehicle.vid}"
-														onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
-															class="fa fa-trash"></span></a></td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</c:when>
-						<c:when test="${client.clienttype=='S'}">
-							<hr>
-							<div class="row">
-								<div class="col-lg-12">
-									<table id="table_loads" class="display">
-										<thead>
-											<tr>
-												<th>Load Id</th>
-												<th>Pick-Up Location</th>
-												<th>Drop Location</th>
-												<th>Load Type</th>
-												<th>Available Vehicle</th>
-												<th>Status</th>
-												<th>Action</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${loads}" var="load">
-												<tr>
-													<td><a
-														href="/edit-load?cid=${client.clientid}&lid=${load.lid}">${load.lid}</a></td>
-													<td>${load.lpickuploc}</td>
-													<td>${load.ldroploc}</td>
-													<td>${load.ltype.ltypename}</td>
-													<%-- <fmt:parseDate value="${load.ldatetime}"
+												</c:forEach></td>
+											<td>${fn:length(vehicle.loads)}</td>
+											<td>${vehicle.status}</td>
+											<td><a
+												href="/delete-vehicle?cid=${client.clientid}&vid=${vehicle.vid}"
+												onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
+													class="fa fa-trash"></span></a></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<hr>
+					<div class="row">
+						<div class="col-lg-12">
+							<table id="table_loads" class="display">
+								<thead>
+									<tr>
+										<th>Load Id</th>
+										<th>Pick-Up Location</th>
+										<th>Drop Location</th>
+										<th>Load Type</th>
+										<th>Available Vehicle</th>
+										<th>Status</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${loads}" var="load">
+										<tr>
+											<td><a
+												href="/edit-load?cid=${client.clientid}&lid=${load.lid}">${load.lid}</a></td>
+											<td>${load.lpickuploc}</td>
+											<td>${load.ldroploc}</td>
+											<td>${load.ltype.ltypename}</td>
+											<fmt:parseDate value="${load.ldatetime}"
 														pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
 														type="both" />
 													<td><fmt:formatDate pattern="dd/MM/yyyy HH:mm"
-															value="${parsedDateTime}" /></td> --%>
-													<td>${fn:length(load.vehicles)}</td>
-													<td>${load.status}</td>
-													<td><a
-														href="/delete-load?cid=${client.clientid}&lid=${load.lid}"
-														onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
-															class="fa fa-trash"></span></a></td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</c:when>
-						<c:otherwise></c:otherwise>
-					</c:choose>
+															value="${parsedDateTime}" /></td>
+											<td>${fn:length(load.vehicles)}</td>
+											<td>${load.status}</td>
+											<td><a
+												href="/delete-load?cid=${client.clientid}&lid=${load.lid}"
+												onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
+													class="fa fa-trash"></span></a></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+ --%>
+					<hr>
+					<div class="row">
+						<div class="col-lg-12">
+							<table id="table_req" class="display">
+								<thead>
+									<tr>
+										<th>Req No</th>
+										<th>Req Type</th>
+										<th>Pick-up Location</th>
+										<th>Drop Location</th>
+										<th>Status</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${requirements}" var="req">
+										<tr>
+											<td><a
+												href="/edit-client-req?cid=${client.clientid}&reqid=${req.reqid}">${req.reqid}</a></td>
+											<td>${req.reqtype}</td>
+											<td>${req.reqpickuploc}</td>
+											<td>${req.reqdroploc}</td>
+											<td>${req.status}</td>
+											<td><a
+												href="/delete-req?cid=${client.clientid}&reqid=${req.reqid}"
+												onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
+													class="fa fa-trash"></span></a></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
 					<hr>
 					<div class="row">
 						<div class="col-lg-12">
@@ -265,7 +310,7 @@
 											<td>${user.username}</td>
 											<td>${user.email}</td>
 											<td>${user.role.rolename}</td>
-											<td>${user.active}</td>
+											<td>${fn:toUpperCase(user.active)}</td>
 											<td><a
 												href="/delete-user?cid=${client.clientid}&uid=${user.userid}"
 												onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
@@ -306,19 +351,16 @@
 				<div class="col-lg-12">
 					<div class="group">
 						<c:if test="${action=='Edit'}">
-							<a href="/find-client?type=${client.clienttype}"
-								class="btn btn-default btn-lg btn-style">&larr; Back</a>&nbsp;
+							<a href="/clients" class="btn btn-default btn-lg btn-style">&larr;
+								Back</a>&nbsp;
 							<c:if test="${client.active}">
-								<c:choose>
-									<c:when test="${client.clienttype=='T'}">
-										<a href="/add-vehicle?cid=${client.clientid}"
-											class="btn btn-default btn-lg btn-style">Add Vehicle</a>&nbsp;
-									</c:when>
-									<c:when test="${client.clienttype=='S'}">
-										<a href="/add-load?cid=${client.clientid}"
-											class="btn btn-default btn-lg btn-style">Add Load</a>&nbsp;
-									</c:when>
-								</c:choose>
+								<%-- <a href="/add-vehicle?cid=${client.clientid}"
+									class="btn btn-default btn-lg btn-style">Add Vehicle</a>&nbsp;								
+								
+									<a href="/add-load?cid=${client.clientid}"
+									class="btn btn-default btn-lg btn-style">Add Load</a>&nbsp; --%>
+								<a href="/add-client-req?cid=${client.clientid}"
+									class="btn btn-default btn-lg btn-style">Add Req</a>&nbsp;
 								<a href="/add-user?cid=${client.clientid}"
 									class="btn btn-default btn-lg btn-style">Add User</a>&nbsp;
 							</c:if>
@@ -328,7 +370,6 @@
 					</div>
 				</div>
 			</div>
-			<form:input type="hidden" name="clienttype" path="clienttype" />
 			<form:input type="hidden" name="revid" path="revid" />
 		</form:form>
 	</div>

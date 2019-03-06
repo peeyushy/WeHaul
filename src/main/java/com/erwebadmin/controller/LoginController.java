@@ -23,7 +23,7 @@ public class LoginController {
 	UserService userservice;
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showWelcomePage(ModelMap model) {
-		model.put("name", userservice.getLoggedinUserName());
+		model.put("name", userservice.getLoggedinUserObj().getUsername());
 		return "welcome";
 	}
 

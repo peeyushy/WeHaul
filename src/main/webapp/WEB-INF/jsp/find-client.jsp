@@ -11,8 +11,11 @@
 		<div class="row">
 			<div class="col-lg-12" id="panel">
 				<h2 class="section-heading">
-					Find
-					<c:out value="${title}" />
+					Clients
+					<security:authorize access="hasAnyAuthority('ADMIN')">
+						<a href="/add-client"
+							class="btn btn-default btn-sm btn-style pull-right">+ Add</a>
+					</security:authorize>
 				</h2>
 				<hr class="section-heading-spacer">
 				<div class="clearfix"></div>
@@ -30,24 +33,39 @@
 					<thead>
 						<tr>
 							<th>Name</th>
-							<th>Address</th>
 							<th>Contact No</th>
-							<!-- <th>Subscription Type</th> -->
-							<th>Active</th>
-							<th>Action</th>
+							<th>Address</th>
+							<th>City</th>
+							<security:authorize access="hasAnyAuthority('ADMIN')">
+								<th>Type</th>
+								<th>Active</th>
+								<th>Action</th>
+							</security:authorize>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${clients}" var="client">
 							<tr>
-								<td><a href="/edit-client?cid=${client.clientid}">${client.clientname}</a></td>
-								<td>${client.address}</td>
+								<td><security:authorize access="hasAnyAuthority('ADMIN')">
+										<a href="/edit-client?cid=${client.clientid}">
+									</security:authorize> ${client.clientname} <security:authorize
+										access="hasAnyAuthority('ADMIN')">
+										</a>
+									</security:authorize></td>
+
 								<td>${client.contactno}</td>
-								<%-- <td>${client.postcode}</td> --%>
-								<td>${fn:toUpperCase(client.active)}</td>
-								<td><a
-									href="/delete-client?type=${client.clienttype}&id=${client.clientid}" onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
-										class="fa fa-trash"></span></a></td>
+								<td>${client.address}</td>
+								<c:set var="city" value="${client.city}" />
+								<td>${cityMap[city]}</td>
+								<security:authorize access="hasAnyAuthority('ADMIN')">
+									<c:set var="ctype" value="${client.clienttype}" />
+									<td>${clientTypeMap[ctype]}</td>
+									<td>${fn:toUpperCase(client.active)}</td>
+									<td><a
+										href="/delete-client?type=${client.clienttype}&id=${client.clientid}"
+										onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
+											class="fa fa-trash"></span></a></td>
+								</security:authorize>
 							</tr>
 						</c:forEach>
 					</tbody>

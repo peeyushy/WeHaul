@@ -14,6 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 
 import com.erwebadmin.selenium.SeleniumConfig;
 
@@ -29,19 +30,20 @@ public class ClientControllerTests {
 	@Test
 	public void addTransporterTest() throws IOException {
 		config.login();
-		Reader in = new FileReader("src/test/resources/static/data/BangaloreTransporters.csv");
+		Reader in = new FileReader("src/test/resources/static/data/MumbaiTransporters.csv");
 		Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader().parse(in);
 		for (CSVRecord record : records) {
 			String compname = record.get("COMPANYNAME").trim();
 			String address = record.get("ADDRESS").trim();
-			String contactno = record.get("CONTACTNO").replaceAll("[^0-9]", "").trim();
-			contactno = ((contactno == "" | contactno.length() < 12) ? "CHECK" : "+" + contactno);
+			String contactno = record.get("CONTACTNO").trim();			
 			System.out.println(compname + "," + address + "," + contactno);
 			config.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			config.menuClick("T-A");
 			config.getDriver().findElement(By.name("clientname")).sendKeys(compname);
 			config.getDriver().findElement(By.name("contactno")).sendKeys(contactno);
 			config.getDriver().findElement(By.name("address")).sendKeys(address);
+			Select dropdown = new Select(config.getDriver().findElement(By.name("city")));
+			dropdown.selectByVisibleText("Mumbai");
 			if (contactno.equals("CHECK")) {
 				config.getDriver().findElement(By.name("active")).click();
 			}

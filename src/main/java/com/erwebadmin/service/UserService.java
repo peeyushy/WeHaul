@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.erwebadmin.model.Client;
 import com.erwebadmin.model.Role;
 import com.erwebadmin.model.User;
 
@@ -26,7 +27,10 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private RestTemplate restTemplate;
-	
+
+	@Autowired
+	private ClientService clientService;
+
 	public User getUsersByUserId(String id) {
 
 		ResponseEntity<User> clientResponse = restTemplate.exchange("http://localhost:8081/ERStaticData/user/id/" + id,
@@ -45,7 +49,7 @@ public class UserService implements UserDetailsService {
 
 		return clientResponse.getBody();
 	}
-	
+
 	public User getAdminOnlyUserByUserName(String username) {
 
 		ResponseEntity<User> clientResponse = restTemplate.exchange(
@@ -55,7 +59,6 @@ public class UserService implements UserDetailsService {
 
 		return clientResponse.getBody();
 	}
-
 
 	public void deleteUser(String id) {
 		restTemplate.delete("http://localhost:8081/ERStaticData/user/id/" + id);
@@ -82,16 +85,17 @@ public class UserService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = getAdminOnlyUserByUserName(username);
+		User user = getUserByUserName(username);
 		if (user == null) {
 			throw new UsernameNotFoundException(username);
 		}
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-		
-		grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getRolename()));
 
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				grantedAuthorities);
+		grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getRolename().toString()));
+		user.setAuthorities(grantedAuthorities);
+		user.setClient(clientService.getClient(getClientidByUserName(username).toString()));
+		
+		return user;
 
 	}
 
@@ -105,13 +109,22 @@ public class UserService implements UserDetailsService {
 		return clientResponse.getBody();
 	}
 
-	public String getLoggedinUserName() {
+	public User getLoggedinUserObj() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		if (principal instanceof UserDetails) {
-			return ((UserDetails) principal).getUsername();
+			return (User) ((UserDetails) principal);
 		}
+		return null;
+	}
 
-		return principal.toString();
+	private Long getClientidByUserName(String username) {
+
+		ResponseEntity<Long> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/ERStaticData/user/getclientidbyusername/" + username, HttpMethod.GET, null,
+				new ParameterizedTypeReference<Long>() {
+				});
+
+		return clientResponse.getBody();
 	}
 }

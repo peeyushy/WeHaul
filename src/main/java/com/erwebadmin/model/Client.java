@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Client implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,16 +20,16 @@ public class Client implements Serializable {
 
 	private String address;
 
-	private boolean broker = true;
-	
+	private String city;
+
 	private boolean verified = false;
 
 	// later blob
 	private String comments;
-	
+
 	private String email;
 
-	private boolean active  = true;
+	private boolean active = true;
 
 	private int revid;
 
@@ -39,6 +38,8 @@ public class Client implements Serializable {
 	private List<Vehicle> vehicle;
 
 	private List<Load> load;
+
+	private List<Requirement> requirements;
 
 	private Date CREATEDAT;
 
@@ -88,18 +89,18 @@ public class Client implements Serializable {
 	}
 
 	/**
-	 * @return the broker
+	 * @return the city
 	 */
-	public boolean isBroker() {
-		return broker;
+	public String getCity() {
+		return city;
 	}
 
 	/**
-	 * @param broker the broker to set
+	 * @param city the city to set
 	 */
-	public void setBroker(boolean broker) {
-		this.broker = broker;
-	}	
+	public void setCity(String city) {
+		this.city = city;
+	}
 
 	/**
 	 * @return the verified
@@ -121,8 +122,8 @@ public class Client implements Serializable {
 
 	public void setComments(String comments) {
 		this.comments = comments;
-	}	
-	
+	}
+
 	/**
 	 * @return the email
 	 */
@@ -201,6 +202,20 @@ public class Client implements Serializable {
 		this.load = load;
 	}
 
+	/**
+	 * @return the requirements
+	 */
+	public List<Requirement> getRequirements() {
+		return requirements;
+	}
+
+	/**
+	 * @param requirements the requirements to set
+	 */
+	public void setRequirements(List<Requirement> requirements) {
+		this.requirements = requirements;
+	}
+
 	public Date getCREATEDAT() {
 		return CREATEDAT;
 	}
@@ -253,5 +268,139 @@ public class Client implements Serializable {
 	 */
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((CREATEDAT == null) ? 0 : CREATEDAT.hashCode());
+		result = prime * result + ((UPDATEDAT == null) ? 0 : UPDATEDAT.hashCode());
+		result = prime * result + (active ? 1231 : 1237);
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((clientid == null) ? 0 : clientid.hashCode());
+		result = prime * result + ((clientname == null) ? 0 : clientname.hashCode());
+		result = prime * result + ((clienttype == null) ? 0 : clienttype.hashCode());
+		result = prime * result + ((comments == null) ? 0 : comments.hashCode());
+		result = prime * result + ((contactno == null) ? 0 : contactno.hashCode());
+		result = prime * result + ((createdby == null) ? 0 : createdby.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((lastupdatedby == null) ? 0 : lastupdatedby.hashCode());
+		result = prime * result + ((load == null) ? 0 : load.hashCode());
+		result = prime * result + ((requirements == null) ? 0 : requirements.hashCode());
+		result = prime * result + revid;
+		result = prime * result + ((users == null) ? 0 : users.hashCode());
+		result = prime * result + ((vehicle == null) ? 0 : vehicle.hashCode());
+		result = prime * result + (verified ? 1231 : 1237);
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Client))
+			return false;
+		Client other = (Client) obj;
+		if (CREATEDAT == null) {
+			if (other.CREATEDAT != null)
+				return false;
+		} else if (!CREATEDAT.equals(other.CREATEDAT))
+			return false;
+		if (UPDATEDAT == null) {
+			if (other.UPDATEDAT != null)
+				return false;
+		} else if (!UPDATEDAT.equals(other.UPDATEDAT))
+			return false;
+		if (active != other.active)
+			return false;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
+			return false;
+		if (clientid == null) {
+			if (other.clientid != null)
+				return false;
+		} else if (!clientid.equals(other.clientid))
+			return false;
+		if (clientname == null) {
+			if (other.clientname != null)
+				return false;
+		} else if (!clientname.equals(other.clientname))
+			return false;
+		if (clienttype == null) {
+			if (other.clienttype != null)
+				return false;
+		} else if (!clienttype.equals(other.clienttype))
+			return false;
+		if (comments == null) {
+			if (other.comments != null)
+				return false;
+		} else if (!comments.equals(other.comments))
+			return false;
+		if (contactno == null) {
+			if (other.contactno != null)
+				return false;
+		} else if (!contactno.equals(other.contactno))
+			return false;
+		if (createdby == null) {
+			if (other.createdby != null)
+				return false;
+		} else if (!createdby.equals(other.createdby))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (lastupdatedby == null) {
+			if (other.lastupdatedby != null)
+				return false;
+		} else if (!lastupdatedby.equals(other.lastupdatedby))
+			return false;
+		if (load == null) {
+			if (other.load != null)
+				return false;
+		} else if (!load.equals(other.load))
+			return false;
+		if (requirements == null) {
+			if (other.requirements != null)
+				return false;
+		} else if (!requirements.equals(other.requirements))
+			return false;
+		if (revid != other.revid)
+			return false;
+		if (users == null) {
+			if (other.users != null)
+				return false;
+		} else if (!users.equals(other.users))
+			return false;
+		if (vehicle == null) {
+			if (other.vehicle != null)
+				return false;
+		} else if (!vehicle.equals(other.vehicle))
+			return false;
+		if (verified != other.verified)
+			return false;
+		return true;
 	}
 }

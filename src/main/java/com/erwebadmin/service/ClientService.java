@@ -26,9 +26,9 @@ public class ClientService {
 				});
 
 		return clientResponse.getBody();
-	}
+	}	
 
-	public List<Client> getClients(String type) {
+	public List<Client> getClientsByType(String type) {
 
 		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
 				"http://localhost:8081/ERStaticData/client/type/" + type, HttpMethod.GET, null,
@@ -37,6 +37,28 @@ public class ClientService {
 
 		return clientResponse.getBody();
 	}
+	
+	public List<Client> getAllClients() {
+
+		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/ERStaticData/client/all/", HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<Client>>() {
+				});
+
+		return clientResponse.getBody();
+	}
+	
+	public List<Client> getAllExceptAdminAndLoggedInClients() {
+
+		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/ERStaticData/client/search/", HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<Client>>() {
+				});
+
+		return clientResponse.getBody();
+	}
+
+
 
 	public void deleteClient(String id) {
 
@@ -54,7 +76,7 @@ public class ClientService {
 	}
 
 	public void updateClient(String id, Client client) {
-		//set created by as its mandatory
+		// set created by as its mandatory
 		client.setCreatedby(getClient(id).getCreatedby());
 		HttpEntity<Client> request = new HttpEntity<>(client);
 		ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8081/ERStaticData/client/id/" + id,
@@ -62,5 +84,4 @@ public class ClientService {
 
 		return;
 	}
-
 }

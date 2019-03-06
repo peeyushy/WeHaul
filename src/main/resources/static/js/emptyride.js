@@ -18,11 +18,11 @@ function initAutocomplete() {
 
 	autocomplete_from = new google.maps.places.Autocomplete(
 	/** @type {!HTMLInputElement} */
-	(document.getElementById('lpickuploc')), options);
+	(document.getElementById('reqpickuploc')), options);
 
 	autocomplete_to = new google.maps.places.Autocomplete(
 	/** @type {!HTMLInputElement} */
-	(document.getElementById('ldroploc')), options);
+	(document.getElementById('reqdroploc')), options);
 
 	// When the user selects an address from the dropdown, populate the address
 	// fields in the form.

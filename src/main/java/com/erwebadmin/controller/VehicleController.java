@@ -85,8 +85,8 @@ public class VehicleController {
 			model.put("lTypeMap", lTypeMap);
 			return "vehicle";
 		} else {
-			vehicle.setCreatedby(userService.getLoggedinUserName());
-			vehicle.setLastupdatedby(userService.getLoggedinUserName());
+			vehicle.setCreatedby(userService.getLoggedinUserObj().getUsername());
+			vehicle.setLastupdatedby(userService.getLoggedinUserObj().getUsername());
 			vehicle.setClient(clientService.getClient(cid));
 			vehicleService.addVehicle(vehicle);
 			redirectAttributes.addFlashAttribute("msg",
@@ -128,7 +128,7 @@ public class VehicleController {
 		if (result.hasErrors()) {
 			return "vehicle";
 		} else {
-			vehicle.setLastupdatedby(userService.getLoggedinUserName());
+			vehicle.setLastupdatedby(userService.getLoggedinUserObj().getUsername());
 			vehicle.setClient(clientService.getClient(cid));
 			vehicleService.updateVehicle(vid, vehicle);
 			// Add message to flash scope

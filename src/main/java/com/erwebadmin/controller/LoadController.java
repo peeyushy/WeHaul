@@ -69,8 +69,8 @@ public class LoadController {
 			model.put("cid", cid);
 			return "load";
 		}else {
-			load.setCreatedby(userService.getLoggedinUserName());
-			load.setLastupdatedby(userService.getLoggedinUserName());
+			load.setCreatedby(userService.getLoggedinUserObj().getUsername());
+			load.setLastupdatedby(userService.getLoggedinUserObj().getUsername());
 			load.setClient(clientService.getClient(cid));			
 			loadService.addLoad(load);		
 			redirectAttributes.addFlashAttribute("msg", "Load added successfully!");
@@ -112,7 +112,7 @@ public class LoadController {
 			model.put("cid", cid);
 			return "load";
 		} else {
-			load.setLastupdatedby(userService.getLoggedinUserName());			
+			load.setLastupdatedby(userService.getLoggedinUserObj().getUsername());			
 			load.setClient(clientService.getClient(cid));
 			loadService.updateLoad(lid, load);
 			// Add message to flash scope

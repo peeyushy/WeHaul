@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.erwebadmin.constants.AppConstants;
 import com.erwebadmin.model.Client;
 import com.erwebadmin.model.Load;
 import com.erwebadmin.model.Vehicle;
 import com.erwebadmin.service.ClientService;
 import com.erwebadmin.service.LoadService;
+import com.erwebadmin.service.RequirementService;
 import com.erwebadmin.service.UserService;
 import com.erwebadmin.service.VehicleService;
 
@@ -35,18 +37,32 @@ public class ClientController {
 
 	@Autowired
 	LoadService loadService;
+	
+	@Autowired
+	RequirementService reqService;
 
 	@RequestMapping(value = "/find-client", method = RequestMethod.GET)
-	public String findClients(ModelMap model, @RequestParam String type) {
-		model.put("clients", clientService.getClients(type));
-		if (type.equalsIgnoreCase("T")) {
-			model.put("title", "Transporter");
-		} else if (type.equalsIgnoreCase("S")) {
-			model.put("title", "Supplier");
-		} else if (type.equalsIgnoreCase("A")) {
-			model.put("title", "Administrator");
-		}
+	public String getClientsByType(ModelMap model, @RequestParam String type) {
+		model.put("clients", clientService.getClientsByType(type));
+		model.put("clientTypeMap", AppConstants.getClientType());
+		model.put("cityMap", AppConstants.getCityMap());
 
+		return "find-client";
+	}
+
+	@RequestMapping(value = "/search-client", method = RequestMethod.GET)
+	public String getAllExceptAdminAndLoggedInClients(ModelMap model) {
+		model.put("clients", clientService.getAllExceptAdminAndLoggedInClients());
+		model.put("cityMap", AppConstants.getCityMap());
+		model.put("clientTypeMap", AppConstants.getClientType());
+		return "find-client";
+	}
+	
+	@RequestMapping(value = "/clients", method = RequestMethod.GET)
+	public String getAllClients(ModelMap model) {
+		model.put("clients", clientService.getAllClients());
+		model.put("cityMap", AppConstants.getCityMap());
+		model.put("clientTypeMap", AppConstants.getClientType());
 		return "find-client";
 	}
 
@@ -56,19 +72,15 @@ public class ClientController {
 		String msg = "Client " + clientService.getClient(id).getClientname() + " deleted successfully!";
 		clientService.deleteClient(id);
 		redirectAttributes.addFlashAttribute("msg", msg);
-		return "redirect:/find-client?type=" + type;
+		return "redirect:/clients";
 	}
 
 	@RequestMapping(value = "/add-client", method = RequestMethod.GET)
-	public String showAddClientPage(ModelMap model, @RequestParam String type) {
+	public String showAddClientPage(ModelMap model) {
 		model.put("action", "Add");
-		model.put("client", new Client(type));
-		if (type.equalsIgnoreCase("T")) {
-			model.put("title", "Transporter");
-		} else {
-			model.put("title", "Supplier");
-		}
-
+		model.put("client", new Client());
+		model.put("clientTypeMap", AppConstants.getClientType());
+		model.put("cityMap", AppConstants.getCityMap());
 		return "client";
 	}
 
@@ -80,12 +92,12 @@ public class ClientController {
 		if (result.hasErrors()) {
 			return "client";
 		} else {
-			client.setCreatedby(userService.getLoggedinUserName());
-			client.setLastupdatedby(userService.getLoggedinUserName());
+			client.setCreatedby(userService.getLoggedinUserObj().getUsername());
+			client.setLastupdatedby(userService.getLoggedinUserObj().getUsername());
 			clientService.addClient(client);
 
 			redirectAttributes.addFlashAttribute("msg", "Client " + client.getClientname() + " added successfully!");
-			return "redirect:/find-client?type=" + client.getClienttype();
+			return "redirect:/clients";
 		}
 	}
 
@@ -93,23 +105,9 @@ public class ClientController {
 	public String showEditClientPage(ModelMap model, @RequestParam String cid) {
 		model.put("action", "Edit");
 		Client client = clientService.getClient(cid);
-		if (client.getClienttype() != null && client.getClienttype().equalsIgnoreCase("T")) {
-			model.put("title", "Transporter");
-			List<Vehicle> vehicles = vehicleService.getVehiclesByclientId(cid);
-			for (Vehicle eachVehicle : vehicles) {
-				eachVehicle.setLoads(loadService.getLoadByVehicleId(eachVehicle.getVid().toString()));
-			}
-			model.put("vehicles", vehicles);
-		} else if (client.getClienttype() != null && client.getClienttype().equalsIgnoreCase("S")) {
-			model.put("title", "Supplier");
-			List<Load> loads = loadService.getLoadByClientId(cid);
-			for (Load eachLoad : loads) {
-				eachLoad.setVehicles(vehicleService.getVehiclesByLoadId(eachLoad.getLid().toString()));
-			}
-			model.put("loads", loads);
-		} else if (client.getClienttype() != null && client.getClienttype().equalsIgnoreCase("A")) {
-			model.put("title", "Administrator");
-		}
+		model.put("requirements", reqService.getReqByClientId(cid));
+		model.put("clientTypeMap", AppConstants.getClientType());
+		model.put("cityMap", AppConstants.getCityMap());
 		model.put("client", client);
 		return "client";
 	}
@@ -122,13 +120,12 @@ public class ClientController {
 		if (result.hasErrors()) {
 			return "client";
 		} else {
-			client.setLastupdatedby(userService.getLoggedinUserName());
+			client.setLastupdatedby(userService.getLoggedinUserObj().getUsername());
 			clientService.updateClient(cid, client);
 			// Add message to flash scope
 			redirectAttributes.addFlashAttribute("msg", "Client " + client.getClientname() + " updated successfully!");
-
-			model.put("clients", clientService.getClients(client.getClienttype()));
-			return "redirect:/find-client?type=" + client.getClienttype();
+			
+			return "redirect:/clients";
 		}
 	}
 

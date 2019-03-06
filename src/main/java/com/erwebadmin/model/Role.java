@@ -2,13 +2,16 @@ package com.erwebadmin.model;
 
 import java.io.Serializable;
 
+import com.erwebadmin.constants.AppConstants;
+import com.erwebadmin.constants.AppConstants.RoleNames;
+
 public class Role implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Long roleid;
 
-	private String rolename;
+	private AppConstants.RoleNames rolename;
 
 	private String roledesc;
 
@@ -20,11 +23,11 @@ public class Role implements Serializable {
 		this.roleid = roleid;
 	}
 
-	public String getRolename() {
+	public RoleNames getRolename() {
 		return rolename;
 	}
 
-	public void setRolename(String rolename) {
+	public void setRolename(RoleNames rolename) {
 		this.rolename = rolename;
 	}
 

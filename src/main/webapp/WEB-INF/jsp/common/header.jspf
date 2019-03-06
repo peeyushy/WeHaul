@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
+<jsp:useBean id="cons" class="com.erwebadmin.constants.AppConstants" scope="session"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>

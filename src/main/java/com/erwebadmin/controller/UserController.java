@@ -42,11 +42,11 @@ public class UserController {
 		model.put("action", "Add");
 		Map<String, String> roleMap = new LinkedHashMap<String, String>();
 		for (Role role : userService.getAllRoles()) {
-			roleMap.put(role.getRoleid().toString(), role.getRolename());
+			roleMap.put(role.getRoleid().toString(), role.getRolename().toString());
 		}
 		model.put("roleMap", roleMap);
 		model.put("user", new User(clientService.getClient(cid)));
-
+		model.put("cid", cid);
 		return "user";
 	}
 
@@ -56,8 +56,8 @@ public class UserController {
 		if (result.hasErrors()) {
 			return "user";
 		}else {
-			user.setCreatedby(userService.getLoggedinUserName());
-			user.setLastupdatedby(userService.getLoggedinUserName());
+			user.setCreatedby(userService.getLoggedinUserObj().getUsername());
+			user.setLastupdatedby(userService.getLoggedinUserObj().getUsername());
 			user.setClient(clientService.getClient(cid));
 			userService.addUser(user);		
 			redirectAttributes.addFlashAttribute("msg", "User "+user.getName()+" added successfully!");
@@ -70,7 +70,7 @@ public class UserController {
 		model.put("action", "Edit");
 		User user = userService.getUsersByUserId(uid);
 		Map<String, String> roleMap = new LinkedHashMap<String, String>();
-		roleMap.put(user.getRole().getRoleid().toString(), user.getRole().getRolename());
+		roleMap.put(user.getRole().getRoleid().toString(), user.getRole().getRolename().toString());
 		model.put("roleMap", roleMap);
 		model.put("user", user);
 		model.put("cid", cid);
@@ -85,7 +85,7 @@ public class UserController {
 		if (result.hasErrors()) {
 			return "user";
 		} else {
-			user.setLastupdatedby(userService.getLoggedinUserName());
+			user.setLastupdatedby(userService.getLoggedinUserObj().getUsername());
 			user.setClient(clientService.getClient(cid));
 			user.setUserid(Long.parseLong(uid));
 			userService.updateUser(uid, user);
