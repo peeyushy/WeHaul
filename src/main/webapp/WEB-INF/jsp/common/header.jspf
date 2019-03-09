@@ -4,11 +4,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
-<jsp:useBean id="cons" class="com.erwebadmin.constants.AppConstants" scope="session"/>
+<jsp:useBean id="cons" class="com.wehaul.constants.AppConstants" scope="session"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>ERWebAdmin</title>
+<title>WeHaul</title>
 <!-- Bootstrap Core CSS -->
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom CSS -->
@@ -30,4 +30,4 @@
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/bootstrap-datetimepicker.js"></script>
 	<script src="/js/datatables.min.js"></script>
-	<script src="/js/emptyride.js"></script>
+	<script src="/js/wehaul.js"></script>

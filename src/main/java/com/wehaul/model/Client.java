@@ -1,10 +1,8 @@
-package com.erwebadmin.model;
+package com.wehaul.model;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class Client implements Serializable {
 
@@ -34,10 +32,6 @@ public class Client implements Serializable {
 	private int revid;
 
 	private List<User> users;
-
-	private List<Vehicle> vehicle;
-
-	private List<Load> load;
 
 	private List<Requirement> requirements;
 
@@ -175,34 +169,6 @@ public class Client implements Serializable {
 	}
 
 	/**
-	 * @return the vehicle
-	 */
-	public List<Vehicle> getVehicle() {
-		return vehicle;
-	}
-
-	/**
-	 * @param vehicle the vehicle to set
-	 */
-	public void setVehicle(List<Vehicle> vehicle) {
-		this.vehicle = vehicle;
-	}
-
-	/**
-	 * @return the load
-	 */
-	public List<Load> getLoad() {
-		return load;
-	}
-
-	/**
-	 * @param load the load to set
-	 */
-	public void setLoad(List<Load> load) {
-		this.load = load;
-	}
-
-	/**
 	 * @return the requirements
 	 */
 	public List<Requirement> getRequirements() {
@@ -270,9 +236,7 @@ public class Client implements Serializable {
 		this.address = address;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -292,18 +256,14 @@ public class Client implements Serializable {
 		result = prime * result + ((createdby == null) ? 0 : createdby.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((lastupdatedby == null) ? 0 : lastupdatedby.hashCode());
-		result = prime * result + ((load == null) ? 0 : load.hashCode());
 		result = prime * result + ((requirements == null) ? 0 : requirements.hashCode());
 		result = prime * result + revid;
 		result = prime * result + ((users == null) ? 0 : users.hashCode());
-		result = prime * result + ((vehicle == null) ? 0 : vehicle.hashCode());
 		result = prime * result + (verified ? 1231 : 1237);
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -377,11 +337,6 @@ public class Client implements Serializable {
 				return false;
 		} else if (!lastupdatedby.equals(other.lastupdatedby))
 			return false;
-		if (load == null) {
-			if (other.load != null)
-				return false;
-		} else if (!load.equals(other.load))
-			return false;
 		if (requirements == null) {
 			if (other.requirements != null)
 				return false;
@@ -393,11 +348,6 @@ public class Client implements Serializable {
 			if (other.users != null)
 				return false;
 		} else if (!users.equals(other.users))
-			return false;
-		if (vehicle == null) {
-			if (other.vehicle != null)
-				return false;
-		} else if (!vehicle.equals(other.vehicle))
 			return false;
 		if (verified != other.verified)
 			return false;

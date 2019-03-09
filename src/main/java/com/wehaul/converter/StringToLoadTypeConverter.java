@@ -1,8 +1,8 @@
-package com.erwebadmin.converter;
+package com.wehaul.converter;
 
 import org.springframework.core.convert.converter.Converter;
 
-import com.erwebadmin.model.LoadType;
+import com.wehaul.model.LoadType;
 
 public class StringToLoadTypeConverter implements Converter<String, LoadType> {
 

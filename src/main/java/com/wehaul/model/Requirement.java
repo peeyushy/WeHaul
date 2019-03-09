@@ -1,11 +1,10 @@
-package com.erwebadmin.model;
+package com.wehaul.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import com.erwebadmin.constants.AppConstants;
-import com.erwebadmin.constants.ReqStatus;
+import com.wehaul.constants.ReqStatus;
 
 public class Requirement implements Serializable {
 

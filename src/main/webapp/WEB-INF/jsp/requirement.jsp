@@ -1,4 +1,4 @@
-<%@page import="com.erwebadmin.constants.ReqStatus"%>
+<%@page import="com.wehaul.constants.ReqStatus"%>
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 <script

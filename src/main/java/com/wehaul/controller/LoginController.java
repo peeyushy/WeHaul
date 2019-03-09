@@ -1,4 +1,4 @@
-package com.erwebadmin.controller;
+package com.wehaul.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.erwebadmin.service.UserService;
+import com.wehaul.service.UserService;
 
 @Controller
 public class LoginController {

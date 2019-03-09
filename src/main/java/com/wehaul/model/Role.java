@@ -1,9 +1,9 @@
-package com.erwebadmin.model;
+package com.wehaul.model;
 
 import java.io.Serializable;
 
-import com.erwebadmin.constants.AppConstants;
-import com.erwebadmin.constants.AppConstants.RoleNames;
+import com.wehaul.constants.AppConstants;
+import com.wehaul.constants.AppConstants.RoleNames;
 
 public class Role implements Serializable {
 

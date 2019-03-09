@@ -175,85 +175,6 @@
 							</div>
 						</div>
 					</div> -->
-
-<%--				<hr>
- 					<div class="row">
-						<div class="col-lg-12">
-							<table id="table_vehicles" class="display">
-								<thead>
-									<tr>
-										<th>Vehicle No</th>
-										<th>Vehicle Type</th>
-										<th>Load Type</th>
-										<th>Available Load</th>
-										<th>Status</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${vehicles}" var="vehicle">
-										<tr>
-											<td><a
-												href="/edit-vehicle?cid=${client.clientid}&vid=${vehicle.vid}">${vehicle.regno}</a></td>
-											<td>${vehicle.vtype.vtypename}</td>
-											<td><c:forEach items="${vehicle.ltype}" var="ltype"
-													varStatus="loop">
-													${ltype.ltypename}<c:if test="${!loop.last}">,</c:if>
-												</c:forEach></td>
-											<td>${fn:length(vehicle.loads)}</td>
-											<td>${vehicle.status}</td>
-											<td><a
-												href="/delete-vehicle?cid=${client.clientid}&vid=${vehicle.vid}"
-												onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
-													class="fa fa-trash"></span></a></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</div>
-
-					<hr>
-					<div class="row">
-						<div class="col-lg-12">
-							<table id="table_loads" class="display">
-								<thead>
-									<tr>
-										<th>Load Id</th>
-										<th>Pick-Up Location</th>
-										<th>Drop Location</th>
-										<th>Load Type</th>
-										<th>Available Vehicle</th>
-										<th>Status</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${loads}" var="load">
-										<tr>
-											<td><a
-												href="/edit-load?cid=${client.clientid}&lid=${load.lid}">${load.lid}</a></td>
-											<td>${load.lpickuploc}</td>
-											<td>${load.ldroploc}</td>
-											<td>${load.ltype.ltypename}</td>
-											<fmt:parseDate value="${load.ldatetime}"
-														pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
-														type="both" />
-													<td><fmt:formatDate pattern="dd/MM/yyyy HH:mm"
-															value="${parsedDateTime}" /></td>
-											<td>${fn:length(load.vehicles)}</td>
-											<td>${load.status}</td>
-											<td><a
-												href="/delete-load?cid=${client.clientid}&lid=${load.lid}"
-												onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
-													class="fa fa-trash"></span></a></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</div>
- --%>
 					<hr>
 					<div class="row">
 						<div class="col-lg-12">
@@ -287,7 +208,6 @@
 							</table>
 						</div>
 					</div>
-
 					<hr>
 					<div class="row">
 						<div class="col-lg-12">
@@ -353,12 +273,7 @@
 						<c:if test="${action=='Edit'}">
 							<a href="/clients" class="btn btn-default btn-lg btn-style">&larr;
 								Back</a>&nbsp;
-							<c:if test="${client.active}">
-								<%-- <a href="/add-vehicle?cid=${client.clientid}"
-									class="btn btn-default btn-lg btn-style">Add Vehicle</a>&nbsp;								
-								
-									<a href="/add-load?cid=${client.clientid}"
-									class="btn btn-default btn-lg btn-style">Add Load</a>&nbsp; --%>
+							<c:if test="${client.active}">							
 								<a href="/add-client-req?cid=${client.clientid}"
 									class="btn btn-default btn-lg btn-style">Add Req</a>&nbsp;
 								<a href="/add-user?cid=${client.clientid}"

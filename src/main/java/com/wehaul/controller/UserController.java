@@ -1,4 +1,4 @@
-package com.erwebadmin.controller;
+package com.wehaul.controller;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.erwebadmin.model.Role;
-import com.erwebadmin.model.User;
-import com.erwebadmin.service.ClientService;
-import com.erwebadmin.service.UserService;
+import com.wehaul.model.Role;
+import com.wehaul.model.User;
+import com.wehaul.service.ClientService;
+import com.wehaul.service.UserService;
 
 @Controller
 public class UserController {

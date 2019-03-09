@@ -1,4 +1,4 @@
-package com.erwebadmin.constants;
+package com.wehaul.constants;
 
 import java.io.Serializable;
 import java.util.HashMap;

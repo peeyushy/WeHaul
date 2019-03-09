@@ -1,4 +1,4 @@
-package com.erwebadmin.controller;
+package com.wehaul.controller;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.erwebadmin.constants.AppConstants;
-import com.erwebadmin.constants.ReqStatus;
-import com.erwebadmin.model.LoadType;
-import com.erwebadmin.model.Requirement;
-import com.erwebadmin.model.VehicleType;
-import com.erwebadmin.service.ClientService;
-import com.erwebadmin.service.LoadService;
-import com.erwebadmin.service.RequirementService;
-import com.erwebadmin.service.UserService;
-import com.erwebadmin.service.VehicleService;
+import com.wehaul.constants.AppConstants;
+import com.wehaul.constants.ReqStatus;
+import com.wehaul.model.LoadType;
+import com.wehaul.model.Requirement;
+import com.wehaul.model.VehicleType;
+import com.wehaul.service.ClientService;
+import com.wehaul.service.LoadTypeService;
+import com.wehaul.service.RequirementService;
+import com.wehaul.service.UserService;
+import com.wehaul.service.VehicleTypeService;
 
 @Controller
 public class ReqirementController {
@@ -38,10 +38,10 @@ public class ReqirementController {
 	ClientService clientService;
 
 	@Autowired
-	VehicleService vehicleService;
+	VehicleTypeService vehicleService;
 
 	@Autowired
-	LoadService loadService;
+	LoadTypeService loadTypeService;
 
 	@RequestMapping(value = "/req", method = RequestMethod.GET)
 	public String getAllRequirments(ModelMap model) {
@@ -60,7 +60,7 @@ public class ReqirementController {
 		}
 
 		Map<String, String> lTypeMap = new LinkedHashMap<String, String>();
-		for (LoadType lType : loadService.getAllActiveLoadType()) {
+		for (LoadType lType : loadTypeService.getAllActiveLoadType()) {
 			lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
 		}
 		model.put("vTypeMap", vTypeMap);
@@ -89,7 +89,7 @@ public class ReqirementController {
 		}
 
 		Map<String, String> lTypeMap = new LinkedHashMap<String, String>();
-		for (LoadType lType : loadService.getAllActiveLoadType()) {
+		for (LoadType lType : loadTypeService.getAllActiveLoadType()) {
 			lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
 		}
 		model.put("vTypeMap", vTypeMap);
@@ -112,7 +112,7 @@ public class ReqirementController {
 			}
 
 			Map<String, String> lTypeMap = new LinkedHashMap<String, String>();
-			for (LoadType lType : loadService.getAllActiveLoadType()) {
+			for (LoadType lType : loadTypeService.getAllActiveLoadType()) {
 				lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
 			}
 			model.put("vTypeMap", vTypeMap);
@@ -143,7 +143,7 @@ public class ReqirementController {
 		}
 
 		Map<String, String> lTypeMap = new LinkedHashMap<String, String>();
-		for (LoadType lType : loadService.getAllActiveLoadType()) {
+		for (LoadType lType : loadTypeService.getAllActiveLoadType()) {
 			lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
 		}
 		model.put("vTypeMap", vTypeMap);
@@ -167,7 +167,7 @@ public class ReqirementController {
 			}
 
 			Map<String, String> lTypeMap = new LinkedHashMap<String, String>();
-			for (LoadType lType : loadService.getAllActiveLoadType()) {
+			for (LoadType lType : loadTypeService.getAllActiveLoadType()) {
 				lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
 			}
 			model.put("vTypeMap", vTypeMap);
@@ -200,7 +200,7 @@ public class ReqirementController {
 		}
 
 		Map<String, String> lTypeMap = new LinkedHashMap<String, String>();
-		for (LoadType lType : loadService.getAllActiveLoadType()) {
+		for (LoadType lType : loadTypeService.getAllActiveLoadType()) {
 			lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
 		}
 		model.put("vTypeMap", vTypeMap);
@@ -228,7 +228,7 @@ public class ReqirementController {
 			}
 
 			Map<String, String> lTypeMap = new LinkedHashMap<String, String>();
-			for (LoadType lType : loadService.getAllActiveLoadType()) {
+			for (LoadType lType : loadTypeService.getAllActiveLoadType()) {
 				lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
 			}
 			model.put("vTypeMap", vTypeMap);
@@ -264,7 +264,7 @@ public class ReqirementController {
 		}
 
 		Map<String, String> lTypeMap = new LinkedHashMap<String, String>();
-		for (LoadType lType : loadService.getAllActiveLoadType()) {
+		for (LoadType lType : loadTypeService.getAllActiveLoadType()) {
 			lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
 		}
 		model.put("vTypeMap", vTypeMap);
@@ -292,7 +292,7 @@ public class ReqirementController {
 			}
 
 			Map<String, String> lTypeMap = new LinkedHashMap<String, String>();
-			for (LoadType lType : loadService.getAllActiveLoadType()) {
+			for (LoadType lType : loadTypeService.getAllActiveLoadType()) {
 				lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
 			}
 			model.put("vTypeMap", vTypeMap);

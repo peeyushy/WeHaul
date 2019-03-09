@@ -1,4 +1,4 @@
-package com.erwebadmin;
+package com.wehaul;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,11 +8,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@ComponentScan("com.erwebadmin")
-public class SpringBootFirstWebApplication {
+@ComponentScan("com.wehaul")
+public class WeHaul {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootFirstWebApplication.class, args);
+		SpringApplication.run(WeHaul.class, args);
 	}
 	
 	@Bean

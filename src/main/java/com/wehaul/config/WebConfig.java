@@ -1,16 +1,16 @@
-package com.erwebadmin.config;
+package com.wehaul.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.erwebadmin.converter.LocalDateTimeToStringConverter;
-import com.erwebadmin.converter.LocalDateToStringConverter;
-import com.erwebadmin.converter.StringToLoadTypeConverter;
-import com.erwebadmin.converter.StringToLocalDateConverter;
-import com.erwebadmin.converter.StringToLocalDateTimeConverter;
-import com.erwebadmin.converter.StringToRoleConverter;
-import com.erwebadmin.converter.StringToVehicleTypeConverter;
+import com.wehaul.converter.LocalDateTimeToStringConverter;
+import com.wehaul.converter.LocalDateToStringConverter;
+import com.wehaul.converter.StringToLoadTypeConverter;
+import com.wehaul.converter.StringToLocalDateConverter;
+import com.wehaul.converter.StringToLocalDateTimeConverter;
+import com.wehaul.converter.StringToRoleConverter;
+import com.wehaul.converter.StringToVehicleTypeConverter;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {

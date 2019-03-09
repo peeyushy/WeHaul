@@ -1,6 +1,4 @@
-package com.erwebadmin.controller;
-
-import java.util.List;
+package com.wehaul.controller;
 
 import javax.validation.Valid;
 
@@ -13,15 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.erwebadmin.constants.AppConstants;
-import com.erwebadmin.model.Client;
-import com.erwebadmin.model.Load;
-import com.erwebadmin.model.Vehicle;
-import com.erwebadmin.service.ClientService;
-import com.erwebadmin.service.LoadService;
-import com.erwebadmin.service.RequirementService;
-import com.erwebadmin.service.UserService;
-import com.erwebadmin.service.VehicleService;
+import com.wehaul.constants.AppConstants;
+import com.wehaul.model.Client;
+import com.wehaul.service.*;
 
 @Controller
 public class ClientController {
@@ -33,11 +25,11 @@ public class ClientController {
 	UserService userService;
 
 	@Autowired
-	VehicleService vehicleService;
+	VehicleTypeService vehicleService;
 
 	@Autowired
-	LoadService loadService;
-	
+	LoadTypeService loadService;
+
 	@Autowired
 	RequirementService reqService;
 
@@ -57,7 +49,7 @@ public class ClientController {
 		model.put("clientTypeMap", AppConstants.getClientType());
 		return "find-client";
 	}
-	
+
 	@RequestMapping(value = "/clients", method = RequestMethod.GET)
 	public String getAllClients(ModelMap model) {
 		model.put("clients", clientService.getAllClients());
@@ -124,7 +116,7 @@ public class ClientController {
 			clientService.updateClient(cid, client);
 			// Add message to flash scope
 			redirectAttributes.addFlashAttribute("msg", "Client " + client.getClientname() + " updated successfully!");
-			
+
 			return "redirect:/clients";
 		}
 	}

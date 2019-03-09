@@ -1,4 +1,4 @@
-package com.erwebadmin.service;
+package com.wehaul.service;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.erwebadmin.model.Client;
+import com.wehaul.model.Client;
 
 @Service
 public class ClientService {
@@ -21,7 +21,7 @@ public class ClientService {
 	public Client getClient(String id) {
 
 		ResponseEntity<Client> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/ERStaticData/client/id/" + id, HttpMethod.GET, null,
+				"http://localhost:8081/wehaul/client/id/" + id, HttpMethod.GET, null,
 				new ParameterizedTypeReference<Client>() {
 				});
 
@@ -31,7 +31,7 @@ public class ClientService {
 	public List<Client> getClientsByType(String type) {
 
 		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/ERStaticData/client/type/" + type, HttpMethod.GET, null,
+				"http://localhost:8081/wehaul/client/type/" + type, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Client>>() {
 				});
 
@@ -41,7 +41,7 @@ public class ClientService {
 	public List<Client> getAllClients() {
 
 		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/ERStaticData/client/all/", HttpMethod.GET, null,
+				"http://localhost:8081/wehaul/client/all/", HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Client>>() {
 				});
 
@@ -51,7 +51,7 @@ public class ClientService {
 	public List<Client> getAllExceptAdminAndLoggedInClients() {
 
 		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/ERStaticData/client/search/", HttpMethod.GET, null,
+				"http://localhost:8081/wehaul/client/search/", HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Client>>() {
 				});
 
@@ -62,14 +62,14 @@ public class ClientService {
 
 	public void deleteClient(String id) {
 
-		restTemplate.delete("http://localhost:8081/ERStaticData/client/id/" + id);
+		restTemplate.delete("http://localhost:8081/wehaul/client/id/" + id);
 		return;
 	}
 
 	public void addClient(Client client) {
 
 		HttpEntity<Client> request = new HttpEntity<>(client);
-		ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8081/ERStaticData/client/create",
+		ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8081/wehaul/client/create",
 				HttpMethod.POST, request, Client.class);
 
 		return;
@@ -79,7 +79,7 @@ public class ClientService {
 		// set created by as its mandatory
 		client.setCreatedby(getClient(id).getCreatedby());
 		HttpEntity<Client> request = new HttpEntity<>(client);
-		ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8081/ERStaticData/client/id/" + id,
+		ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8081/wehaul/client/id/" + id,
 				HttpMethod.PUT, request, Client.class);
 
 		return;

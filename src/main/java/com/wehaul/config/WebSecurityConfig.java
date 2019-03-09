@@ -1,4 +1,4 @@
-package com.erwebadmin.config;
+package com.wehaul.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

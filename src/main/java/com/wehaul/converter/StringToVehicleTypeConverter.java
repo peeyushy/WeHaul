@@ -1,8 +1,8 @@
-package com.erwebadmin.converter;
+package com.wehaul.converter;
 
 import org.springframework.core.convert.converter.Converter;
 
-import com.erwebadmin.model.VehicleType;
+import com.wehaul.model.VehicleType;
 
 public class StringToVehicleTypeConverter implements Converter<String, VehicleType> {
 

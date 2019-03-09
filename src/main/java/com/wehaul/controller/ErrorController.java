@@ -1,4 +1,4 @@
-package com.erwebadmin.controller;
+package com.wehaul.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

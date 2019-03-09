@@ -1,4 +1,4 @@
-package com.erwebadmin.model;
+package com.wehaul.model;
 
 import java.io.Serializable;
 

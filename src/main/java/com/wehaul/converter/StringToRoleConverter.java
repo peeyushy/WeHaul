@@ -1,8 +1,8 @@
-package com.erwebadmin.converter;
+package com.wehaul.converter;
 
 import org.springframework.core.convert.converter.Converter;
 
-import com.erwebadmin.model.Role;
+import com.wehaul.model.Role;
 
 public class StringToRoleConverter implements Converter<String, Role> {
 
