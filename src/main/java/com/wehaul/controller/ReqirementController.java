@@ -149,7 +149,7 @@ public class ReqirementController {
 		model.put("vTypeMap", vTypeMap);
 		model.put("lTypeMap", lTypeMap);
 
-		model.put("requirement", new Requirement());
+		model.put("requirement", new Requirement(ReqStatus.NEW));
 		model.put("cid", cid);
 		return "requirement";
 	}

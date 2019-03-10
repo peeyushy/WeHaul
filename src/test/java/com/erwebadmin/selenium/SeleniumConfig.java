@@ -49,8 +49,8 @@ public class SeleniumConfig {
 	 * @param menuItem
 	 */
 	public void menuClick(String menuItem) {
-		if (menuItem.equalsIgnoreCase("T-A")) {
-			navigateTo(URL + "add-client?type=T");
+		if (menuItem.equalsIgnoreCase("/clients")) {
+			navigateTo(URL + "add-client");
 		}
 	}
 }

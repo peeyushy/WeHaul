@@ -44,7 +44,8 @@ public class ClientController {
 
 	@RequestMapping(value = "/search-client", method = RequestMethod.GET)
 	public String getAllExceptAdminAndLoggedInClients(ModelMap model) {
-		model.put("clients", clientService.getAllExceptAdminAndLoggedInClients());
+		model.put("clients", clientService.getAllActiveExceptLoggedInANDAdminClients(
+				userService.getLoggedinUserObj().getClient().getClientname()));
 		model.put("cityMap", AppConstants.getCityMap());
 		model.put("clientTypeMap", AppConstants.getClientType());
 		return "find-client";
@@ -52,6 +53,7 @@ public class ClientController {
 
 	@RequestMapping(value = "/clients", method = RequestMethod.GET)
 	public String getAllClients(ModelMap model) {
+		// Admins see all client status
 		model.put("clients", clientService.getAllClients());
 		model.put("cityMap", AppConstants.getCityMap());
 		model.put("clientTypeMap", AppConstants.getClientType());

@@ -48,10 +48,31 @@ public class ClientService {
 		return clientResponse.getBody();
 	}
 	
-	public List<Client> getAllExceptAdminAndLoggedInClients() {
+	public List<Client> getAllActiveClients() {
+
+		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/wehaul/client/all-active/", HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<Client>>() {
+				});
+
+		return clientResponse.getBody();
+	}
+
+	
+	public List<Client> getAllExceptAdminClients() {
 
 		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
 				"http://localhost:8081/wehaul/client/search/", HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<Client>>() {
+				});
+
+		return clientResponse.getBody();
+	}
+
+	public List<Client> getAllActiveExceptLoggedInANDAdminClients(String loggedinclient) {
+
+		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/wehaul/client/search/"+loggedinclient, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Client>>() {
 				});
 

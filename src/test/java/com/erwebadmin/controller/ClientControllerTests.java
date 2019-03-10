@@ -30,7 +30,7 @@ public class ClientControllerTests {
 	@Test
 	public void addTransporterTest() throws IOException {
 		config.login();
-		Reader in = new FileReader("src/test/resources/static/data/MumbaiTransporters.csv");
+		Reader in = new FileReader("src/test/resources/static/data/DelhiTransporters.csv");
 		Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader().parse(in);
 		for (CSVRecord record : records) {
 			String compname = record.get("COMPANYNAME").trim();
@@ -38,18 +38,20 @@ public class ClientControllerTests {
 			String contactno = record.get("CONTACTNO").trim();			
 			System.out.println(compname + "," + address + "," + contactno);
 			config.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			config.menuClick("T-A");
+			config.menuClick("/clients");
 			config.getDriver().findElement(By.name("clientname")).sendKeys(compname);
 			config.getDriver().findElement(By.name("contactno")).sendKeys(contactno);
 			config.getDriver().findElement(By.name("address")).sendKeys(address);
-			Select dropdown = new Select(config.getDriver().findElement(By.name("city")));
-			dropdown.selectByVisibleText("Mumbai");
+			Select clienttypeDropdown = new Select(config.getDriver().findElement(By.name("clienttype")));
+			clienttypeDropdown.selectByVisibleText("Broker");
+			Select cityDropdown = new Select(config.getDriver().findElement(By.name("city")));
+			cityDropdown.selectByVisibleText("Delhi (NCR)");
 			if (contactno.equals("CHECK")) {
 				config.getDriver().findElement(By.name("active")).click();
 			}
 			config.getDriver().findElement(By.name("saveBtn")).click();
 		}
-		assertThat(config.getDriver().getTitle(), is("ERWebAdmin"));
+		assertThat(config.getDriver().getTitle(), is("WeHaul"));
 	}
 
 	@After
