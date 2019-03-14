@@ -4,44 +4,40 @@
 	<div class="container topnav">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
-		<a href="/">
-			<div class="sitelogo">
-				<div class="icon">
-					<div class="image">
-						<i class="fa fa-truck"></i>
-					</div>
-				</div>
-			</div>
-		</a>	
+			<a href="#"> <img src="img/logo.png" alt="TrucksNLorries"
+				height="50px">
+			</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
-				<security:authorize	access="hasAuthority('ADMIN')">
-					<li><a href="/clients">Clients</a></li>	
+				<security:authorize access="hasAuthority('ADMIN')">
+					<li><a href="/clients">Clients</a></li>
 				</security:authorize>
 				<li><a href="/req">Requirements</a></li>
 				<li><a href="/logout">Logout</a></li>
 			</ul>
-			<span class="navbar-text pull-right"> 
-				<security:authorize	access="isAuthenticated()">
+			<span class="navbar-text pull-right"> <security:authorize
+					access="isAuthenticated()">
     				Welcome <security:authentication property="principal.name" /> !!
 				</security:authorize>
 			</span>
-			
+
 			<div class="col-sm-3 col-md-3">
-				<form class="navbar-form" role="search">
+				<form class="navbar-form" action="/search-client">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Transporter"
+						<input type="text" class="form-control" placeholder="Client search"
 							name="q">
 						<div class="input-group-btn">
-							<a href="/search-client" class="btn btn-default"><i class="fa fa-search"></i></a>
+							<button class="btn btn-default" type="submit">
+								<i class="fa fa-search"></i>
+							</button>
 						</div>
 					</div>
 				</form>
 			</div>
-			
+
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>

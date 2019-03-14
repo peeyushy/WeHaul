@@ -43,9 +43,9 @@ public class ClientController {
 	}
 
 	@RequestMapping(value = "/search-client", method = RequestMethod.GET)
-	public String getAllExceptAdminAndLoggedInClients(ModelMap model) {
+	public String getAllExceptAdminAndLoggedInClients(ModelMap model, @RequestParam String q) {
 		model.put("clients", clientService.getAllActiveExceptLoggedInANDAdminClients(
-				userService.getLoggedinUserObj().getClient().getClientname()));
+				userService.getLoggedinUserObj().getClient().getClientid(), q));
 		model.put("cityMap", AppConstants.getCityMap());
 		model.put("clientTypeMap", AppConstants.getClientType());
 		return "find-client";

@@ -20,13 +20,12 @@ public class ClientService {
 
 	public Client getClient(String id) {
 
-		ResponseEntity<Client> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/wehaul/client/id/" + id, HttpMethod.GET, null,
-				new ParameterizedTypeReference<Client>() {
+		ResponseEntity<Client> clientResponse = restTemplate.exchange("http://localhost:8081/wehaul/client/id/" + id,
+				HttpMethod.GET, null, new ParameterizedTypeReference<Client>() {
 				});
 
 		return clientResponse.getBody();
-	}	
+	}
 
 	public List<Client> getClientsByType(String type) {
 
@@ -37,17 +36,16 @@ public class ClientService {
 
 		return clientResponse.getBody();
 	}
-	
+
 	public List<Client> getAllClients() {
 
-		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/wehaul/client/all/", HttpMethod.GET, null,
-				new ParameterizedTypeReference<List<Client>>() {
+		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange("http://localhost:8081/wehaul/client/all/",
+				HttpMethod.GET, null, new ParameterizedTypeReference<List<Client>>() {
 				});
 
 		return clientResponse.getBody();
 	}
-	
+
 	public List<Client> getAllActiveClients() {
 
 		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
@@ -58,7 +56,6 @@ public class ClientService {
 		return clientResponse.getBody();
 	}
 
-	
 	public List<Client> getAllExceptAdminClients() {
 
 		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
@@ -69,17 +66,15 @@ public class ClientService {
 		return clientResponse.getBody();
 	}
 
-	public List<Client> getAllActiveExceptLoggedInANDAdminClients(String loggedinclient) {
-
+	public List<Client> getAllActiveExceptLoggedInANDAdminClients(Long loggedinclientId, String quertStr) {
+		String clientIdCommaQueryStr = (loggedinclientId + "," + quertStr).trim();
 		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/wehaul/client/search/"+loggedinclient, HttpMethod.GET, null,
+				"http://localhost:8081/wehaul/client/search/" + clientIdCommaQueryStr, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Client>>() {
 				});
 
 		return clientResponse.getBody();
 	}
-
-
 
 	public void deleteClient(String id) {
 
