@@ -3,7 +3,7 @@
 
 <!-- Page Content -->
 <div class="content-section-b">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12">
 				<h2 class="section-heading">
@@ -145,7 +145,7 @@
 			</div>
 		</form:form>
 	</div>
-	<!-- /.container -->
+	<!-- /.container-fluid -->
 </div>
 
 <%@ include file="common/footer.jspf"%>

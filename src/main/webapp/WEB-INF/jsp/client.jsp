@@ -10,7 +10,7 @@
 </script>
 <!-- Page Content -->
 <div class="content-section-b">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12" id="panel">
 				<h2 class="section-heading">
@@ -288,7 +288,7 @@
 			<form:input type="hidden" name="revid" path="revid" />
 		</form:form>
 	</div>
-	<!-- /.container -->
+	<!-- /.container-fluid -->
 </div>
 
 <%@ include file="common/footer.jspf"%>
