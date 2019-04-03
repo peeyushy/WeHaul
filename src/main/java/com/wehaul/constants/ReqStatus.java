@@ -1,7 +1,7 @@
 package com.wehaul.constants;
 
 public enum ReqStatus {
-	NEW("NEW"), OPEN("OPEN"), CLOSED("CLOSED"), EXPIRED("EXPIRED");
+	NEW("NEW"), OPEN("OPEN"), QUOTED("QUOTED"), CLOSED("CLOSED"), EXPIRED("EXPIRED");
 
 	private String status;
 

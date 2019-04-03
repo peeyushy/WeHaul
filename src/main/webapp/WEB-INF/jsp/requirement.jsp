@@ -86,7 +86,7 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="reqpickuploc">Pick-Up Location</label>
+								<label for="reqpickuploc">Pick-Up</label>
 								<form:input type="text" class="form-control" id="reqpickuploc"
 									path="reqpickuploc" onFocus="geolocate()" placeholder="From"
 									required="required" />
@@ -95,7 +95,7 @@
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="reqdroploc">Drop Location</label>
+								<label for="reqdroploc">Drop</label>
 								<form:input type="text" path="reqdroploc" class="form-control"
 									id="reqdroploc" onFocus="geolocate()" placeholder="To"
 									required="required" />

@@ -33,7 +33,7 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="name">Name</label>
+								<label for="name">Full Name</label>
 								<form:input class="form-control" id="name" name="name"
 									path="name" type="text" placeholder="FullName"
 									required="required" />

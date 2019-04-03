@@ -27,6 +27,22 @@ public class RequirementService {
 				new ParameterizedTypeReference<List<Requirement>>() {
 				});
 		return setClientToReqs(clientResponse.getBody());
+	}	
+	
+	public List<Requirement> getAllReqsByStatus(String status) {
+		ResponseEntity<List<Requirement>> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/wehaul/req/status/" + status, HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<Requirement>>() {
+				});
+		return setClientToReqs(clientResponse.getBody());		
+	}
+	
+	public List<Requirement> getAllReqsByStatusIn(String statusIn) {
+		ResponseEntity<List<Requirement>> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/wehaul/req/statusin/" + statusIn, HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<Requirement>>() {
+				});
+		return setClientToReqs(clientResponse.getBody());		
 	}
 
 	public List<Requirement> setClientToReqs(List<Requirement> reqLst) {
@@ -47,6 +63,15 @@ public class RequirementService {
 	public List<Requirement> getReqByClientId(String cid) {
 		ResponseEntity<List<Requirement>> clientResponse = restTemplate.exchange(
 				"http://localhost:8081/wehaul/req/clientid/" + cid, HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<Requirement>>() {
+				});
+		return clientResponse.getBody();
+	}
+	
+	public List<Requirement> getReqByClientIdAndStatus(String cidandstatus) {
+		
+		ResponseEntity<List<Requirement>> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/wehaul/req/byclientidandstatus/" + cidandstatus, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Requirement>>() {
 				});
 		return clientResponse.getBody();

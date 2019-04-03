@@ -2,12 +2,21 @@
 <%@ include file="common/navigation.jspf"%>
 <script>
 	$(document).ready(function() {
-		$('#table_vehicles').DataTable();
-		$('#table_loads').DataTable();
-		$('#table_req').DataTable();
-		$('#table_users').DataTable();
+		$('#table_req').DataTable({
+			"bLengthChange" : false
+		});
+		$('#table_users').DataTable({
+			"bLengthChange" : false
+		});
 	});
 </script>
+<style>
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter,
+	.dataTables_wrapper .dataTables_info {
+	float: none;
+	text-align: left;
+}
+</style>
 <!-- Page Content -->
 <div class="content-section-b">
 	<div class="container-fluid">
@@ -178,15 +187,19 @@
 					<hr>
 					<div class="row">
 						<div class="col-lg-12">
-							<table id="table_req" class="display">
+							<table id="table_req" class="display responsive nowrap"
+								style="width: 100%">
+								<caption>
+									Table 1: <i>List of all requirements.</i>
+								</caption>
 								<thead>
 									<tr>
 										<th>Req No</th>
 										<th>Req Type</th>
-										<th>Pick-up Location</th>
-										<th>Drop Location</th>
+										<th>Pick-up</th>
+										<th>Drop</th>
 										<th>Status</th>
-										<th>Action</th>
+										<th>Delete</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -211,7 +224,11 @@
 					<hr>
 					<div class="row">
 						<div class="col-lg-12">
-							<table id="table_users" class="display">
+							<table id="table_users" class="display responsive nowrap"
+								style="width: 100%">
+								<caption>
+									Table 2: <i>List of all users.</i>
+								</caption>
 								<thead>
 									<tr>
 										<th>Name</th>
@@ -219,7 +236,7 @@
 										<th>Email</th>
 										<th>Role</th>
 										<th>Active</th>
-										<th>Action</th>
+										<th>Delete</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -273,7 +290,7 @@
 						<c:if test="${action=='Edit'}">
 							<a href="/clients" class="btn btn-default btn-lg btn-style">&larr;
 								Back</a>&nbsp;
-							<c:if test="${client.active}">							
+							<c:if test="${client.active}">
 								<a href="/add-client-req?cid=${client.clientid}"
 									class="btn btn-default btn-lg btn-style">Add Req</a>&nbsp;
 								<a href="/add-user?cid=${client.clientid}"

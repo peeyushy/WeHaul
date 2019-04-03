@@ -1,30 +1,25 @@
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
-<script async defer
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6oFN8m53QEJHVAqyihDc5nRzYxktzUQI&region=GB&callback=initMap">
-	
-</script>
 <script>
-	// Initialize and add the map
-	function initMap() {
-		// The location of Uluru
-		var uluru = {
-			lat : 55.378051,
-			lng : -3.435973
-		};
-		// The map, centered at Uluru
-		var map = new google.maps.Map(document.getElementById('map'), {
-			zoom : 5,
-			center : uluru
+	$(document).ready(function() {
+		$('#quoted_requirements').DataTable({
+			"bLengthChange" : false,
+			"bFilter": false,
+			"order": [[ 2, "desc" ]]
 		});
-		// The marker, positioned at Uluru
-		var marker = new google.maps.Marker({
-			position : uluru,
-			map : map
+		$('#openandquoted_requirements').DataTable({
+			"bLengthChange" : false,
+			"order": [[ 2, "desc" ]]
 		});
-	}
+	});
 </script>
-
+<style>
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter,
+	.dataTables_wrapper .dataTables_info {
+	float: none;
+	text-align: left;
+}
+</style>
 <!-- Page Content -->
 <div class="content-section-b">
 	<div class="container-fluid">
@@ -37,12 +32,102 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel-body" style="min-height: 400px" id="map"></div>
-				</div>
+				<table id="quoted_requirements" class="display responsive nowrap"
+					style="width: 100%">
+					<caption>
+						Table 1: <i>List of all quoted requirements.</i>
+					</caption>
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Type</th>
+							<th>Date/Time</th>
+							<th class="none">Pick-Up</th>
+							<th class="none">Drop</th>
+							<security:authorize access="hasAnyAuthority('ADMIN')">
+								<th class="none">Client</th>
+							</security:authorize>
+							<th class="none">Status</th>
+							<th class="none">Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${quotedrequirements}" var="quotedrequirement">
+							<tr>
+								<td><a href="/edit-req?reqid=${quotedrequirement.reqid}">${quotedrequirement.reqid}</a></td>
+								<c:set var="reqtype" value="${quotedrequirement.reqtype}" />
+								<td>${reqTypeMap[reqtype]}</td>
+								<td><fmt:parseDate value="${quotedrequirement.reqdatetime}"
+										pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+									<fmt:formatDate pattern="dd/MM/yyyy HH:mm"
+										value="${parsedDateTime}" /></td>
+								<td>${quotedrequirement.reqpickuploc}</td>
+								<td>${quotedrequirement.reqdroploc}</td>
+								<security:authorize access="hasAnyAuthority('ADMIN')">
+									<td>${quotedrequirement.client.clientname}</td>
+								</security:authorize>
+
+								<td>${fn:toUpperCase(quotedrequirement.status)}</td>
+								<td><a href="/delete-req?reqid=${quotedrequirement.reqid}"
+									onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
+										class="fa fa-trash"></span></a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
-
+		<hr>
+		<div class="row">
+			<div class="col-lg-12">
+				<table id="openandquoted_requirements"
+					class="display responsive nowrap" style="width: 100%">
+					<caption>
+						Table 2: <i>List of all open and quoted requirements.</i>
+					</caption>
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Type</th>
+							<th>Date/Time</th>
+							<th class="none">Pick-Up</th>
+							<th class="none">Drop</th>
+							<security:authorize access="hasAnyAuthority('ADMIN')">
+								<th class="none">Client</th>
+								<th class="none">Status</th>
+								<th class="none">Delete</th>
+							</security:authorize>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${openandquotedrequirements}"
+							var="openandquotedrequirement">
+							<tr>
+								<td><a
+									href="/edit-req?reqid=${openandquotedrequirement.reqid}">${openandquotedrequirement.reqid}</a></td>
+								<c:set var="reqtype" value="${openandquotedrequirement.reqtype}" />
+								<td>${reqTypeMap[reqtype]}</td>
+								<td><fmt:parseDate
+										value="${openandquotedrequirement.reqdatetime}"
+										pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+									<fmt:formatDate pattern="dd/MM/yyyy HH:mm"
+										value="${parsedDateTime}" /></td>
+								<td>${openandquotedrequirement.reqpickuploc}</td>
+								<td>${openandquotedrequirement.reqdroploc}</td>
+								<security:authorize access="hasAnyAuthority('ADMIN')">
+									<td>${openandquotedrequirement.client.clientname}</td>
+									<td>${fn:toUpperCase(openandquotedrequirement.status)}</td>
+									<td><a
+										href="/delete-req?reqid=${openandquotedrequirement.reqid}"
+										onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
+											class="fa fa-trash"></span></a></td>
+								</security:authorize>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 	<!-- /.container-fluid -->
 </div>

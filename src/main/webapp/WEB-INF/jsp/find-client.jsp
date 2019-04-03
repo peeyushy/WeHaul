@@ -1,10 +1,19 @@
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 <script>
-	$(document).ready(function() {
-		$('#table_client').DataTable();
+	$(document).ready(function() {		
+		$('#table_client').DataTable({
+			"bLengthChange" : false
+		});
 	});
 </script>
+<style>
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter,
+	.dataTables_wrapper .dataTables_info {
+	float: none;
+	text-align: left;
+}
+</style>
 <!-- Page Content -->
 <div class="content-section-b">
 	<div class="container-fluid">
@@ -29,17 +38,18 @@
 						</div>
 					</div>
 				</c:if>
-				<table id="table_client" class="display">
+				<table id="table_client" class="display responsive nowrap"
+					style="width: 100%">
 					<thead>
 						<tr>
 							<th>Name</th>
-							<th>Contact No</th>
-							<th>Address</th>
-							<th>City</th>
+							<th class="none">Contact No</th>
+							<th class="none">Address</th>
+							<th class="none">City</th>
 							<security:authorize access="hasAnyAuthority('ADMIN')">
-								<th>Type</th>
-								<th>Active</th>
-								<th>Action</th>
+								<th class="none">Type</th>
+								<th class="none">Active</th>
+								<th class="none">Delete</th>
 							</security:authorize>
 						</tr>
 					</thead>

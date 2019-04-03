@@ -1,10 +1,20 @@
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 <script>
-	$(document).ready(function() {
-		$('#table_requirements').DataTable();
+	$(document).ready(function() {		
+		$('#table_requirements').DataTable({
+			"bLengthChange" : false,
+			"order": [[ 2, "desc" ]]
+		});
 	});
 </script>
+<style>
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter,
+	.dataTables_wrapper .dataTables_info {
+	float: none;
+	text-align: left;
+}
+</style>
 <!-- Page Content -->
 <div class="content-section-b">
 	<div class="container-fluid">
@@ -26,21 +36,20 @@
 						</div>
 					</div>
 				</c:if>
-				<table id="table_requirements" class="display">
+				<table id="table_requirements" class="display responsive nowrap"
+					style="width: 100%">
 					<thead>
 						<tr>
 							<th>Id</th>
 							<th>Type</th>
-							<th>Pick-Up Location</th>
-							<th>Drop Location</th>
-							<!-- <th>Load Type</th>
-							<th>Vehicle Type</th> -->
-							<security:authorize access="hasAnyAuthority('ADMIN')">
-								<th>Client</th>
-							</security:authorize>
 							<th>Date/Time</th>
-							<th>Status</th>
-							<th>Action</th>
+							<th class="none">Pick-Up</th>
+							<th class="none">Drop</th>
+							<security:authorize access="hasAnyAuthority('ADMIN')">
+								<th class="none">Client</th>
+							</security:authorize>							
+							<th class="none">Status</th>
+							<th class="none">Delete</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -49,17 +58,17 @@
 								<td><a href="/edit-req?reqid=${requirement.reqid}">${requirement.reqid}</a></td>
 								<c:set var="reqtype" value="${requirement.reqtype}" />
 								<td>${reqTypeMap[reqtype]}</td>
+								<td><fmt:parseDate value="${requirement.reqdatetime}"
+										pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+									<fmt:formatDate pattern="dd/MM/yyyy HH:mm"
+										value="${parsedDateTime}" /></td>
 								<td>${requirement.reqpickuploc}</td>
 								<td>${requirement.reqdroploc}</td>
 								<%-- <td>${requirement.ltype.ltypename}</td>
 								<td>${requirement.vtype.vtypename}</td> --%>
 								<security:authorize access="hasAnyAuthority('ADMIN')">
 									<td>${requirement.client.clientname}</td>
-								</security:authorize>
-								<td><fmt:parseDate value="${requirement.reqdatetime}"
-										pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-									<fmt:formatDate pattern="dd/MM/yyyy HH:mm"
-										value="${parsedDateTime}" /></td>
+								</security:authorize>								
 								<td>${fn:toUpperCase(requirement.status)}</td>
 								<td><a href="/delete-req?reqid=${requirement.reqid}"
 									onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span

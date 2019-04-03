@@ -75,6 +75,16 @@ public class ClientService {
 
 		return clientResponse.getBody();
 	}
+	
+	public List<Client> getAllActiveExceptLoggedInANDAdminClients(Long loggedinclientId) {		
+		ResponseEntity<List<Client>> clientResponse = restTemplate.exchange(
+				"http://localhost:8081/wehaul/client/search/" + loggedinclientId.toString(), HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<Client>>() {
+				});
+
+		return clientResponse.getBody();
+	}
+
 
 	public void deleteClient(String id) {
 

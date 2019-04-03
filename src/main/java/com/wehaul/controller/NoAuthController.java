@@ -28,7 +28,7 @@ import com.wehaul.service.UserService;
 import com.wehaul.service.VehicleTypeService;
 
 @Controller
-public class LoginController {
+public class NoAuthController {
 
 	@Autowired
 	UserService userService;
@@ -45,11 +45,11 @@ public class LoginController {
 	@Autowired
 	LoadTypeService loadTypeService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String showWelcomePage(ModelMap model) {
-		model.put("name", userService.getLoggedinUserObj().getUsername());
+	@RequestMapping(value = "/noauth", method = RequestMethod.GET)
+	public String showNoAuthPage(ModelMap model) {
+		//model.put("name", userService.getLoggedinUserObj().getUsername());
 
-		if (userService.getLoggedinUserObj().getRole().getRolename().equals(AppConstants.RoleNames.ADMIN)) {
+		/*if (userService.getLoggedinUserObj().getRole().getRolename().equals(AppConstants.RoleNames.ADMIN)) {
 			model.put("quotedrequirements", reqService.getAllReqsByStatus(ReqStatus.QUOTED.toString()));
 		} else {
 			String cidandstatus = userService.getLoggedinUserObj().getClient().getClientid().toString() + ","
@@ -70,31 +70,8 @@ public class LoginController {
 			lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
 		}
 		model.put("vTypeMap", vTypeMap);
-		model.put("lTypeMap", lTypeMap);
+		model.put("lTypeMap", lTypeMap);*/
 
-		return "welcome";
-	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model, String error, String logout) {
-		if (error != null)
-			model.addAttribute("error", "Your username and password is invalid.");
-
-		if (logout != null)
-			model.addAttribute("message", "You have been logged out successfully.");
-
-		return "login";
-	}
-
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
-
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-		if (authentication != null) {
-			new SecurityContextLogoutHandler().logout(request, response, authentication);
-		}
-
-		return "redirect:/";
+		return "noauth/test";
 	}
 }

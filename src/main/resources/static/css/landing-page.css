@@ -619,3 +619,8 @@ span.round-tab:hover {
   font-size: 14px;
   line-height: 20px;
 }
+caption {
+	caption-side: bottom;
+	/* text-align: center; */
+	margin-top: 0.5em;
+}

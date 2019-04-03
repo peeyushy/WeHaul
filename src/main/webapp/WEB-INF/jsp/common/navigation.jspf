@@ -4,6 +4,14 @@
 	<div class="container-fluid topnav">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+
 			<a href="/"> <img src="img/logo.png" alt="TrucksNLorries"
 				height="50px">
 			</a>
@@ -12,32 +20,13 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
-				<security:authorize access="hasAuthority('ADMIN')">
-					<li><a href="/clients">Clients</a></li>
-				</security:authorize>
+				<li><a href="#">Welcome <security:authentication
+							property="principal.name" /> !!
+				</a></li>
+				<li><a href="/clients">Clients</a></li>
 				<li><a href="/req">Requirements</a></li>
 				<li><a href="/logout">Logout</a></li>
 			</ul>
-			<span class="navbar-text pull-right"> <security:authorize
-					access="isAuthenticated()">
-    				Welcome <security:authentication property="principal.name" /> !!
-				</security:authorize>
-			</span>
-
-			<div class="col-sm-3 col-md-3">
-				<form class="navbar-form" action="/search-client">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Client search"
-							name="q">
-						<div class="input-group-btn">
-							<button class="btn btn-default" type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-						</div>
-					</div>
-				</form>
-			</div>
-
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>
