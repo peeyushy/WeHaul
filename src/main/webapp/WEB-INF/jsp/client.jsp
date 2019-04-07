@@ -6,7 +6,8 @@
 			"bLengthChange" : false
 		});
 		$('#table_users').DataTable({
-			"bLengthChange" : false
+			"bLengthChange" : false,
+			"bFilter": false,
 		});
 	});
 </script>

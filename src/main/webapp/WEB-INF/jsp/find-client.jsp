@@ -43,9 +43,9 @@
 					<thead>
 						<tr>
 							<th>Name</th>
-							<th class="none">Contact No</th>
-							<th class="none">Address</th>
-							<th class="none">City</th>
+							<th>Contact No</th>
+							<th>Address</th>
+							<th>City</th>
 							<security:authorize access="hasAnyAuthority('ADMIN')">
 								<th class="none">Type</th>
 								<th class="none">Active</th>

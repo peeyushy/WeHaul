@@ -93,6 +93,7 @@ public class ClientController {
 		if (result.hasErrors()) {
 			return "client";
 		} else {
+			client.setWebuniquecode(client.getContactno());
 			client.setCreatedby(userService.getLoggedinUserObj().getUsername());
 			client.setLastupdatedby(userService.getLoggedinUserObj().getUsername());
 			clientService.addClient(client);
@@ -121,6 +122,7 @@ public class ClientController {
 		if (result.hasErrors()) {
 			return "client";
 		} else {
+			client.setWebuniquecode(client.getContactno());
 			client.setLastupdatedby(userService.getLoggedinUserObj().getUsername());
 			clientService.updateClient(cid, client);
 			// Add message to flash scope

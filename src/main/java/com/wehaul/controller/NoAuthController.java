@@ -47,16 +47,7 @@ public class NoAuthController {
 
 	@RequestMapping(value = "/noauth", method = RequestMethod.GET)
 	public String showNoAuthPage(ModelMap model) {
-		//model.put("name", userService.getLoggedinUserObj().getUsername());
-
-		/*if (userService.getLoggedinUserObj().getRole().getRolename().equals(AppConstants.RoleNames.ADMIN)) {
-			model.put("quotedrequirements", reqService.getAllReqsByStatus(ReqStatus.QUOTED.toString()));
-		} else {
-			String cidandstatus = userService.getLoggedinUserObj().getClient().getClientid().toString() + ","
-					+ ReqStatus.QUOTED.toString();
-			model.put("quotedrequirements", reqService.getReqByClientIdAndStatus(cidandstatus));
-		}
-
+		
 		model.put("openandquotedrequirements", reqService.getAllReqsByStatusIn(ReqStatus.OPEN.toString()+"#"+ReqStatus.QUOTED.toString()));
 		model.put("reqTypeMap", AppConstants.getReqTypeMap());
 
@@ -70,8 +61,8 @@ public class NoAuthController {
 			lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
 		}
 		model.put("vTypeMap", vTypeMap);
-		model.put("lTypeMap", lTypeMap);*/
+		model.put("lTypeMap", lTypeMap);
 
-		return "noauth/test";
+		return "noauth/get-quotes";
 	}
 }

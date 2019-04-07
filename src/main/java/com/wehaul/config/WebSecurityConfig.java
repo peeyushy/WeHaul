@@ -31,17 +31,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/noauth");
-	}
+	String[] publicresources = new String[] { "/login", "/logout", "/noauth", "/css/**", "/font-awesome/**", "/img/**",
+			"/js/**" };
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/login").permitAll().antMatchers("/logout").permitAll().anyRequest()
-				.authenticated().and().httpBasic().and().logout().permitAll().and().formLogin()
-				.loginProcessingUrl("/login").permitAll().and().logout()
+		http.authorizeRequests().antMatchers(publicresources).permitAll().anyRequest().authenticated().and().httpBasic()
+				.and().logout().permitAll().and().formLogin().loginProcessingUrl("/login").permitAll().and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
 	}
 

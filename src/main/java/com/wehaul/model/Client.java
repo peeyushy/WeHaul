@@ -30,6 +30,8 @@ public class Client implements Serializable {
 	private boolean active = true;
 
 	private int revid;
+	
+	private String webuniquecode;
 
 	private List<User> users;
 
@@ -158,6 +160,21 @@ public class Client implements Serializable {
 	 */
 	public void setRevid(int revid) {
 		this.revid = revid;
+	}	
+	
+
+	/**
+	 * @return the webuniquecode
+	 */
+	public String getWebuniquecode() {
+		return webuniquecode;
+	}
+
+	/**
+	 * @param webuniquecode the webuniquecode to set
+	 */
+	public void setWebuniquecode(String webuniquecode) {
+		this.webuniquecode = webuniquecode;
 	}
 
 	public List<User> getUsers() {
@@ -260,6 +277,7 @@ public class Client implements Serializable {
 		result = prime * result + revid;
 		result = prime * result + ((users == null) ? 0 : users.hashCode());
 		result = prime * result + (verified ? 1231 : 1237);
+		result = prime * result + ((webuniquecode == null) ? 0 : webuniquecode.hashCode());
 		return result;
 	}
 
@@ -350,6 +368,11 @@ public class Client implements Serializable {
 		} else if (!users.equals(other.users))
 			return false;
 		if (verified != other.verified)
+			return false;
+		if (webuniquecode == null) {
+			if (other.webuniquecode != null)
+				return false;
+		} else if (!webuniquecode.equals(other.webuniquecode))
 			return false;
 		return true;
 	}

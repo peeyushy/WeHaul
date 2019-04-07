@@ -5,11 +5,11 @@
 		$('#quoted_requirements').DataTable({
 			"bLengthChange" : false,
 			"bFilter": false,
-			"order": [[ 2, "desc" ]]
+			"order": [[ 0, "desc" ]]
 		});
 		$('#openandquoted_requirements').DataTable({
 			"bLengthChange" : false,
-			"order": [[ 2, "desc" ]]
+			"order": [[ 0, "desc" ]]
 		});
 	});
 </script>
@@ -103,8 +103,7 @@
 						<c:forEach items="${openandquotedrequirements}"
 							var="openandquotedrequirement">
 							<tr>
-								<td><a
-									href="/edit-req?reqid=${openandquotedrequirement.reqid}">${openandquotedrequirement.reqid}</a></td>
+								<td>${openandquotedrequirement.reqid}</td>
 								<c:set var="reqtype" value="${openandquotedrequirement.reqtype}" />
 								<td>${reqTypeMap[reqtype]}</td>
 								<td><fmt:parseDate

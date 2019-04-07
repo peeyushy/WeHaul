@@ -4,7 +4,7 @@
 	$(document).ready(function() {		
 		$('#table_requirements').DataTable({
 			"bLengthChange" : false,
-			"order": [[ 2, "desc" ]]
+			"order": [[ 0, "desc" ]]
 		});
 	});
 </script>
