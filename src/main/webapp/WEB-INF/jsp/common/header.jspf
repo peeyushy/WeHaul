@@ -11,14 +11,14 @@
 <title>WeHaul</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <!-- Bootstrap Core CSS -->
-<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom CSS -->
-<link href="/css/landing-page.css" rel="stylesheet">
+<link href="css/landing-page.css" rel="stylesheet">
 <!-- Custom Fonts -->
-<link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
 <link type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
-<link type="text/css" href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link type="text/css" href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <link
 	href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
 	rel="stylesheet" type="text/css">
@@ -27,9 +27,9 @@
 <body>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>		
-	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/bootstrap-datetimepicker.min.js"></script>	
-	<script src="/js/wehaul.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-datetimepicker.min.js"></script>	
+	<script src="js/wehaul.js"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script> 
 	

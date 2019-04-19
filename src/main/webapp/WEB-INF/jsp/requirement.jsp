@@ -164,11 +164,11 @@
 							<div class="group">
 								<c:choose>
 									<c:when test="${not empty cid}">
-										<a href="/edit-client?cid=${cid}"
+										<a href="edit-client?cid=${cid}"
 											class="btn btn-default btn-lg btn-style">&larr; Back</a>&nbsp;
   									</c:when>
 									<c:otherwise>
-										<a href="/req" class="btn btn-default btn-lg btn-style">&larr;
+										<a href="req" class="btn btn-default btn-lg btn-style">&larr;
 											Back</a>&nbsp;
 									</c:otherwise>
 								</c:choose>

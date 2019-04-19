@@ -54,7 +54,7 @@
 					<tbody>
 						<c:forEach items="${quotedrequirements}" var="quotedrequirement">
 							<tr>
-								<td><a href="/edit-req?reqid=${quotedrequirement.reqid}">${quotedrequirement.reqid}</a></td>
+								<td><a href="edit-req?reqid=${quotedrequirement.reqid}">${quotedrequirement.reqid}</a></td>
 								<c:set var="reqtype" value="${quotedrequirement.reqtype}" />
 								<td>${reqTypeMap[reqtype]}</td>
 								<td><fmt:parseDate value="${quotedrequirement.reqdatetime}"
@@ -68,7 +68,7 @@
 								</security:authorize>
 
 								<td>${fn:toUpperCase(quotedrequirement.status)}</td>
-								<td><a href="/delete-req?reqid=${quotedrequirement.reqid}"
+								<td><a href="delete-req?reqid=${quotedrequirement.reqid}"
 									onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
 										class="fa fa-trash"></span></a></td>
 							</tr>
@@ -117,7 +117,7 @@
 									<td>${openandquotedrequirement.client.clientname}</td>
 									<td>${fn:toUpperCase(openandquotedrequirement.status)}</td>
 									<td><a
-										href="/delete-req?reqid=${openandquotedrequirement.reqid}"
+										href="delete-req?reqid=${openandquotedrequirement.reqid}"
 										onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
 											class="fa fa-trash"></span></a></td>
 								</security:authorize>

@@ -18,7 +18,7 @@
 			<div class="align-middle col-md-6">
 				<div class="card">
 					<header class="card-header">
-						<a href="/" class="float-right btn btn-outline-primary mt-1">Log
+						<a href="WeHaul" class="float-right btn btn-outline-primary mt-1">Log
 							in</a>
 						<h4 class="card-title mt-2">Join TrucksNLorries</h4>
 					</header>

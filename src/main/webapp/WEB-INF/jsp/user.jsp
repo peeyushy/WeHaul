@@ -134,7 +134,7 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="form-group">
-								<a href="/edit-client?cid=${cid}"
+								<a href="edit-client?cid=${cid}"
 									class="btn btn-default btn-lg btn-style">&larr; Back</a>&nbsp;
 								<form:button type="submit"
 									class="btn btn-default btn-lg btn-style">Save</form:button>

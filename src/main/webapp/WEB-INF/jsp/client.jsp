@@ -7,7 +7,7 @@
 		});
 		$('#table_users').DataTable({
 			"bLengthChange" : false,
-			"bFilter": false,
+			"bFilter" : false,
 		});
 	});
 </script>
@@ -82,7 +82,7 @@
 							<div class="form-group">
 								<label for="contactno">Contact No</label>
 								<form:input type="text" name="contactno" path="contactno"
-									class="form-control" placeholder="01234567890"
+									class="form-control" placeholder="+911234567890"
 									required="required" />
 								<p class="note">Client contact no.</p>
 							</div>
@@ -111,10 +111,11 @@
 							<div class="form-group">
 								<label for="addressline2">Full Address</label>
 								<form:textarea name="address" path="address"
-									class="form-control" placeholder="Full Address" rows="3" />
+									class="form-control" placeholder="Full Address" rows="3"
+									required="required" />
 								<p class="note">Address of the client.</p>
 							</div>
-						</div>
+					</div>
 					</div>
 					<div class="row">
 						<div class="col-lg-6">
@@ -207,13 +208,13 @@
 									<c:forEach items="${requirements}" var="req">
 										<tr>
 											<td><a
-												href="/edit-client-req?cid=${client.clientid}&reqid=${req.reqid}">${req.reqid}</a></td>
+												href="edit-client-req?cid=${client.clientid}&reqid=${req.reqid}">${req.reqid}</a></td>
 											<td>${req.reqtype}</td>
 											<td>${req.reqpickuploc}</td>
 											<td>${req.reqdroploc}</td>
 											<td>${req.status}</td>
 											<td><a
-												href="/delete-req?cid=${client.clientid}&reqid=${req.reqid}"
+												href="delete-req?cid=${client.clientid}&reqid=${req.reqid}"
 												onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
 													class="fa fa-trash"></span></a></td>
 										</tr>
@@ -244,13 +245,13 @@
 									<c:forEach items="${client.users}" var="user">
 										<tr>
 											<td><a
-												href="/edit-user?cid=${client.clientid}&uid=${user.userid}">${user.name}</a></td>
+												href="edit-user?cid=${client.clientid}&uid=${user.userid}">${user.name}</a></td>
 											<td>${user.username}</td>
 											<td>${user.email}</td>
 											<td>${user.role.rolename}</td>
 											<td>${fn:toUpperCase(user.active)}</td>
 											<td><a
-												href="/delete-user?cid=${client.clientid}&uid=${user.userid}"
+												href="delete-user?cid=${client.clientid}&uid=${user.userid}"
 												onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
 													class="fa fa-trash"></span></a></td>
 										</tr>
@@ -289,12 +290,12 @@
 				<div class="col-lg-12">
 					<div class="group">
 						<c:if test="${action=='Edit'}">
-							<a href="/clients" class="btn btn-default btn-lg btn-style">&larr;
+							<a href="clients" class="btn btn-default btn-lg btn-style">&larr;
 								Back</a>&nbsp;
 							<c:if test="${client.active}">
-								<a href="/add-client-req?cid=${client.clientid}"
+								<a href="add-client-req?cid=${client.clientid}"
 									class="btn btn-default btn-lg btn-style">Add Req</a>&nbsp;
-								<a href="/add-user?cid=${client.clientid}"
+								<a href="add-user?cid=${client.clientid}"
 									class="btn btn-default btn-lg btn-style">Add User</a>&nbsp;
 							</c:if>
 						</c:if>

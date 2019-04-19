@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col-lg-12" id="panel">
 				<h2 class="section-heading">
-					Requirements <a href="/add-req"
+					Requirements <a href="add-req"
 						class="btn btn-default btn-sm btn-style pull-right">+ Add</a>
 				</h2>
 				<hr class="section-heading-spacer">
@@ -55,7 +55,7 @@
 					<tbody>
 						<c:forEach items="${requirements}" var="requirement">
 							<tr>
-								<td><a href="/edit-req?reqid=${requirement.reqid}">${requirement.reqid}</a></td>
+								<td><a href="edit-req?reqid=${requirement.reqid}">${requirement.reqid}</a></td>
 								<c:set var="reqtype" value="${requirement.reqtype}" />
 								<td>${reqTypeMap[reqtype]}</td>
 								<td><fmt:parseDate value="${requirement.reqdatetime}"
@@ -70,7 +70,7 @@
 									<td>${requirement.client.clientname}</td>
 								</security:authorize>								
 								<td>${fn:toUpperCase(requirement.status)}</td>
-								<td><a href="/delete-req?reqid=${requirement.reqid}"
+								<td><a href="delete-req?reqid=${requirement.reqid}"
 									onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
 										class="fa fa-trash"></span></a></td>
 							</tr>

@@ -22,7 +22,7 @@
 				<h2 class="section-heading">
 					Clients
 					<security:authorize access="hasAnyAuthority('ADMIN')">
-						<a href="/add-client"
+						<a href="add-client"
 							class="btn btn-default btn-sm btn-style pull-right">+ Add</a>
 					</security:authorize>
 				</h2>
@@ -57,7 +57,7 @@
 						<c:forEach items="${clients}" var="client">
 							<tr>
 								<td><security:authorize access="hasAnyAuthority('ADMIN')">
-										<a href="/edit-client?cid=${client.clientid}">
+										<a href="edit-client?cid=${client.clientid}">
 									</security:authorize> ${client.clientname} <security:authorize
 										access="hasAnyAuthority('ADMIN')">
 										</a>
@@ -72,7 +72,7 @@
 									<td>${clientTypeMap[ctype]}</td>
 									<td>${fn:toUpperCase(client.active)}</td>
 									<td><a
-										href="/delete-client?type=${client.clienttype}&id=${client.clientid}"
+										href="delete-client?type=${client.clienttype}&id=${client.clientid}"
 										onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
 											class="fa fa-trash"></span></a></td>
 								</security:authorize>

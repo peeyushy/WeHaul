@@ -12,7 +12,7 @@
 					class="icon-bar"></span>
 			</button>
 
-			<a href="/"> <img src="img/logo.png" alt="TrucksNLorries"
+			<a href=""> <img src="img/logo.png" alt="TrucksNLorries"
 				height="50px">
 			</a>
 		</div>
@@ -23,9 +23,9 @@
 				<li><a href="#">Welcome <security:authentication
 							property="principal.name" /> !!
 				</a></li>
-				<li><a href="/clients">Clients</a></li>
-				<li><a href="/req">Requirements</a></li>
-				<li><a href="/logout">Logout</a></li>
+				<li><a href="clients">Clients</a></li>
+				<li><a href="req">Requirements</a></li>
+				<li><a href="logout">Logout</a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

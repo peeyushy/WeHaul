@@ -3,6 +3,7 @@ package com.wehaul.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -14,6 +15,9 @@ import com.wehaul.model.Requirement;
 
 @Service
 public class RequirementService {
+	
+	@Value("${webservicebaseurl}")
+	private String WS_BASE_URL = null;
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -23,7 +27,7 @@ public class RequirementService {
 
 	public List<Requirement> getAllReqs() {
 		ResponseEntity<List<Requirement>> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/wehaul/req/all", HttpMethod.GET, null,
+				WS_BASE_URL+"/wehaul/req/all", HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Requirement>>() {
 				});
 		return setClientToReqs(clientResponse.getBody());
@@ -31,7 +35,7 @@ public class RequirementService {
 	
 	public List<Requirement> getAllReqsByStatus(String status) {
 		ResponseEntity<List<Requirement>> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/wehaul/req/status/" + status, HttpMethod.GET, null,
+				WS_BASE_URL+"/wehaul/req/status/" + status, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Requirement>>() {
 				});
 		return setClientToReqs(clientResponse.getBody());		
@@ -39,7 +43,7 @@ public class RequirementService {
 	
 	public List<Requirement> getAllReqsByStatusIn(String statusIn) {
 		ResponseEntity<List<Requirement>> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/wehaul/req/statusin/" + statusIn, HttpMethod.GET, null,
+				WS_BASE_URL+"/wehaul/req/statusin/" + statusIn, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Requirement>>() {
 				});
 		return setClientToReqs(clientResponse.getBody());		
@@ -54,7 +58,7 @@ public class RequirementService {
 
 	public Requirement getReqById(String id) {
 		ResponseEntity<Requirement> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/wehaul/req/id/" + id, HttpMethod.GET, null,
+				WS_BASE_URL+"/wehaul/req/id/" + id, HttpMethod.GET, null,
 				new ParameterizedTypeReference<Requirement>() {
 				});
 		return clientResponse.getBody();
@@ -62,7 +66,7 @@ public class RequirementService {
 
 	public List<Requirement> getReqByClientId(String cid) {
 		ResponseEntity<List<Requirement>> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/wehaul/req/clientid/" + cid, HttpMethod.GET, null,
+				WS_BASE_URL+"/wehaul/req/clientid/" + cid, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Requirement>>() {
 				});
 		return clientResponse.getBody();
@@ -71,7 +75,7 @@ public class RequirementService {
 	public List<Requirement> getReqByClientIdAndStatus(String cidandstatus) {
 		
 		ResponseEntity<List<Requirement>> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/wehaul/req/byclientidandstatus/" + cidandstatus, HttpMethod.GET, null,
+				WS_BASE_URL+"/wehaul/req/byclientidandstatus/" + cidandstatus, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Requirement>>() {
 				});
 		return clientResponse.getBody();
@@ -79,21 +83,21 @@ public class RequirementService {
 
 	public Long getClientIdByReqId(String reqid) {
 		ResponseEntity<Long> clientResponse = restTemplate.exchange(
-				"http://localhost:8081/wehaul/req/getclientidbyreqid/" + reqid, HttpMethod.GET, null,
+				WS_BASE_URL+"/wehaul/req/getclientidbyreqid/" + reqid, HttpMethod.GET, null,
 				new ParameterizedTypeReference<Long>() {
 				});
 		return clientResponse.getBody();
 	}
 
 	public void deleteReq(String id) {
-		restTemplate.delete("http://localhost:8081/wehaul/req/id/" + id);
+		restTemplate.delete(WS_BASE_URL+"/wehaul/req/id/" + id);
 		return;
 	}
 
 	public void addReq(Requirement req) {
 
 		HttpEntity<Requirement> request = new HttpEntity<>(req);
-		ResponseEntity<Requirement> response = restTemplate.exchange("http://localhost:8081/wehaul/req/create",
+		ResponseEntity<Requirement> response = restTemplate.exchange(WS_BASE_URL+"/wehaul/req/create",
 				HttpMethod.POST, request, Requirement.class);
 		return;
 	}
@@ -102,7 +106,7 @@ public class RequirementService {
 		req.setCreatedby(getReqById(reqid).getCreatedby());
 		HttpEntity<Requirement> request = new HttpEntity<>(req);
 		ResponseEntity<Requirement> response = restTemplate.exchange(
-				"http://localhost:8081/wehaul/req/id/" + reqid, HttpMethod.PUT, request, Requirement.class);
+				WS_BASE_URL+"/wehaul/req/id/" + reqid, HttpMethod.PUT, request, Requirement.class);
 		return;
 	}
 
