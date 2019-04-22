@@ -199,7 +199,7 @@
 										<th>Req No</th>
 										<th>Req Type</th>
 										<th>Pick-up</th>
-										<th>Drop</th>
+										<th>Delivery</th>
 										<th>Status</th>
 										<th>Delete</th>
 									</tr>

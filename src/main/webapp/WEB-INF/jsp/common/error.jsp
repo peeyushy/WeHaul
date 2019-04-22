@@ -1,5 +1,5 @@
-<%@ include file="common/header.jspf"%>
-<%@ include file="common/navigation.jspf"%>
+<%@ include file="header.jspf"%>
+<%@ include file="navigation.jspf"%>
 
 <div class="content-section-b">
 	<div class="container-fluid">
@@ -8,9 +8,10 @@
                 <h2 class="section-heading">Error!!</h2>
 				<hr class="section-heading-spacer">
                 <div class="clearfix"></div>
-				An exception occurred, Please contact Support.
+				Something went wrong! Please contact Support.<br><br>
+				Exception : <c:out value="${exception}" />
 			</div>
 		</div>
 	</div>
 </div>
-<%@ include file="common/footer.jspf"%>
+<%@ include file="footer.jspf"%>

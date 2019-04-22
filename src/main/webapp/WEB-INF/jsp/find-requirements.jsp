@@ -44,7 +44,7 @@
 							<th>Type</th>
 							<th>Date/Time</th>
 							<th class="none">Pick-Up</th>
-							<th class="none">Drop</th>
+							<th class="none">Delivery</th>
 							<security:authorize access="hasAnyAuthority('ADMIN')">
 								<th class="none">Client</th>
 							</security:authorize>							

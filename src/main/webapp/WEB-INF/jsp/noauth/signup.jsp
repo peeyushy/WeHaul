@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>WeHaul</title>
+<title>trucksnlorries</title>
 <meta name=viewport content="width=device-width, initial-scale=1">
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
