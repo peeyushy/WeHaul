@@ -4,7 +4,12 @@
 	$(document).ready(function() {		
 		$('#table_requirements').DataTable({
 			"bLengthChange" : false,
-			"order": [[ 0, "desc" ]]
+			"order": [[ 0, "desc" ]],
+			"columnDefs" : [ {
+				"targets" : [ 0 ],
+				"visible" : false,
+				"searchable" : false
+			} ]
 		});
 	});
 </script>
@@ -43,21 +48,21 @@
 							<th>Id</th>
 							<th>Type</th>
 							<th>Date/Time</th>
-							<th class="none">Pick-Up</th>
-							<th class="none">Delivery</th>
+							<th>Source</th>
+							<th>Destination</th>
 							<security:authorize access="hasAnyAuthority('ADMIN')">
-								<th class="none">Client</th>
+								<th>Requester</th>
 							</security:authorize>							
-							<th class="none">Status</th>
-							<th class="none">Delete</th>
+							<th>Status</th>
+							<th>Delete</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${requirements}" var="requirement">
 							<tr>
-								<td><a href="edit-req?reqid=${requirement.reqid}">${requirement.reqid}</a></td>
+								<td>${requirement.reqid}</td>
 								<c:set var="reqtype" value="${requirement.reqtype}" />
-								<td>${reqTypeMap[reqtype]}</td>
+								<td><a href="edit-req?reqid=${requirement.reqid}">${reqTypeMap[reqtype]}</a></td>
 								<td><fmt:parseDate value="${requirement.reqdatetime}"
 										pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 									<fmt:formatDate pattern="dd/MM/yyyy HH:mm"

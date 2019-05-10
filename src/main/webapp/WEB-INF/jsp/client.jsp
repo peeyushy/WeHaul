@@ -3,11 +3,12 @@
 <script>
 	$(document).ready(function() {
 		$('#table_req').DataTable({
-			"bLengthChange" : false
+			"bLengthChange" : false,
+			"order": [[ 0, "desc" ]]
 		});
 		$('#table_users').DataTable({
 			"bLengthChange" : false,
-			"bFilter" : false,
+			"bFilter" : false
 		});
 	});
 </script>
@@ -115,7 +116,7 @@
 									required="required" />
 								<p class="note">Address of the client.</p>
 							</div>
-					</div>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-lg-6">
@@ -198,7 +199,7 @@
 									<tr>
 										<th>Req No</th>
 										<th>Req Type</th>
-										<th>Pick-up</th>
+										<th>Source</th>
 										<th>Delivery</th>
 										<th>Status</th>
 										<th>Delete</th>
@@ -269,9 +270,10 @@
 									class="form-control"
 									placeholder="Any other details like client website,email address,phone conversation etc."
 									rows="5" />
+								<p class="note">Any additional comments by sales/operations
+									team.</p>
 							</div>
-							<p class="note">Any additional comments by sales/operations
-								team.</p>
+
 						</div>
 					</div>
 					<div class="row">

@@ -1,6 +1,8 @@
 package com.wehaul.controller;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,16 +49,18 @@ public class LoginController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showWelcomePage(ModelMap model) {
 		model.put("name", userService.getLoggedinUserObj().getUsername());
-
+		List<String> quotedstatusLst = new ArrayList<String>();
+		quotedstatusLst.add(ReqStatus.QUOTED.toString());
 		if (userService.getLoggedinUserObj().getRole().getRolename().equals(AppConstants.RoleNames.ADMIN)) {
 			model.put("quotedrequirements", reqService.getAllReqsByStatus(ReqStatus.QUOTED.toString()));
 		} else {
-			String cidandstatus = userService.getLoggedinUserObj().getClient().getClientid().toString() + ","
-					+ ReqStatus.QUOTED.toString();
-			model.put("quotedrequirements", reqService.getReqByClientIdAndStatus(cidandstatus));
+			model.put("quotedrequirements", reqService.getReqByClientIdAndStatus(
+					userService.getLoggedinUserObj().getClient().getClientid().toString(), quotedstatusLst));
 		}
-
-		model.put("openandquotedrequirements", reqService.getAllReqsByStatusIn(ReqStatus.OPEN.toString()+"#"+ReqStatus.QUOTED.toString()));
+		List<String> openAndQuotedstatusLst = new ArrayList<String>();
+		openAndQuotedstatusLst.add(ReqStatus.OPEN.toString());
+		openAndQuotedstatusLst.add(ReqStatus.QUOTED.toString());
+		model.put("openandquotedrequirements", reqService.getAllReqsByStatusIn(openAndQuotedstatusLst));
 		model.put("reqTypeMap", AppConstants.getReqTypeMap());
 
 		Map<String, String> vTypeMap = new LinkedHashMap<String, String>();

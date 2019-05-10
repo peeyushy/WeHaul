@@ -1,11 +1,15 @@
 package com.wehaul.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -16,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wehaul.constants.AppConstants;
 import com.wehaul.constants.ReqStatus;
+import com.wehaul.dto.QuoteDto;
 import com.wehaul.model.LoadType;
 import com.wehaul.model.Requirement;
 import com.wehaul.model.VehicleType;
@@ -71,16 +76,14 @@ public class ReqirementController {
 
 	@RequestMapping(value = "/delete-req", method = RequestMethod.GET)
 	public String deleteReq(ModelMap model, @RequestParam String reqid, final RedirectAttributes redirectAttributes) {
-		String msg = "Requirement " + reqService.getReqById(reqid).getReqid() + " deleted successfully!";
 		reqService.deleteReq(reqid);
-		redirectAttributes.addFlashAttribute("msg", msg);
+		redirectAttributes.addFlashAttribute("msg", "Requirement deleted successfully!");
 		return "redirect:/req";
 	}
 
 	@RequestMapping(value = "/add-req", method = RequestMethod.GET)
 	public String getAddReqPage(ModelMap model) {
 		model.put("action", "Add");
-
 		model.put("reqTypeMap", AppConstants.getReqTypeMap());
 
 		Map<String, String> vTypeMap = new LinkedHashMap<String, String>();
@@ -98,7 +101,7 @@ public class ReqirementController {
 		model.put("requirement", new Requirement(ReqStatus.NEW));
 		return "requirement";
 	}
-	
+
 	@RequestMapping(value = "/add-req", method = RequestMethod.POST)
 	public String postAddReqPage(ModelMap model, @Valid Requirement req, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
@@ -130,7 +133,7 @@ public class ReqirementController {
 			return "redirect:/req";
 		}
 	}
-	
+
 	@RequestMapping(value = "/add-client-req", method = RequestMethod.GET)
 	public String getAddReqPage(ModelMap model, @RequestParam String cid) {
 		model.put("action", "Add");
@@ -185,12 +188,17 @@ public class ReqirementController {
 			return "redirect:/edit-client?cid=" + cid;
 		}
 	}
-		
+
 	@RequestMapping(value = "/edit-client-req", method = RequestMethod.GET)
-	public String getEditClientReqPage(ModelMap model, @RequestParam String cid,@RequestParam String reqid) {
+	public String getEditClientReqPage(ModelMap model, @RequestParam String cid, @RequestParam String reqid) {
 		model.put("action", "Edit");
 		Requirement req = reqService.getReqById(reqid);
-
+		List<QuoteDto> quotesLst = new ArrayList<QuoteDto>();
+		try {
+			quotesLst = reqService.getLatestQuotesByReqId(reqid);
+		} catch (NestedRuntimeException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		model.put("reqTypeMap", AppConstants.getReqTypeMap());
 		model.put("selectedReqType", req.getReqtype());
 
@@ -210,12 +218,13 @@ public class ReqirementController {
 		model.put("selectedlType", req.getLtype());
 		model.put("cid", cid);
 		model.put("requirement", req);
+		model.put("quotes", quotesLst);
 		return "requirement";
 	}
-	
+
 	@RequestMapping(value = "/edit-client-req", method = RequestMethod.POST)
-	public String postEditClientReqPage(ModelMap model, @RequestParam String cid, @RequestParam String reqid, @Valid Requirement req,
-			BindingResult result, final RedirectAttributes redirectAttributes) {
+	public String postEditClientReqPage(ModelMap model, @RequestParam String cid, @RequestParam String reqid,
+			@Valid Requirement req, BindingResult result, final RedirectAttributes redirectAttributes) {
 		model.put("action", "Edit");
 
 		if (result.hasErrors()) {
@@ -241,11 +250,11 @@ public class ReqirementController {
 		} else {
 			req.setLastupdatedby(userService.getLoggedinUserObj().getUsername());
 			req.setClient(clientService.getClient(reqService.getClientIdByReqId(reqid).toString()));
-			//no status update from UI
+			// no status update from UI
 			req.setStatus(reqService.getReqById(reqid).getStatus());
 			reqService.updateReq(reqid, req);
 			// Add message to flash scope
-			redirectAttributes.addFlashAttribute("msg", "Requirement " + req.getReqid() + " updated successfully!");
+			redirectAttributes.addFlashAttribute("msg", "Requirement updated successfully!");
 			return "redirect:/edit-client?cid=" + cid;
 		}
 	}
@@ -254,7 +263,12 @@ public class ReqirementController {
 	public String getEditReqPage(ModelMap model, @RequestParam String reqid) {
 		model.put("action", "Edit");
 		Requirement req = reqService.getReqById(reqid);
-
+		List<QuoteDto> quotesLst = new ArrayList<QuoteDto>();
+		try {
+			quotesLst = reqService.getLatestQuotesByReqId(reqid);
+		} catch (NestedRuntimeException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		model.put("reqTypeMap", AppConstants.getReqTypeMap());
 		model.put("selectedReqType", req.getReqtype());
 
@@ -274,6 +288,7 @@ public class ReqirementController {
 		model.put("selectedlType", req.getLtype());
 
 		model.put("requirement", req);
+		model.put("quotes", quotesLst);
 		return "requirement";
 	}
 
@@ -305,11 +320,11 @@ public class ReqirementController {
 		} else {
 			req.setLastupdatedby(userService.getLoggedinUserObj().getUsername());
 			req.setClient(clientService.getClient(reqService.getClientIdByReqId(reqid).toString()));
-			//no status update from UI
+			// no status update from UI
 			req.setStatus(reqService.getReqById(reqid).getStatus());
 			reqService.updateReq(reqid, req);
 			// Add message to flash scope
-			redirectAttributes.addFlashAttribute("msg", "Requirement " + req.getReqid() + " updated successfully!");
+			redirectAttributes.addFlashAttribute("msg", "Requirement updated successfully!");
 			return "redirect:/req";
 		}
 	}

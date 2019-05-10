@@ -90,6 +90,7 @@ h6 {
     font-size: 14px;
     font-weight: 400;
     letter-spacing: 2px;
+    margin-top: 10px;
 }
 
 .content-section-a {
@@ -623,4 +624,14 @@ caption {
 	caption-side: bottom;
 	/* text-align: center; */
 	margin-top: 0.5em;
+}
+
+/* Remove the top border when a table is missing the header */
+.table > tbody > tr:first-child > td {
+    border: none;
+}
+
+/* Include the border when there's a header */
+.table > thead + tbody > tr:first-child > td {
+    border-top: 1px solid #ddd;
 }

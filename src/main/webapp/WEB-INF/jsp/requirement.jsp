@@ -6,6 +6,11 @@
 	async defer></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$('#table_quotes').DataTable({
+			"bLengthChange" : false,
+			"bFilter" : false,
+			"order": [[ 1, "asc" ]]
+		});
 		//basic is working need to get old dates disable,icons, add today date etc.
 		$('#datetimepicker1').datetimepicker({
 			format : 'dd/mm/yyyy hh:ii',
@@ -86,7 +91,7 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="reqpickuploc">Pick-Up</label>
+								<label for="reqpickuploc">Source</label>
 								<form:input type="text" class="form-control" id="reqpickuploc"
 									path="reqpickuploc" onFocus="geolocate()" placeholder="From"
 									required="required" />
@@ -95,7 +100,7 @@
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="reqdroploc">Delivery</label>
+								<label for="reqdroploc">Destination</label>
 								<form:input type="text" path="reqdroploc" class="form-control"
 									id="reqdroploc" onFocus="geolocate()" placeholder="To"
 									required="required" />
@@ -141,8 +146,8 @@
 							<div class="form-group">
 								<form:checkbox id="reqpickupdropflexi" path="reqpickupdropflexi" />
 								<label for="reqpickupdropflexi">&nbsp;&nbsp;Flexible
-									with the above Pick-up/Delivery Point?</label>
-								<p class="note">Flexible Pick-up/Delivery point post are likely
+									with the above Source/Destination Point?</label>
+								<p class="note">Flexible Source/Destination point post are likely
 									to hit more searches.</p>
 							</div>
 						</div>
@@ -153,14 +158,46 @@
 								<label for="comments">Comments</label>
 								<form:textarea class="form-control" rows="5" id="comments"
 									path="comments" />
+								<p class="note">Please add any additional comments that
+									defines your load, this will help transporter in understanding
+									your requirements better.</p>
 							</div>
-							<p class="note">Please add any additional comments that
-								defines your load, this will help transporter in understanding
-								your requirements better.</p>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-lg-12">
+							<table id="table_quotes" class="display responsive nowrap"
+								style="width: 100%">
+								<caption>
+									Table 1: <i>List of all quotes for the requirement.</i>
+								</caption>
+								<thead>
+									<tr>
+										<th>From</th>
+										<th>Quote(Rs.)</th>
+										<th>Comments</th>
+										<th>Date/Time</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${quotes}" var="q">
+										<tr>
+											<td>${q.qOwnerName}</td>
+											<td>${q.quote}</td>
+											<td>${q.qComment}</td>
+											<td><fmt:parseDate value="${q.qDatetime}"
+													pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
+													type="both" /> <fmt:formatDate pattern="dd/MM/yyyy HH:mm"
+													value="${parsedDateTime}" /></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-8">
+						<div class="col-lg-12">
 							<div class="group">
 								<c:choose>
 									<c:when test="${not empty cid}">
@@ -178,7 +215,7 @@
 										<form:button type="submit"
 											class="btn btn-default btn-lg btn-style">Save</form:button>
 									</c:when>
-									<c:otherwise>										
+									<c:otherwise>
 										<c:out value="${requirement.status}" />
 									</c:otherwise>
 								</c:choose>

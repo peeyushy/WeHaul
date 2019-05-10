@@ -5,11 +5,21 @@
 		$('#quoted_requirements').DataTable({
 			"bLengthChange" : false,
 			"bFilter": false,
-			"order": [[ 0, "desc" ]]
+			"order": [[ 0, "desc" ]],
+			"columnDefs" : [ {
+				"targets" : [ 0 ],
+				"visible" : false,
+				"searchable" : false
+			} ]
 		});
 		$('#openandquoted_requirements').DataTable({
 			"bLengthChange" : false,
-			"order": [[ 0, "desc" ]]
+			"order": [[ 0, "desc" ]],
+			"columnDefs" : [ {
+				"targets" : [ 0 ],
+				"visible" : false,
+				"searchable" : false
+			} ]
 		});
 	});
 </script>
@@ -42,21 +52,22 @@
 							<th>Id</th>
 							<th>Type</th>
 							<th>Date/Time</th>
-							<th class="none">Pick-Up</th>
-							<th class="none">Delivery</th>
+							<th>Source</th>
+							<th>Destination</th>
 							<security:authorize access="hasAnyAuthority('ADMIN')">
-								<th class="none">Client</th>
+								<th>Requester</th>
+								<th>Status</th>
+								<th>Delete</th>
 							</security:authorize>
-							<th class="none">Status</th>
-							<th class="none">Delete</th>
+
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${quotedrequirements}" var="quotedrequirement">
 							<tr>
-								<td><a href="edit-req?reqid=${quotedrequirement.reqid}">${quotedrequirement.reqid}</a></td>
+								<td>${quotedrequirement.reqid}</td>
 								<c:set var="reqtype" value="${quotedrequirement.reqtype}" />
-								<td>${reqTypeMap[reqtype]}</td>
+								<td><a href="edit-req?reqid=${quotedrequirement.reqid}">${reqTypeMap[reqtype]}</a></td>
 								<td><fmt:parseDate value="${quotedrequirement.reqdatetime}"
 										pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 									<fmt:formatDate pattern="dd/MM/yyyy HH:mm"
@@ -65,12 +76,11 @@
 								<td>${quotedrequirement.reqdroploc}</td>
 								<security:authorize access="hasAnyAuthority('ADMIN')">
 									<td>${quotedrequirement.client.clientname}</td>
+									<td>${fn:toUpperCase(quotedrequirement.status)}</td>
+									<td><a href="delete-req?reqid=${quotedrequirement.reqid}"
+										onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
+											class="fa fa-trash"></span></a></td>
 								</security:authorize>
-
-								<td>${fn:toUpperCase(quotedrequirement.status)}</td>
-								<td><a href="delete-req?reqid=${quotedrequirement.reqid}"
-									onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
-										class="fa fa-trash"></span></a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -83,19 +93,19 @@
 				<table id="openandquoted_requirements"
 					class="display responsive nowrap" style="width: 100%">
 					<caption>
-						Table 2: <i>List of all open and quoted requirements.</i>
+						Table 2: <i>List of all open requirements in the market.</i>
 					</caption>
 					<thead>
 						<tr>
 							<th>Id</th>
 							<th>Type</th>
 							<th>Date/Time</th>
-							<th class="none">Pick-Up</th>
-							<th class="none">Delivery</th>
+							<th>Source</th>
+							<th>Destination</th>
 							<security:authorize access="hasAnyAuthority('ADMIN')">
-								<th class="none">Client</th>
-								<th class="none">Status</th>
-								<th class="none">Delete</th>
+								<th>Requester</th>
+								<th>Status</th>
+								<th>Delete</th>
 							</security:authorize>
 						</tr>
 					</thead>

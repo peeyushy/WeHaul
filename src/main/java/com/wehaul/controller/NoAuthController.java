@@ -1,26 +1,24 @@
 package com.wehaul.controller;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.wehaul.constants.AppConstants;
-import com.wehaul.constants.ReqStatus;
-import com.wehaul.model.LoadType;
-import com.wehaul.model.VehicleType;
+import com.wehaul.dto.RequirementDto;
 import com.wehaul.service.ClientService;
 import com.wehaul.service.LoadTypeService;
 import com.wehaul.service.RequirementService;
@@ -46,23 +44,49 @@ public class NoAuthController {
 	LoadTypeService loadTypeService;
 
 	@RequestMapping(value = "/noauth", method = RequestMethod.GET)
-	public String showNoAuthPage(ModelMap model) {
-		
-		model.put("openandquotedrequirements", reqService.getAllReqsByStatusIn(ReqStatus.OPEN.toString()+"#"+ReqStatus.QUOTED.toString()));
-		model.put("reqTypeMap", AppConstants.getReqTypeMap());
-
-		Map<String, String> vTypeMap = new LinkedHashMap<String, String>();
-		for (VehicleType vehicleType : vehicleService.getAllActiveVehicleType()) {
-			vTypeMap.put(vehicleType.getVtypeid().toString(), vehicleType.getVtypename());
+	public String showPublicRequirementPage(ModelMap model, @RequestParam String cid) {
+		try {
+			model.put("openandquotedrequirements", reqService.getAllOpenAndQuotedReqsForClient(cid));
+		} catch (NestedRuntimeException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return "noauth/publicrequirements";
+	}
 
-		Map<String, String> lTypeMap = new LinkedHashMap<String, String>();
-		for (LoadType lType : loadTypeService.getAllActiveLoadType()) {
-			lTypeMap.put(lType.getLtypeid().toString(), lType.getLtypename());
+	@RequestMapping(value = "/noauth/sendquotes", method = RequestMethod.GET)
+	public String showGetQuotesPage(ModelMap model, @RequestParam String cid, @RequestParam String reqid) {
+		RequirementDto requirement;
+		try {
+			requirement = reqService.getReqDetailsByClientIdAndReqId(cid, reqid);
+			model.put("requirement", requirement);
+			model.put("cid", cid);
+		} catch (RestClientException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		model.put("vTypeMap", vTypeMap);
-		model.put("lTypeMap", lTypeMap);
+		return "noauth/sendquote";
+	}
 
-		return "noauth/get-quotes";
+	@RequestMapping(value = "/noauth/sendquotes", method = RequestMethod.POST)
+	public String addQuotes(ModelMap model, @RequestParam String cid, @RequestParam String reqid,
+			@Valid @ModelAttribute("requirement") RequirementDto requirementDto, BindingResult result,
+			final RedirectAttributes redirectAttributes) {
+		if (result.hasErrors()) {
+			return "noauth/sendquote";
+		} else {
+			// Save quotes
+			try {
+				reqService.addQuotesToReq(requirementDto, cid);
+				redirectAttributes.addFlashAttribute("msg",
+						"Thank you for your quote. We will contact you as soon as we have a match.");
+				cid = URLEncoder.encode(cid, "UTF-8");
+			} catch (RestClientException | UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return "redirect:/noauth?cid=" + cid;
+		}
 	}
 }

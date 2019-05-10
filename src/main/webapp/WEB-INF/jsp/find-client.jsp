@@ -47,9 +47,9 @@
 							<th>Address</th>
 							<th>City</th>
 							<security:authorize access="hasAnyAuthority('ADMIN')">
-								<th class="none">Type</th>
-								<th class="none">Active</th>
-								<th class="none">Delete</th>
+								<th>Type</th>
+								<th>Active</th>
+								<th>Delete</th>
 							</security:authorize>
 						</tr>
 					</thead>

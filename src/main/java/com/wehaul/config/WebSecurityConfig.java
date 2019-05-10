@@ -31,12 +31,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
-	String[] publicresources = new String[] { "/login", "/logout", "/noauth", "/css/**", "/font-awesome/**", "/img/**",
-			"/js/**" };
+	String[] publicresources = new String[] { "/login", "/logout", "/css/**", "/font-awesome/**", "/img/**", "/js/**",
+			"/noauth/**" };
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
+		http.csrf().disable();
 		http.authorizeRequests().antMatchers(publicresources).permitAll().anyRequest().authenticated().and().httpBasic()
 				.and().logout().permitAll().and().formLogin().loginProcessingUrl("/login").permitAll().and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
