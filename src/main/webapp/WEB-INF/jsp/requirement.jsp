@@ -95,7 +95,7 @@
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="reqdroploc">Drop</label>
+								<label for="reqdroploc">Delivery</label>
 								<form:input type="text" path="reqdroploc" class="form-control"
 									id="reqdroploc" onFocus="geolocate()" placeholder="To"
 									required="required" />
@@ -141,8 +141,8 @@
 							<div class="form-group">
 								<form:checkbox id="reqpickupdropflexi" path="reqpickupdropflexi" />
 								<label for="reqpickupdropflexi">&nbsp;&nbsp;Flexible
-									with the above Pick-up/Drop Point?</label>
-								<p class="note">Flexible Pick-up/Drop point post are likely
+									with the above Pick-up/Delivery Point?</label>
+								<p class="note">Flexible Pick-up/Delivery point post are likely
 									to hit more searches.</p>
 							</div>
 						</div>

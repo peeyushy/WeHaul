@@ -38,7 +38,7 @@
 							<th>Type</th>
 							<th>Date/Time</th>
 							<th class="none">Pick-Up</th>
-							<th class="none">Drop</th>
+							<th class="none">Delivery</th>
 							<th class="none">Load</th>
 							<th class="none">Vehicle</th>
 							<th class="none">Comments</th>
