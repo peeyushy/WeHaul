@@ -9,12 +9,16 @@ function initAutocomplete() {
 	// Create the autocomplete_from object, restricting the search to
 	// geographical
 	// location types.
-	var options = {
+	/*var options = {
 		types : [ '(cities)' ],
 		componentRestrictions : {
 			country : "in"
 		}
-	};
+	};*/
+	
+	var options = { street_number : 'long_name', route : 'long_name',
+			  locality : 'long_name', administrative_area_level_1 : 'long_name', country :
+			  'long_name', postal_code : 'long_name' };
 
 	autocomplete_from = new google.maps.places.Autocomplete(
 	/** @type {!HTMLInputElement} */
