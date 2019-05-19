@@ -9,16 +9,22 @@ function initAutocomplete() {
 	// Create the autocomplete_from object, restricting the search to
 	// geographical
 	// location types.
-	/*var options = {
-		types : [ '(cities)' ],
+	/*
+	 * var options = { types : [ '(cities)' ], componentRestrictions : { country :
+	 * "in" } };
+	 */
+
+	var options = {
+		street_number : 'long_name',
+		route : 'long_name',
+		locality : 'long_name',
+		administrative_area_level_1 : 'long_name',
+		country : 'long_name',
+		postal_code : 'long_name',
 		componentRestrictions : {
 			country : "in"
 		}
-	};*/
-	
-	var options = { street_number : 'long_name', route : 'long_name',
-			  locality : 'long_name', administrative_area_level_1 : 'long_name', country :
-			  'long_name', postal_code : 'long_name' };
+	};
 
 	autocomplete_from = new google.maps.places.Autocomplete(
 	/** @type {!HTMLInputElement} */
@@ -43,12 +49,12 @@ function initAutocomplete() {
  * 
  * for ( var component in componentForm) {
  * document.getElementById(component).value = '';
- * document.getElementById(component).disabled = false; }
- *  // Get each component of the address from the place details // and fill the
- * corresponding field on the form. for (var i = 0; i <
- * place_from.address_components.length; i++) { var addressType =
- * place_from.address_components[i].types[0]; if (componentForm[addressType]) {
- * var val = place_from.address_components[i][componentForm[addressType]];
+ * document.getElementById(component).disabled = false; } // Get each component
+ * of the address from the place details // and fill the corresponding field on
+ * the form. for (var i = 0; i < place_from.address_components.length; i++) {
+ * var addressType = place_from.address_components[i].types[0]; if
+ * (componentForm[addressType]) { var val =
+ * place_from.address_components[i][componentForm[addressType]];
  * document.getElementById(addressType).value = val; } }
  * 
  * for (var i = 0; i < place_to.address_components.length; i++) { var

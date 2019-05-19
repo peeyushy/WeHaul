@@ -1,27 +1,74 @@
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 <script>
-	$(document).ready(function() {
-		$('#quoted_requirements').DataTable({
-			"bLengthChange" : false,
-			"bFilter": false,
-			"order": [[ 0, "desc" ]],
-			"columnDefs" : [ {
-				"targets" : [ 0 ],
-				"visible" : false,
-				"searchable" : false
-			} ]
+	function format(rowData) {
+		var div = $('<div/>').addClass('loading').text('Loading...');
+		//alert("------>>" + rowData);
+		$.ajax({
+			url : '/WeHaulWS/wehaul/req/getLatestQuotesByReqId/' + rowData[1],
+			success : function(data) {
+				//var childRows = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+				var childRows = '';
+				// print each child item
+				$.each(data, function(index, value) {
+					childRows +='<tr><td>'+value.qOwnerName+'</td><td>'+value.quote+'</td><td>'+value.qOwnerContactNo+'</td></tr>';					
+				}); // end each
+				//childRows+='</table>';
+				//alert(childRows);
+				//div.html(JSON.stringify(data)).removeClass('loading');
+				div.html(childRows).removeClass('loading');
+			}
 		});
-		$('#openandquoted_requirements').DataTable({
-			"bLengthChange" : false,
-			"order": [[ 0, "desc" ]],
-			"columnDefs" : [ {
-				"targets" : [ 0 ],
-				"visible" : false,
-				"searchable" : false
-			} ]
-		});
-	});
+		return div;
+	}
+
+	$(document).ready(
+			function() {
+				var table = $('#quoted_requirements').DataTable({
+					"bLengthChange" : false,
+					"bFilter" : false,
+					"responsive" : false,
+					"order" : [ [ 1, "desc" ] ],
+					"columnDefs" : [ {
+						"targets" : [ 0 ],
+						"class": 'details-control',
+		                "orderable": false,
+		                "data": null,
+		                "defaultContent": ''
+					},{
+						"targets" : [ 1 ],
+						"visible" : false,
+						"searchable" : false
+					} ]
+				});
+
+				// Add event listener for opening and closing details
+				$('#quoted_requirements tbody').on('click',
+						'td.details-control', function() {
+							var tr = $(this).parents('tr');
+							var row = table.row(tr);
+
+							if (row.child.isShown()) {
+								// This row is already open - close it
+								row.child.hide();
+								tr.removeClass('shown');
+							} else {
+								// Open this row
+								row.child(format(row.data())).show();
+								tr.addClass('shown');
+							}
+						});
+
+				$('#openandquoted_requirements').DataTable({
+					"bLengthChange" : false,
+					"order" : [ [ 0, "desc" ] ],
+					"columnDefs" : [ {
+						"targets" : [ 0 ],
+						"visible" : false,
+						"searchable" : false
+					} ]
+				});
+			});
 </script>
 <style>
 .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter,
@@ -49,14 +96,14 @@
 					</caption>
 					<thead>
 						<tr>
+							<th></th>
 							<th>Id</th>
 							<th>Type</th>
 							<th>Date/Time</th>
 							<th>Source</th>
 							<th>Destination</th>
 							<security:authorize access="hasAnyAuthority('ADMIN')">
-								<th>Requester</th>
-								<th>Status</th>
+								<th>Owner</th>
 								<th>Delete</th>
 							</security:authorize>
 
@@ -65,6 +112,7 @@
 					<tbody>
 						<c:forEach items="${quotedrequirements}" var="quotedrequirement">
 							<tr>
+								<td></td>
 								<td>${quotedrequirement.reqid}</td>
 								<c:set var="reqtype" value="${quotedrequirement.reqtype}" />
 								<td><a href="edit-req?reqid=${quotedrequirement.reqid}">${reqTypeMap[reqtype]}</a></td>
@@ -76,7 +124,6 @@
 								<td>${quotedrequirement.reqdroploc}</td>
 								<security:authorize access="hasAnyAuthority('ADMIN')">
 									<td>${quotedrequirement.client.clientname}</td>
-									<td>${fn:toUpperCase(quotedrequirement.status)}</td>
 									<td><a href="delete-req?reqid=${quotedrequirement.reqid}"
 										onclick="return confirm('Are you sure? Delete cant be rolled back.')"><span
 											class="fa fa-trash"></span></a></td>
@@ -103,7 +150,7 @@
 							<th>Source</th>
 							<th>Destination</th>
 							<security:authorize access="hasAnyAuthority('ADMIN')">
-								<th>Requester</th>
+								<th>Owner</th>
 								<th>Status</th>
 								<th>Delete</th>
 							</security:authorize>

@@ -58,7 +58,7 @@
 								<td>${requirement.vtype}</td>
 							</tr>
 							<tr>
-								<td>Requester's Comment</td>
+								<td>Owner's Comment</td>
 								<td>${requirement.reqComment}</td>
 							</tr>
 						</tbody>

@@ -51,7 +51,7 @@
 							<th>Source</th>
 							<th>Destination</th>
 							<security:authorize access="hasAnyAuthority('ADMIN')">
-								<th>Requester</th>
+								<th>Owner</th>
 							</security:authorize>							
 							<th>Status</th>
 							<th>Delete</th>

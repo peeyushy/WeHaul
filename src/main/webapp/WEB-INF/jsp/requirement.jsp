@@ -170,13 +170,14 @@
 							<table id="table_quotes" class="display responsive nowrap"
 								style="width: 100%">
 								<caption>
-									Table 1: <i>List of all quotes for the requirement.</i>
+									Table 1: <i>Available quotes for the requirement.</i>
 								</caption>
 								<thead>
 									<tr>
 										<th>From</th>
 										<th>Quote(Rs.)</th>
 										<th>Comments</th>
+										<th>Contact No</th>
 										<th>Date/Time</th>
 									</tr>
 								</thead>
@@ -186,6 +187,7 @@
 											<td>${q.qOwnerName}</td>
 											<td>${q.quote}</td>
 											<td>${q.qComment}</td>
+											<td>${q.qOwnerContactNo}</td>
 											<td><fmt:parseDate value="${q.qDatetime}"
 													pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
 													type="both" /> <fmt:formatDate pattern="dd/MM/yyyy HH:mm"

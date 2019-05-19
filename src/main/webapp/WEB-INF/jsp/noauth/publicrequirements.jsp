@@ -41,7 +41,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12" id="panel">
-				<h2 class="section-heading">Market</h2>
+				<h2 class="section-heading">Marketplace</h2>
 				<hr class="section-heading-spacer">
 				<div class="clearfix"></div>
 			</div>
