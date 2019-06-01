@@ -11,7 +11,7 @@
 				var childRows = '';
 				// print each child item
 				$.each(data, function(index, value) {
-					childRows +='<tr><td>'+value.qOwnerName+'</td><td>'+value.quote+'</td><td>'+value.qOwnerContactNo+'</td></tr>';					
+					childRows +='<tr><td>'+value.qOwnerName+'</td><td>Rs. '+value.quote+'</td><td>'+value.qOwnerContactNo+'</td></tr>';					
 				}); // end each
 				//childRows+='</table>';
 				//alert(childRows);

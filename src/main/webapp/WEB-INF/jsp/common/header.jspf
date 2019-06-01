@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>trucksnlorries</title>
+<title>TrucksNLorries</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <!-- Bootstrap Core CSS -->
@@ -28,7 +28,7 @@
 <link type="text/css"
 	href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"
 	rel="stylesheet">
-<link type="text/css" href="css/bootstrap-datetimepicker.min.css"
+<link type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet">
 <link
 	href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"

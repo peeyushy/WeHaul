@@ -47,6 +47,7 @@ public class NoAuthController {
 	public String showPublicRequirementPage(ModelMap model, @RequestParam String cid) {
 		try {
 			model.put("openandquotedrequirements", reqService.getAllOpenAndQuotedReqsForClient(cid));
+			model.put("cid", cid);
 		} catch (NestedRuntimeException | UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

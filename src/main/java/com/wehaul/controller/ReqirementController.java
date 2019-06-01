@@ -191,7 +191,6 @@ public class ReqirementController {
 
 	@RequestMapping(value = "/edit-client-req", method = RequestMethod.GET)
 	public String getEditClientReqPage(ModelMap model, @RequestParam String cid, @RequestParam String reqid) {
-		model.put("action", "Edit");
 		Requirement req = reqService.getReqById(reqid);
 		List<QuoteDto> quotesLst = new ArrayList<QuoteDto>();
 		try {
@@ -219,14 +218,17 @@ public class ReqirementController {
 		model.put("cid", cid);
 		model.put("requirement", req);
 		model.put("quotes", quotesLst);
+		if (req.getStatus().equals(ReqStatus.NEW)) {
+			model.put("action", "Edit");
+		} else {
+			model.put("action", "View");
+		}
 		return "requirement";
 	}
 
 	@RequestMapping(value = "/edit-client-req", method = RequestMethod.POST)
 	public String postEditClientReqPage(ModelMap model, @RequestParam String cid, @RequestParam String reqid,
 			@Valid Requirement req, BindingResult result, final RedirectAttributes redirectAttributes) {
-		model.put("action", "Edit");
-
 		if (result.hasErrors()) {
 			model.put("reqTypeMap", AppConstants.getReqTypeMap());
 			model.put("selectedReqType", req.getReqtype());
@@ -246,6 +248,11 @@ public class ReqirementController {
 			model.put("selectedvType", req.getVtype());
 			model.put("selectedlType", req.getLtype());
 			model.put("cid", cid);
+			if (req.getStatus().equals(ReqStatus.NEW)) {
+				model.put("action", "Edit");
+			} else {
+				model.put("action", "View");
+			}
 			return "requirement";
 		} else {
 			req.setLastupdatedby(userService.getLoggedinUserObj().getUsername());
@@ -261,7 +268,6 @@ public class ReqirementController {
 
 	@RequestMapping(value = "/edit-req", method = RequestMethod.GET)
 	public String getEditReqPage(ModelMap model, @RequestParam String reqid) {
-		model.put("action", "Edit");
 		Requirement req = reqService.getReqById(reqid);
 		List<QuoteDto> quotesLst = new ArrayList<QuoteDto>();
 		try {
@@ -289,14 +295,17 @@ public class ReqirementController {
 
 		model.put("requirement", req);
 		model.put("quotes", quotesLst);
+		if (req.getStatus().equals(ReqStatus.NEW)) {
+			model.put("action", "Edit");
+		} else {
+			model.put("action", "View");
+		}
 		return "requirement";
 	}
 
 	@RequestMapping(value = "/edit-req", method = RequestMethod.POST)
 	public String postEditReqPage(ModelMap model, @RequestParam String reqid, @Valid Requirement req,
 			BindingResult result, final RedirectAttributes redirectAttributes) {
-		model.put("action", "Edit");
-
 		if (result.hasErrors()) {
 			model.put("reqTypeMap", AppConstants.getReqTypeMap());
 			model.put("selectedReqType", req.getReqtype());
@@ -315,7 +324,11 @@ public class ReqirementController {
 
 			model.put("selectedvType", req.getVtype());
 			model.put("selectedlType", req.getLtype());
-
+			if (req.getStatus().equals(ReqStatus.NEW)) {
+				model.put("action", "Edit");
+			} else {
+				model.put("action", "View");
+			}
 			return "requirement";
 		} else {
 			req.setLastupdatedby(userService.getLoggedinUserObj().getUsername());

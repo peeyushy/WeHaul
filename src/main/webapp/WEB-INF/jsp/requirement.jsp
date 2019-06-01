@@ -9,7 +9,7 @@
 		$('#table_quotes').DataTable({
 			"bLengthChange" : false,
 			"bFilter" : false,
-			"order": [[ 1, "asc" ]]
+			"order" : [ [ 1, "asc" ] ]
 		});
 		//basic is working need to get old dates disable,icons, add today date etc.
 		$('#datetimepicker1').datetimepicker({
@@ -164,40 +164,42 @@
 							</div>
 						</div>
 					</div>
-					<hr>
-					<div class="row">
-						<div class="col-lg-12">
-							<table id="table_quotes" class="display responsive nowrap"
-								style="width: 100%">
-								<caption>
-									Table 1: <i>Available quotes for the requirement.</i>
-								</caption>
-								<thead>
-									<tr>
-										<th>From</th>
-										<th>Quote(Rs.)</th>
-										<th>Comments</th>
-										<th>Contact No</th>
-										<th>Date/Time</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${quotes}" var="q">
+					<c:if test="${fn:length(quotes) gt 0}">
+						<hr>
+						<div class="row">
+							<div class="col-lg-12">
+								<table id="table_quotes" class="display responsive nowrap"
+									style="width: 100%">
+									<caption>
+										Table 1: <i>Available quotes for the requirement.</i>
+									</caption>
+									<thead>
 										<tr>
-											<td>${q.qOwnerName}</td>
-											<td>${q.quote}</td>
-											<td>${q.qComment}</td>
-											<td>${q.qOwnerContactNo}</td>
-											<td><fmt:parseDate value="${q.qDatetime}"
-													pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
-													type="both" /> <fmt:formatDate pattern="dd/MM/yyyy HH:mm"
-													value="${parsedDateTime}" /></td>
+											<th>From</th>
+											<th>Quote (Rs.)</th>
+											<th>Comments</th>
+											<th>Contact No</th>
+											<th>Date/Time</th>
 										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+									</thead>
+									<tbody>
+										<c:forEach items="${quotes}" var="q">
+											<tr>
+												<td>${q.qOwnerName}</td>
+												<td>${q.quote}</td>
+												<td>${q.qComment}</td>
+												<td>${q.qOwnerContactNo}</td>
+												<td><fmt:parseDate value="${q.qDatetime}"
+														pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
+														type="both" /> <fmt:formatDate pattern="dd/MM/yyyy HH:mm"
+														value="${parsedDateTime}" /></td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
 						</div>
-					</div>
+					</c:if>
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="group">

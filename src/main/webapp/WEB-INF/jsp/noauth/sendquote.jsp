@@ -12,7 +12,8 @@
 				<div class="clearfix"></div>
 			</div>
 		</div>
-		<form:form method="post" modelAttribute="requirement">
+		<form:form method="post" modelAttribute="requirement"
+			accept-charset="UTF-8">
 			<div class="row">
 				<div class="col-lg-12">
 					<c:set var="sendQuotesErrors">
@@ -31,7 +32,7 @@
 					<table class="table table-hover" id="tablediv">
 						<tbody>
 							<tr>
-								<td>Requirement Type</td>
+								<td>Need</td>
 								<td>${requirement.reqtype}</td>
 							</tr>
 							<tr>
@@ -70,7 +71,7 @@
 					<div class="form-group">
 						<label for="quote">Quote (Rs.)</label>
 						<form:input class="form-control" id="quote" type="number"
-							path="quote" required="required" />
+							path="quote" required="required" placeholder="Rs." />
 						<p class="note">Please add/update your quote for this
 							requirement.</p>
 					</div>
@@ -80,7 +81,7 @@
 					<div class="form-group">
 						<label for="comments">Comments</label>
 						<form:textarea class="form-control" rows="2" id="comments"
-							path="clientComment" placeholder="Leave a comment"/>
+							path="clientComment" placeholder="Leave a comment" />
 						<p class="note">Please add additional comments, this will help
 							us understand your quote better.</p>
 					</div>
