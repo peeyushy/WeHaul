@@ -2,7 +2,7 @@
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 <script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6oFN8m53QEJHVAqyihDc5nRzYxktzUQI&libraries=places&callback=initAutocomplete"
+	src="https://maps.googleapis.com/maps/api/js?key=<APIKEY>&libraries=places&callback=initAutocomplete"
 	async defer></script>
 <script type="text/javascript">
 	$(document).ready(function() {
