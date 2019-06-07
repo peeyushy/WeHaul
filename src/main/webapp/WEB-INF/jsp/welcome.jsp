@@ -98,7 +98,7 @@
 						<tr>
 							<th></th>
 							<th>Id</th>
-							<th>Type</th>
+							<th>Need</th>
 							<th>Date/Time</th>
 							<th>Source</th>
 							<th>Destination</th>
@@ -145,7 +145,7 @@
 					<thead>
 						<tr>
 							<th>Id</th>
-							<th>Type</th>
+							<th>Need</th>
 							<th>Date/Time</th>
 							<th>Source</th>
 							<th>Destination</th>

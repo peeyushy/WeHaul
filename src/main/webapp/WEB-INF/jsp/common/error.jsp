@@ -8,8 +8,9 @@
                 <h2 class="section-heading">Error!!</h2>
 				<hr class="section-heading-spacer">
                 <div class="clearfix"></div>
-				Something went wrong! Please contact Support.<br><br>
-				Exception : <c:out value="${exception}" />
+				Something went wrong! please contact support.<br><br>
+				Status Code : <c:out value="${status}" /> <br>
+				Error Message : <c:out value="${error}" />
 			</div>
 		</div>
 	</div>

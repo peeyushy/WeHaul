@@ -6,7 +6,7 @@
 
 	<groupId>com.paar</groupId>
 	<artifactId>WeHaul</artifactId>
-	<version>1.3.0</version>
+	<version>1.4.0</version>
 	<packaging>war</packaging>
 
 	<name>WeHaul Web</name>

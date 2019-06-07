@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -24,6 +26,8 @@ import com.wehaul.model.User;
 
 @Service
 public class UserService implements UserDetailsService {
+
+	private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
 	@Value("${webservicebaseurl}")
 	private String WS_BASE_URL = null;
@@ -96,7 +100,7 @@ public class UserService implements UserDetailsService {
 		grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getRolename().toString()));
 		user.setAuthorities(grantedAuthorities);
 		user.setClient(clientService.getClient(getClientidByUserName(username).toString()));
-
+		log.info("Logged in user::" + username);
 		return user;
 
 	}

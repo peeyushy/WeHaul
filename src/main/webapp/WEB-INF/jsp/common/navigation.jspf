@@ -12,9 +12,9 @@
 					class="icon-bar"></span>
 			</button>
 
-			<a href="/"> <img src="${pageContext.request.contextPath}/img/logo.png" alt="TrucksNLorries"
-				height="50px">
-			</a>
+			<a class="navbar-brand" href="/home"><span
+				class="btn-sm navbar-btn-sm btn-primary logo-style">trucks &
+					lorries</span></a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
