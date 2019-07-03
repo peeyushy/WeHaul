@@ -11,7 +11,7 @@
 				var childRows = '';
 				// print each child item
 				$.each(data, function(index, value) {
-					childRows +='<tr><td>'+value.qOwnerName+'</td><td>Rs. '+value.quote+'</td><td>'+value.qOwnerContactNo+'</td></tr>';					
+					childRows +='<tr><td>'+value.qOwnerName+'</td><td>Rs. '+value.quote+'</td><td><a href="booking?qid='+value.qId+'">Book</a></td></tr>';					
 				}); // end each
 				//childRows+='</table>';
 				//alert(childRows);
@@ -99,7 +99,7 @@
 							<th></th>
 							<th>Id</th>
 							<th>Need</th>
-							<th>Date/Time</th>
+							<th>When</th>
 							<th>Source</th>
 							<th>Destination</th>
 							<security:authorize access="hasAnyAuthority('ADMIN')">
@@ -140,13 +140,13 @@
 				<table id="openandquoted_requirements"
 					class="display responsive nowrap" style="width: 100%">
 					<caption>
-						Table 2: <i>List of all open requirements in the market.</i>
+						Table 2: <i>Live Marketplace listings.</i>
 					</caption>
 					<thead>
 						<tr>
 							<th>Id</th>
 							<th>Need</th>
-							<th>Date/Time</th>
+							<th>When</th>
 							<th>Source</th>
 							<th>Destination</th>
 							<security:authorize access="hasAnyAuthority('ADMIN')">

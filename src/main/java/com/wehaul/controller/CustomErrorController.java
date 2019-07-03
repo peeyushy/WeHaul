@@ -19,9 +19,6 @@ public class CustomErrorController implements ErrorController {
 	@Autowired
 	private ErrorAttributes errorAttributes;
 
-	@Value("${weblinkbaseurl}")
-	private String WEBLINK_BASE_URL;
-
 	private static final String PATH = "/error";
 
 	@RequestMapping(PATH)

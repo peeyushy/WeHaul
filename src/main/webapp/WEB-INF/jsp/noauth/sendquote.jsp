@@ -36,7 +36,7 @@
 								<td>${requirement.reqtype}</td>
 							</tr>
 							<tr>
-								<td>Date Time</td>
+								<td>When</td>
 								<td><fmt:parseDate value="${requirement.reqdatetime}"
 										pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 									<fmt:formatDate pattern="dd/MM/yyyy HH:mm"
@@ -71,7 +71,8 @@
 					<div class="form-group">
 						<label for="quote">Quote (Rs.)</label>
 						<form:input class="form-control" id="quote" type="number"
-							path="quote" required="required" placeholder="Rs." />
+							path="quote" required="required" placeholder="Rs."
+							autofocus="autofocus" />
 						<p class="note">Please add/update your quote for this
 							requirement.</p>
 					</div>

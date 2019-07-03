@@ -34,7 +34,7 @@
 				<c:if test="${not empty msg}">
 					<div class="row">
 						<div class="col-lg-12">
-							<div class="alert alert-success alert-dismissible">
+							<div class="alert alert-info alert-dismissible">
 								<a href="#" class="close" data-dismiss="alert"
 									aria-label="close">&times;</a> ${msg}
 							</div>
@@ -47,7 +47,7 @@
 						<tr>
 							<th>Id</th>
 							<th>Need</th>
-							<th>Date/Time</th>
+							<th>When</th>
 							<th>Source</th>
 							<th>Destination</th>
 							<security:authorize access="hasAnyAuthority('ADMIN')">

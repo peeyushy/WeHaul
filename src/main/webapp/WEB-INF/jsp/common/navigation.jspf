@@ -23,7 +23,9 @@
 				<li><a href="#">Welcome <security:authentication
 							property="principal.name" /> !!
 				</a></li>
-				<li><a href="clients">Clients</a></li>
+				<security:authorize access="hasAnyAuthority('ADMIN')">
+					<li><a href="clients">Clients</a></li>
+				</security:authorize>
 				<li><a href="req">Requirements</a></li>
 				<li><a href="logout">Logout</a></li>
 			</ul>

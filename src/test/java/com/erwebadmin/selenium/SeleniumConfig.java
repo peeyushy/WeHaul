@@ -8,7 +8,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class SeleniumConfig {
 
 	private WebDriver driver;
-	private String URL = "http://localhost:8080/";
+	//private String URL = "http://localhost:8080/";
+	private String URL = "https://www.trucksnlorries.com/";
 
 	public SeleniumConfig() {
 		driver = new FirefoxDriver();
@@ -38,9 +39,9 @@ public class SeleniumConfig {
 
 	public void login() {
 		navigateTo(URL);
-		driver.findElement(By.name("username")).sendKeys("admin");
-		driver.findElement(By.name("password")).sendKeys("admin");
-		driver.findElement(By.name("submit")).click();
+		driver.findElement(By.name("username")).sendKeys("system");
+		driver.findElement(By.name("password")).sendKeys("system");
+		driver.findElement(By.tagName("button")).click();
 	}
 
 	/**

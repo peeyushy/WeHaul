@@ -24,7 +24,7 @@
 					<div class="form-group">
 						<label for="username">User Name</label> <input
 							class="form-control" id="username" name="username"
-							required="required" type="text">
+							required="required" type="text" autofocus>
 					</div>
 					<div class="form-group">
 						<label for="password">Password</label> <input class="form-control"

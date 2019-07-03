@@ -9,7 +9,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>TrucksNLorries</title>
+<title>TRUCKS & LORRIES</title>
+<link rel="icon" href="${pageContext.request.contextPath}/img/favicon.ico">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <!-- Bootstrap Core CSS -->
