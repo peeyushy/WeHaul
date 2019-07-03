@@ -52,17 +52,17 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="type">Type</label>
+								<label for="type">Need</label>
 								<form:select class="form-control" name="reqtype" path="reqtype">
 									<form:options items="${reqTypeMap}" />
 								</form:select>
-								<p class="note">Please choose requirement type.</p>
+								<p class="note">Please specify your need.</p>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
 								<div class="control-group">
-									<label class="control-label">Date Time</label>
+									<label class="control-label">When</label>
 									<div class='input-group date' id='datetimepicker1'>
 										<form:input type='text' class="form-control"
 											path="reqdatetime" id="reqdatetime" required="required"
@@ -121,8 +121,8 @@
 											${ltype.key == selectedlType ? 'selected="selected"' : ''}>${ltype.value}</option>
 									</c:forEach>
 								</form:select>
-								<p class="note">Define how your vehicle can be used. This
-									will help us in getting you the best load for this vehicle.</p>
+								<p class="note">Define your load type. This will help us in
+									getting you the best vehicle for this load.</p>
 							</div>
 						</div>
 						<div class="col-lg-6">
@@ -159,8 +159,8 @@
 								<form:textarea class="form-control" rows="5" id="comments"
 									path="comments" />
 								<p class="note">Please add any additional comments that
-									defines your load, this will help transporter in understanding
-									your requirements better.</p>
+									defines your need, this will help us in understanding your
+									requirement better.</p>
 							</div>
 						</div>
 					</div>
@@ -178,8 +178,10 @@
 											<th>From</th>
 											<th>Quote (Rs.)</th>
 											<th>Comments</th>
-											<th>Contact No</th>
-											<th>Date/Time</th>
+											<security:authorize access="hasAnyAuthority('ADMIN')">
+												<th>Contact No</th>
+												<th>Received On</th>
+											</security:authorize>
 										</tr>
 									</thead>
 									<tbody>
@@ -188,11 +190,13 @@
 												<td>${q.qOwnerName}</td>
 												<td>${q.quote}</td>
 												<td>${q.qComment}</td>
-												<td>${q.qOwnerContactNo}</td>
-												<td><fmt:parseDate value="${q.qDatetime}"
-														pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
-														type="both" /> <fmt:formatDate pattern="dd/MM/yyyy HH:mm"
-														value="${parsedDateTime}" /></td>
+												<security:authorize access="hasAnyAuthority('ADMIN')">
+													<td>${q.qOwnerContactNo}</td>
+													<td><fmt:parseDate value="${q.qDatetime}"
+															pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
+															type="both" /> <fmt:formatDate
+															pattern="dd/MM/yyyy HH:mm" value="${parsedDateTime}" /></td>
+												</security:authorize>
 											</tr>
 										</c:forEach>
 									</tbody>
