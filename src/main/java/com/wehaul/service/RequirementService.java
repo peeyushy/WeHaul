@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.NestedRuntimeException;
@@ -17,10 +19,15 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wehaul.dto.QuoteDto;
 import com.wehaul.dto.RequirementDto;
+import com.wehaul.dto.hereapi.LocationDetails;
 import com.wehaul.model.Requirement;
+import com.wehaul.model.RequirementDetails;
+import com.wehaul.service.hereapi.HereApiService;
 
 @Service
 public class RequirementService {
+
+	private static final Logger log = LoggerFactory.getLogger(RequirementService.class);
 
 	@Value("${webservicebaseurl}")
 	private String WS_BASE_URL = null;
@@ -30,6 +37,9 @@ public class RequirementService {
 
 	@Autowired
 	private ClientService clientService;
+
+	@Autowired
+	private HereApiService hereApiService;
 
 	public List<Requirement> getAllReqs() {
 		ResponseEntity<List<Requirement>> clientResponse = restTemplate.exchange(WS_BASE_URL + "/wehaul/req/all",
@@ -98,13 +108,12 @@ public class RequirementService {
 	}
 
 	public void addReq(Requirement req) {
-
 		HttpEntity<Requirement> request = new HttpEntity<>(req);
 		ResponseEntity<Requirement> response = restTemplate.exchange(WS_BASE_URL + "/wehaul/req/create",
 				HttpMethod.POST, request, Requirement.class);
 		return;
 	}
-
+	
 	public void updateReq(String reqid, Requirement req) {
 		req.setCreatedby(getReqById(reqid).getCreatedby());
 		HttpEntity<Requirement> request = new HttpEntity<>(req);

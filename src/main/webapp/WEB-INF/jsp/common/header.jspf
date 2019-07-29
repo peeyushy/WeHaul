@@ -10,7 +10,8 @@
 <html lang="en">
 <head>
 <title>TRUCKS & LORRIES</title>
-<link rel="icon" href="${pageContext.request.contextPath}/img/favicon.ico">
+<link rel="icon"
+	href="${pageContext.request.contextPath}/img/favicon.ico">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <!-- Bootstrap Core CSS -->
@@ -29,11 +30,17 @@
 <link type="text/css"
 	href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"
 	rel="stylesheet">
-<link type="text/css" href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css"
+<link type="text/css"
+	href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet">
 <link
 	href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
 	rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" type="text/css"
+	href="https://js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1549984893" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
 </head>
 
 <body>
@@ -42,8 +49,19 @@
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/wehaul.js"></script>
+	<script src="${pageContext.request.contextPath}/js/here.tnl.js"></script>
 	<script
 		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	<script
 		src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+	<script type="text/javascript"
+		src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+	<script type="text/javascript"
+		src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+	<script type="text/javascript"
+		src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+	<script type="text/javascript"
+		src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

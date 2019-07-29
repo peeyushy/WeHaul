@@ -34,6 +34,8 @@ public class Requirement implements Serializable {
 
 	private Client client;
 
+	private RequirementDetails reqDetails;
+
 	private Date CREATEDAT;
 
 	private Date UPDATEDAT;
@@ -45,7 +47,7 @@ public class Requirement implements Serializable {
 	public Requirement() {
 		super();
 	}
-	
+
 	public Requirement(ReqStatus status) {
 		super();
 		this.status = status;
@@ -152,7 +154,7 @@ public class Requirement implements Serializable {
 	 */
 	public void setReqdatetimeflexi(boolean reqdatetimeflexi) {
 		this.reqdatetimeflexi = reqdatetimeflexi;
-	}	
+	}
 
 	/**
 	 * @return the status
@@ -194,6 +196,20 @@ public class Requirement implements Serializable {
 	 */
 	public void setClient(Client client) {
 		this.client = client;
+	}
+
+	/**
+	 * @return the reqDetails
+	 */
+	public RequirementDetails getReqDetails() {
+		return reqDetails;
+	}
+
+	/**
+	 * @param reqDetails the reqDetails to set
+	 */
+	public void setReqDetails(RequirementDetails reqDetails) {
+		this.reqDetails = reqDetails;
 	}
 
 	/**
@@ -296,6 +312,7 @@ public class Requirement implements Serializable {
 		result = prime * result + ((createdby == null) ? 0 : createdby.hashCode());
 		result = prime * result + ((lastupdatedby == null) ? 0 : lastupdatedby.hashCode());
 		result = prime * result + ((ltype == null) ? 0 : ltype.hashCode());
+		result = prime * result + ((reqDetails == null) ? 0 : reqDetails.hashCode());
 		result = prime * result + ((reqdatetime == null) ? 0 : reqdatetime.hashCode());
 		result = prime * result + (reqdatetimeflexi ? 1231 : 1237);
 		result = prime * result + ((reqdroploc == null) ? 0 : reqdroploc.hashCode());
@@ -319,7 +336,7 @@ public class Requirement implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Requirement))
+		if (getClass() != obj.getClass())
 			return false;
 		Requirement other = (Requirement) obj;
 		if (CREATEDAT == null) {
@@ -357,6 +374,11 @@ public class Requirement implements Serializable {
 				return false;
 		} else if (!ltype.equals(other.ltype))
 			return false;
+		if (reqDetails == null) {
+			if (other.reqDetails != null)
+				return false;
+		} else if (!reqDetails.equals(other.reqDetails))
+			return false;
 		if (reqdatetime == null) {
 			if (other.reqdatetime != null)
 				return false;
@@ -386,10 +408,7 @@ public class Requirement implements Serializable {
 				return false;
 		} else if (!reqtype.equals(other.reqtype))
 			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
+		if (status != other.status)
 			return false;
 		if (vtype == null) {
 			if (other.vtype != null)
@@ -398,4 +417,20 @@ public class Requirement implements Serializable {
 			return false;
 		return true;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Requirement [reqid=" + reqid + ", reqtype=" + reqtype + ", reqpickuploc=" + reqpickuploc
+				+ ", reqdroploc=" + reqdroploc + ", reqpickupdropflexi=" + reqpickupdropflexi + ", reqdatetime="
+				+ reqdatetime + ", reqdatetimeflexi=" + reqdatetimeflexi + ", status=" + status + ", comments="
+				+ comments + ", vtype=" + vtype + ", ltype=" + ltype + ", client=" + client + ", reqDetails="
+				+ reqDetails + ", CREATEDAT=" + CREATEDAT + ", UPDATEDAT=" + UPDATEDAT + ", createdby=" + createdby
+				+ ", lastupdatedby=" + lastupdatedby + "]";
+	}
+
 }

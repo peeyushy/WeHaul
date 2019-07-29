@@ -1,24 +1,42 @@
 <%@page import="com.wehaul.constants.ReqStatus"%>
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
-<script
-	src="https://maps.googleapis.com/maps/api/js?key=<APIKEY>&libraries=places&callback=initAutocomplete"
-	async defer></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('#table_quotes').DataTable({
-			"bLengthChange" : false,
-			"bFilter" : false,
-			"order" : [ [ 1, "asc" ] ]
-		});
-		//basic is working need to get old dates disable,icons, add today date etc.
-		$('#datetimepicker1').datetimepicker({
-			format : 'dd/mm/yyyy hh:ii',
-			autoclose : true,
-			todayBtn : true,
-			fontAwesome : true
-		});
-	});
+	$(document).ready(
+			function() {
+				$('#table_quotes').DataTable({
+					"bLengthChange" : false,
+					"bFilter" : false,
+					"order" : [ [ 1, "asc" ] ]
+				});
+				//need to get old dates disable, check why minutes is not set as 00 etc.
+				$("#datetimepicker1").datetimepicker({
+					minView : 1,
+					format : "dd/mm/yyyy hh:ii",
+					autoclose : true,
+					todayBtn : true,
+					todayHighlight : 1,
+					fontAwesome : true
+				});
+				
+ 				/* $("#datetimepicker1").datetimepicker().on("changeDate",function(e) {
+					var datetimepicker1 = new Date(e.date.setMinutes(0));
+					//timezone correction
+					datetimepicker1.setHours(datetimepicker1.getHours()+ datetimepicker1.getTimezoneOffset() / 60);
+					alert("reqdatetime::" + datetimepicker1)
+					alert("1--->"+$("#datetimepicker1"));
+					$("#datetimepicker1").val("abbc");
+					alert("2--->"+$("#reqdatetime"));
+					$("#reqdatetime").val("xyzz");
+					alert("3--->"+$("#date input[type=text]").val());
+					$("#date input[type=text]").val("text here");
+					alert("4--->"+$("#date").children(":input").val());
+					$("#date").children(":input").val("ddtext here");					
+					//$("#second").datetimepicker('setStartDate', first); 
+					//other = $("#first").find("input").val(); 
+					//$("#second").datetimepicker('setStartDate', other); //works also
+				}); */
+			});
 </script>
 <!-- Page Content -->
 <div class="content-section-b">
@@ -63,8 +81,9 @@
 							<div class="form-group">
 								<div class="control-group">
 									<label class="control-label">When</label>
-									<div class='input-group date' id='datetimepicker1'>
-										<form:input type='text' class="form-control"
+									<div class="input-group date"
+										id="datetimepicker1">
+										<form:input type="text" class="form-control"
 											path="reqdatetime" id="reqdatetime" required="required"
 											placeholder="DD/MM/YYYY hh:mm" onkeypress="return false;" />
 										<span class="input-group-addon"> <span
@@ -92,18 +111,24 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="reqpickuploc">Source</label>
-								<form:input type="text" class="form-control" id="reqpickuploc"
-									path="reqpickuploc" onFocus="geolocate()" placeholder="From"
-									required="required" />
+								<form:input type="text" class="form-control autocomplete"
+									id="reqpickuploc" path="reqpickuploc"
+									onkeyup="return autoCompleteListener(this, event);"
+									placeholder="From" required="required" />
+								<form:input type="hidden" id="reqDetails.pickuplocid"
+									path="reqDetails.pickuplocid" />
 								<p class="note">This will be the source of your journey.</p>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="reqdroploc">Destination</label>
-								<form:input type="text" path="reqdroploc" class="form-control"
-									id="reqdroploc" onFocus="geolocate()" placeholder="To"
-									required="required" />
+								<form:input type="text" class="form-control autocomplete"
+									id="reqdroploc" path="reqdroploc"
+									onkeyup="return autoCompleteListener(this, event);"
+									placeholder="To" required="required" />
+								<form:input type="hidden" id="reqDetails.droplocid"
+									path="reqDetails.droplocid" />
 								<p class="note">This will be the destination of your
 									journey.</p>
 							</div>
