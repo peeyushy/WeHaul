@@ -67,7 +67,7 @@ function addSuggestionsToPanel(response) {
 			// display the selected text
 			$("#reqpickuploc").val(ui.item.label);
 			// save selected id to hidden input
-			alert("pickuplocid:"+ui.item.locationId);
+			//alert("pickuplocid:"+ui.item.locationId);
 			//$("input[id=reqdetails.pickuplocid]").val(ui.item.locationId);
 			$("#reqDetails\\.pickuplocid").val(ui.item.locationId);
 			return false;
@@ -79,7 +79,7 @@ function addSuggestionsToPanel(response) {
 			// display the selected text
 			$("#reqdroploc").val(ui.item.label);
 			// save selected id to hidden input
-			alert("droplocid:"+ui.item.locationId);
+			//alert("droplocid:"+ui.item.locationId);
 			//$("input[id=reqdetails.droplocid]").val(ui.item.locationId);
 			$("#reqDetails\\.droplocid").val(ui.item.locationId);
 			return false;
