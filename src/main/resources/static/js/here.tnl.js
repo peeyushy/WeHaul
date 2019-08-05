@@ -68,8 +68,8 @@ function addSuggestionsToPanel(response) {
 			$("#reqpickuploc").val(ui.item.label);
 			// save selected id to hidden input
 			//alert("pickuplocid:"+ui.item.locationId);
-			//$("input[id=reqdetails.pickuplocid]").val(ui.item.locationId);
-			$("#reqDetails\\.pickuplocid").val(ui.item.locationId);
+			//$("#reqDetails\\.pickuplocid").val(ui.item.locationId);
+			$("#reqpickuplocid").val(ui.item.locationId);
 			return false;
 		}
 	});
@@ -80,8 +80,8 @@ function addSuggestionsToPanel(response) {
 			$("#reqdroploc").val(ui.item.label);
 			// save selected id to hidden input
 			//alert("droplocid:"+ui.item.locationId);
-			//$("input[id=reqdetails.droplocid]").val(ui.item.locationId);
-			$("#reqDetails\\.droplocid").val(ui.item.locationId);
+			//$("#reqDetails\\.droplocid").val(ui.item.locationId);
+			$("#reqdroplocid").val(ui.item.locationId);
 			return false;
 		}
 	});

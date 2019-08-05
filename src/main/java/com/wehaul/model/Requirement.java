@@ -16,7 +16,11 @@ public class Requirement implements Serializable {
 
 	private String reqpickuploc;
 
+	private String reqpickuplocid;
+
 	private String reqdroploc;
+
+	private String reqdroplocid;
 
 	private boolean reqpickupdropflexi = true;
 
@@ -33,8 +37,6 @@ public class Requirement implements Serializable {
 	private LoadType ltype;
 
 	private Client client;
-
-	private RequirementDetails reqDetails;
 
 	private Date CREATEDAT;
 
@@ -101,6 +103,20 @@ public class Requirement implements Serializable {
 	}
 
 	/**
+	 * @return the reqpickuplocid
+	 */
+	public String getReqpickuplocid() {
+		return reqpickuplocid;
+	}
+
+	/**
+	 * @param reqpickuplocid the reqpickuplocid to set
+	 */
+	public void setReqpickuplocid(String reqpickuplocid) {
+		this.reqpickuplocid = reqpickuplocid;
+	}
+
+	/**
 	 * @return the reqdroploc
 	 */
 	public String getReqdroploc() {
@@ -112,6 +128,20 @@ public class Requirement implements Serializable {
 	 */
 	public void setReqdroploc(String reqdroploc) {
 		this.reqdroploc = reqdroploc;
+	}
+
+	/**
+	 * @return the reqdroplocid
+	 */
+	public String getReqdroplocid() {
+		return reqdroplocid;
+	}
+
+	/**
+	 * @param reqdroplocid the reqdroplocid to set
+	 */
+	public void setReqdroplocid(String reqdroplocid) {
+		this.reqdroplocid = reqdroplocid;
 	}
 
 	/**
@@ -196,20 +226,6 @@ public class Requirement implements Serializable {
 	 */
 	public void setClient(Client client) {
 		this.client = client;
-	}
-
-	/**
-	 * @return the reqDetails
-	 */
-	public RequirementDetails getReqDetails() {
-		return reqDetails;
-	}
-
-	/**
-	 * @param reqDetails the reqDetails to set
-	 */
-	public void setReqDetails(RequirementDetails reqDetails) {
-		this.reqDetails = reqDetails;
 	}
 
 	/**
@@ -312,13 +328,14 @@ public class Requirement implements Serializable {
 		result = prime * result + ((createdby == null) ? 0 : createdby.hashCode());
 		result = prime * result + ((lastupdatedby == null) ? 0 : lastupdatedby.hashCode());
 		result = prime * result + ((ltype == null) ? 0 : ltype.hashCode());
-		result = prime * result + ((reqDetails == null) ? 0 : reqDetails.hashCode());
 		result = prime * result + ((reqdatetime == null) ? 0 : reqdatetime.hashCode());
 		result = prime * result + (reqdatetimeflexi ? 1231 : 1237);
 		result = prime * result + ((reqdroploc == null) ? 0 : reqdroploc.hashCode());
+		result = prime * result + ((reqdroplocid == null) ? 0 : reqdroplocid.hashCode());
 		result = prime * result + ((reqid == null) ? 0 : reqid.hashCode());
 		result = prime * result + (reqpickupdropflexi ? 1231 : 1237);
 		result = prime * result + ((reqpickuploc == null) ? 0 : reqpickuploc.hashCode());
+		result = prime * result + ((reqpickuplocid == null) ? 0 : reqpickuplocid.hashCode());
 		result = prime * result + ((reqtype == null) ? 0 : reqtype.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((vtype == null) ? 0 : vtype.hashCode());
@@ -374,11 +391,6 @@ public class Requirement implements Serializable {
 				return false;
 		} else if (!ltype.equals(other.ltype))
 			return false;
-		if (reqDetails == null) {
-			if (other.reqDetails != null)
-				return false;
-		} else if (!reqDetails.equals(other.reqDetails))
-			return false;
 		if (reqdatetime == null) {
 			if (other.reqdatetime != null)
 				return false;
@@ -391,6 +403,11 @@ public class Requirement implements Serializable {
 				return false;
 		} else if (!reqdroploc.equals(other.reqdroploc))
 			return false;
+		if (reqdroplocid == null) {
+			if (other.reqdroplocid != null)
+				return false;
+		} else if (!reqdroplocid.equals(other.reqdroplocid))
+			return false;
 		if (reqid == null) {
 			if (other.reqid != null)
 				return false;
@@ -402,6 +419,11 @@ public class Requirement implements Serializable {
 			if (other.reqpickuploc != null)
 				return false;
 		} else if (!reqpickuploc.equals(other.reqpickuploc))
+			return false;
+		if (reqpickuplocid == null) {
+			if (other.reqpickuplocid != null)
+				return false;
+		} else if (!reqpickuplocid.equals(other.reqpickuplocid))
 			return false;
 		if (reqtype == null) {
 			if (other.reqtype != null)
@@ -426,11 +448,10 @@ public class Requirement implements Serializable {
 	@Override
 	public String toString() {
 		return "Requirement [reqid=" + reqid + ", reqtype=" + reqtype + ", reqpickuploc=" + reqpickuploc
-				+ ", reqdroploc=" + reqdroploc + ", reqpickupdropflexi=" + reqpickupdropflexi + ", reqdatetime="
-				+ reqdatetime + ", reqdatetimeflexi=" + reqdatetimeflexi + ", status=" + status + ", comments="
-				+ comments + ", vtype=" + vtype + ", ltype=" + ltype + ", client=" + client + ", reqDetails="
-				+ reqDetails + ", CREATEDAT=" + CREATEDAT + ", UPDATEDAT=" + UPDATEDAT + ", createdby=" + createdby
-				+ ", lastupdatedby=" + lastupdatedby + "]";
+				+ ", reqpickuplocid=" + reqpickuplocid + ", reqdroploc=" + reqdroploc + ", reqdroplocid=" + reqdroplocid
+				+ ", reqpickupdropflexi=" + reqpickupdropflexi + ", reqdatetime=" + reqdatetime + ", reqdatetimeflexi="
+				+ reqdatetimeflexi + ", status=" + status + ", comments=" + comments + ", vtype=" + vtype + ", ltype="
+				+ ltype + ", client=" + client + ", CREATEDAT=" + CREATEDAT + ", UPDATEDAT=" + UPDATEDAT
+				+ ", createdby=" + createdby + ", lastupdatedby=" + lastupdatedby + "]";
 	}
-
 }

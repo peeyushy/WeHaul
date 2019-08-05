@@ -19,10 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wehaul.dto.QuoteDto;
 import com.wehaul.dto.RequirementDto;
-import com.wehaul.dto.hereapi.LocationDetails;
 import com.wehaul.model.Requirement;
-import com.wehaul.model.RequirementDetails;
-import com.wehaul.service.hereapi.HereApiService;
 
 @Service
 public class RequirementService {
@@ -37,9 +34,6 @@ public class RequirementService {
 
 	@Autowired
 	private ClientService clientService;
-
-	@Autowired
-	private HereApiService hereApiService;
 
 	public List<Requirement> getAllReqs() {
 		ResponseEntity<List<Requirement>> clientResponse = restTemplate.exchange(WS_BASE_URL + "/wehaul/req/all",

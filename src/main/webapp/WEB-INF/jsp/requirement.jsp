@@ -115,8 +115,8 @@
 									id="reqpickuploc" path="reqpickuploc"
 									onkeyup="return autoCompleteListener(this, event);"
 									placeholder="From" required="required" />
-								<form:input type="hidden" id="reqDetails.pickuplocid"
-									path="reqDetails.pickuplocid" />
+								<form:input type="hidden" id="reqpickuplocid"
+									path="reqpickuplocid" />
 								<p class="note">This will be the source of your journey.</p>
 							</div>
 						</div>
@@ -127,8 +127,8 @@
 									id="reqdroploc" path="reqdroploc"
 									onkeyup="return autoCompleteListener(this, event);"
 									placeholder="To" required="required" />
-								<form:input type="hidden" id="reqDetails.droplocid"
-									path="reqDetails.droplocid" />
+								<form:input type="hidden" id="reqdroplocid"
+									path="reqdroplocid" />
 								<p class="note">This will be the destination of your
 									journey.</p>
 							</div>

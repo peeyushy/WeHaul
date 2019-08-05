@@ -6,6 +6,8 @@ import java.net.URLEncoder;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NestedRuntimeException;
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,9 @@ import com.wehaul.service.VehicleTypeService;
 
 @Controller
 public class NoAuthController {
-
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(NoAuthController.class);
+	
 	@Autowired
 	UserService userService;
 
@@ -49,8 +53,8 @@ public class NoAuthController {
 			model.put("openandquotedrequirements", reqService.getAllOpenAndQuotedReqsForClient(cid));
 			model.put("cid", cid);
 		} catch (NestedRuntimeException | UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			LOGGER.error("Exception occured while displaying requirements to client {} : {} ",cid,e);
 		}
 		return "noauth/publicrequirements";
 	}
@@ -82,12 +86,12 @@ public class NoAuthController {
 				redirectAttributes.addFlashAttribute("msg",
 						"Thank you for your quote. We will contact you as soon as we have a match.");
 				cid = URLEncoder.encode(cid, "UTF-8");
-			} catch (RestClientException | UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				return "redirect:/noauth1?cid=" + cid;
+			} catch (Exception e) {
+				e.printStackTrace();								
+				model.put("cid", cid);
+				return "noauth/sendquote";
 			}
-
-			return "redirect:/noauth?cid=" + cid;
 		}
 	}
 }

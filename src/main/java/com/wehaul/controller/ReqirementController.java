@@ -23,17 +23,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.wehaul.constants.AppConstants;
 import com.wehaul.constants.ReqStatus;
 import com.wehaul.dto.QuoteDto;
-import com.wehaul.dto.hereapi.LocationDetails;
 import com.wehaul.model.LoadType;
 import com.wehaul.model.Requirement;
-import com.wehaul.model.RequirementDetails;
 import com.wehaul.model.VehicleType;
 import com.wehaul.service.ClientService;
 import com.wehaul.service.LoadTypeService;
 import com.wehaul.service.RequirementService;
 import com.wehaul.service.UserService;
 import com.wehaul.service.VehicleTypeService;
-import com.wehaul.service.hereapi.HereApiService;
 
 @Controller
 public class ReqirementController {
@@ -45,9 +42,6 @@ public class ReqirementController {
 
 	@Autowired
 	RequirementService reqService;
-
-	@Autowired
-	HereApiService hereApiService;
 
 	@Autowired
 	ClientService clientService;
@@ -138,44 +132,12 @@ public class ReqirementController {
 			req.setLastupdatedby(username);
 			req.setClient(userService.getLoggedinUserObj().getClient());
 			req.setStatus(ReqStatus.NEW);
-			//Enhance req
-			RequirementDetails reqDetails=getRequirementDetails(req);			
-			//reqDetails.setRequirement(req);
-			req.setReqDetails(reqDetails);
 			reqService.addReq(req);
 			redirectAttributes.addFlashAttribute("msg", "Requirement added successfully!");
 			return "redirect:/req";
 		}
 	}
 	
-	private RequirementDetails getRequirementDetails(Requirement req) {
-		RequirementDetails reqdetails=new RequirementDetails();
-		// pickup loc details
-		LocationDetails pickupLocDetails = hereApiService.getdetailsByLocationId(req.getReqDetails().getPickuplocid());
-		// drop loc details
-		LocationDetails dropLocDetails = hereApiService.getdetailsByLocationId(req.getReqDetails().getDroplocid());
-		reqdetails.setPickuplocid(req.getReqDetails().getPickuplocid());
-		reqdetails.setPickupaddresslable(pickupLocDetails.getLable());
-		reqdetails.setPickupcity(pickupLocDetails.getCity());
-		reqdetails.setPickupcountry(pickupLocDetails.getCountry());
-		reqdetails.setPickupcounty(pickupLocDetails.getCounty());
-		reqdetails.setPickuplat(pickupLocDetails.getLat());
-		reqdetails.setPickuplong(pickupLocDetails.getLon());
-		reqdetails.setPickuppostcode(pickupLocDetails.getPostcode());
-		reqdetails.setPickupstate(pickupLocDetails.getState());
-
-		reqdetails.setDroplocid(req.getReqDetails().getDroplocid());
-		reqdetails.setDropaddresslable(dropLocDetails.getLable());
-		reqdetails.setDropcity(dropLocDetails.getCity());
-		reqdetails.setDropcountry(dropLocDetails.getCountry());
-		reqdetails.setDropcounty(dropLocDetails.getCounty());
-		reqdetails.setDroplat(dropLocDetails.getLat());
-		reqdetails.setDroplong(dropLocDetails.getLon());
-		reqdetails.setDroppostcode(dropLocDetails.getPostcode());
-		reqdetails.setDropstate(dropLocDetails.getState());
-		log.debug("requirement details : {} " + req);
-		return reqdetails;
-	}
 
 
 	@RequestMapping(value = "/add-client-req", method = RequestMethod.GET)
